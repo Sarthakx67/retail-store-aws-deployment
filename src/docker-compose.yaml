@@ -29,6 +29,11 @@ services:
       - retail-net
     ports:
       - 80:8080
+    environment:
+      RETAIL_UI_ENDPOINTS_CARTS: http://cart:8080
+      RETAIL_UI_ENDPOINTS_CATALOG: http://catalog:8080
+      RETAIL_UI_ENDPOINTS_ORDERS: http://orders:8080
+      RETAIL_UI_ENDPOINTS_CHECKOUT: http://checkout:8080
     depends_on:
       - cart
       - catalog
