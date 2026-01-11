@@ -16,10 +16,10 @@ java -version
 # disable mock mode for ui 
 cd ./retail-store-sample-app/src/ui/
 export RETAIL_UI_DISABLE_DEMO_WARNINGS=true
-export RETAIL_UI_ENDPOINTS_CATALOG=http://13.233.132.213:8080
-export RETAIL_UI_ENDPOINTS_CARTS=http://13.203.199.40:8080
-export RETAIL_UI_ENDPOINTS_ORDERS=http://43.204.107.73:8080
-export RETAIL_UI_ENDPOINTS_CHECKOUT=http://3.108.42.165:8080
+export RETAIL_UI_ENDPOINTS_CATALOG=http://catalog.stallions.space:8080
+export RETAIL_UI_ENDPOINTS_CARTS=http://cart.stallions.space:8080
+export RETAIL_UI_ENDPOINTS_ORDERS=http://orders.stallions.space:8080
+export RETAIL_UI_ENDPOINTS_CHECKOUT=http://checkout.stallions.space:8080
 
 # Start the app in background
 nohup ./mvnw spring-boot:run > ui.log 2>&1 &
