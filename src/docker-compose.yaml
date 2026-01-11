@@ -1,0 +1,24 @@
+networks:
+  retail-net:
+    driver: bridge
+services:
+  cart:
+    image: sarthak6700/retail-shop-cart:latest
+    container_name: cart
+    networks:
+      - retail-net
+  catalog:
+    image: sarthak6700/retail-shop-catalog:latest
+    container_name: catalog
+    networks:
+      - retail-net
+  ui:
+    image: sarthak6700/retail-shop-ui:latest
+    container_name: ui
+    networks:
+      - retail-net
+    ports:
+      - 80:8080
+    depends_on:
+      - cart
+      - catalog
