@@ -12,6 +12,16 @@ services:
     container_name: catalog
     networks:
       - retail-net
+  orders:
+    image: sarthak6700/retail-store-orders:latest
+    container_name: orders
+    networks:
+      - retail-net
+  checkout:
+    image: sarthak6700/retail-store-checkout:latest
+    container_name: checkout
+    networks:
+      - retail-net
   ui:
     image: sarthak6700/retail-store-ui:latest
     container_name: ui
@@ -22,3 +32,5 @@ services:
     depends_on:
       - cart
       - catalog
+      - checkout
+      - orders
