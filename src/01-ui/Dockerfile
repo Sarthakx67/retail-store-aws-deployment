@@ -1,6 +1,6 @@
 FROM amazoncorretto:21
-COPY . .
 WORKDIR /app
+COPY . .
 ENV RETAIL_UI_DISABLE_DEMO_WARNINGS=true
 ENV RETAIL_UI_ENDPOINTS_CATALOG=http://catalog.stallions.space:8080
 ENV RETAIL_UI_ENDPOINTS_CARTS=http://cart.stallions.space:8080
