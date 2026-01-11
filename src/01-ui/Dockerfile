@@ -1,4 +1,4 @@
-FROM openjdk:21
+FROM amazoncorretto:21-alpine-jdk
 COPY . .
 WORKDIR /app
 RUN export RETAIL_UI_DISABLE_DEMO_WARNINGS=true
