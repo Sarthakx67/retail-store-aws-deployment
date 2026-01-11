@@ -6,6 +6,5 @@ RUN yum install -y \
     tar \
     gzip \
     go \
-    && chmod +x mvnw
 RUN go build -o main main.go
 CMD [ "./main" ]
