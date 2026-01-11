@@ -3,17 +3,17 @@ networks:
     driver: bridge
 services:
   cart:
-    image: sarthak6700/retail-shop-cart:latest
+    image: sarthak6700/retail-store-cart:latest
     container_name: cart
     networks:
       - retail-net
   catalog:
-    image: sarthak6700/retail-shop-catalog:latest
+    image: sarthak6700/retail-store-catalog:latest
     container_name: catalog
     networks:
       - retail-net
   ui:
-    image: sarthak6700/retail-shop-ui:latest
+    image: sarthak6700/retail-store-ui:latest
     container_name: ui
     networks:
       - retail-net
