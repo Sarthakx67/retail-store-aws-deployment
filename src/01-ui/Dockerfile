@@ -1,7 +1,10 @@
 FROM amazoncorretto:21
 WORKDIR /app
 COPY . .
-RUN yum install -y bash \
+RUN yum install -y \
+    bash \
+    tar \
+    gzip \
     && chmod +x mvnw
 ENV RETAIL_UI_DISABLE_DEMO_WARNINGS=true
 ENV RETAIL_UI_ENDPOINTS_CATALOG=http://catalog.stallions.space:8080
