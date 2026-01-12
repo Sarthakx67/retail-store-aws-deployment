@@ -12,19 +12,24 @@ spec:
     matchLabels:
       app: cart            
       environment: dev
-      componet: backend
+      component: backend
   template:
     metadata:
       labels:
         app: cart          
         environment: dev
-        componet: backend
+        component: backend
     spec:
       containers:
       - name: cart
         image: sarthak6700/retail-store-cart 
         ports:
         - containerPort: 8080   
+        envFrom:
+        - ConfigMapRef:
+            name: cart-ConfigMap
+        - secretref:
+            name: secrets-basic-auth # here we are giving all the secret information 
 ---
 apiVersion: v1
 kind: Service
@@ -35,8 +40,30 @@ spec:
   selector:
     app: cart          
     environment: dev
-    componet: backend
+    component: backend
   ports:
   - protocol: TCP
     port: 8080
     targetPort: 8080 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cart-ConfigMap
+data:
+  RETAIL_CART_PERSISTENCE_PROVIDER: dynamodb
+  RETAIL_CART_PERSISTENCE_DYNAMODB_TABLE_NAME: Items
+  RETAIL_CART_PERSISTENCE_DYNAMODB_ENDPOINT: http://dynamodb:8000
+  RETAIL_CART_PERSISTENCE_DYNAMODB_CREATE_TABLE: "true"
+  AWS_REGION: ap-south-1
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secrets-basic-auth
+data:
+  AWS_ACCESS_KEY_ID: anything
+  AWS_SECRET_ACCESS_KEY: anything
+
+
+      

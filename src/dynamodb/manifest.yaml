@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dynamodb
+  labels:
+    environment: dev
+    tier: db
+  namespace: retail-store
+spec:
+  containers:
+  - name: dynamodb
+    image: dynamodb-local
+    ports:
+      - containerPort: 8000
+        name: dynamodb-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dynamodb
+spec:
+  selector: 
+    environment: dev 
+    tier: db
+  ports:
+  - name: dynamodb-port
+    protocol: TCP
+    port: 8000
+    targetPort: 8000
