@@ -31,9 +31,10 @@ metadata:
   namespace: retail-store
 spec:
   selector:
-    app: catalog          
-    environment: dev
-    componet: backend
+    matchLabels:
+      app: catalog          
+      environment: dev
+      componet: backend
     ports:
     - port: 8080
       targetPort: 8080 
