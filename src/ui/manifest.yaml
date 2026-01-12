@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ui-service
+  name: ui
   namespace: retail-store
 spec:
   type: NodePort

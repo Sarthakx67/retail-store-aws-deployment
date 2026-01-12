@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cart-service
+  name: cart # if i give anyother name like cart-service ui will call http://cart-service:8080 not http://cart:8080
   namespace: retail-store
 spec:
   selector:

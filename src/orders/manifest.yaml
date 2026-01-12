@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: orders-service
+  name: orders
   namespace: retail-store
 spec:
   selector:
