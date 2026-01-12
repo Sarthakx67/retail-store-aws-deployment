@@ -9,7 +9,7 @@ metadata:
 spec:
   containers:
   - name: dynamodb
-    image: dynamodb-local:latest
+    image: amazon/dynamodb-local
     ports:
       - containerPort: 8000
         name: dynamodb-port
