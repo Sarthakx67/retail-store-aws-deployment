@@ -22,10 +22,7 @@ spec:
     spec:
       containers:
       - name: checkout
-        image: sarthak6700/retail-store-checkout    
-        ports:
-        - port: 8080
-          targetPort: 8080   
+        image: sarthak6700/retail-store-checkout     
 ---
 apiVersion: v1
 kind: Service
@@ -37,3 +34,7 @@ spec:
     app: checkout          
     environment: dev
     componet: backend
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080 
