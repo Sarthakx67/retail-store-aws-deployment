@@ -24,7 +24,7 @@ spec:
       - name: catalog
         image: sarthak6700/retail-store-catalog      
         ports:
-        - containerPort: 8080
+        - containerPort: 8080 
 ---
 apiVersion: v1
 kind: Service
