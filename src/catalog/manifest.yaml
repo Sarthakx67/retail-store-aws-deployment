@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: checkout-deployment    
+  name: catalog-deployment    
   labels:
-    app: checkout              
+    app: catalog              
     environment: dev
   namespace: retail-store
 spec:
   replicas: 2               
   selector:
     matchLabels:
-      app: checkout            
+      app: catalog            
       environment: dev
       componet: backend
   template:
     metadata:
       labels:
-        app: checkout          
+        app: catalog          
         environment: dev
         componet: backend
     spec:
       containers:
-      - name: checkout
-        image: sarthak6700/retail-store-checkout  
+      - name: catalog
+        image: sarthak6700/retail-store-catalog  
         ports:
         - port: 8080
           targetPort: 8080     
@@ -30,10 +30,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: checkout-service
+  name: catalog-service
   namespace: retail-store
 spec:
   selector:
-    app: checkout          
+    app: catalog          
     environment: dev
     componet: backend
