@@ -27,7 +27,7 @@ spec:
         - containerPort: 8080   
         envFrom:
         - configMapRef:
-            name: cart-ConfigMap
+            name: cart-configmap
         - secretRef:
             name: secrets-basic-auth # here we are giving all the secret information 
 ---
@@ -49,7 +49,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cart-ConfigMap
+  name: cart-configmap
 data:
   RETAIL_CART_PERSISTENCE_PROVIDER: dynamodb
   RETAIL_CART_PERSISTENCE_DYNAMODB_TABLE_NAME: Items
