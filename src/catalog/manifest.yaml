@@ -22,10 +22,7 @@ spec:
     spec:
       containers:
       - name: catalog
-        image: sarthak6700/retail-store-catalog  
-        ports:
-        - port: 8080
-          targetPort: 8080     
+        image: sarthak6700/retail-store-catalog      
 ---
 apiVersion: v1
 kind: Service
@@ -37,3 +34,6 @@ spec:
     app: catalog          
     environment: dev
     componet: backend
+    ports:
+        - port: 8080
+          targetPort: 8080 
