@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-deployment    
+  labels:
+    app: cart              
+    environment: dev
+  namespace: retail-store
+spec:
+  replicas: 2               
+  selector:
+    matchLabels:
+      app: cart            
+      environment: dev
+      componet: backend
+  template:
+    metadata:
+      labels:
+        app: cart          
+        environment: dev
+        componet: backend
+    spec:
+      containers:
+      - name: cart
+        image: sarthak6700/retail-store-cart       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cart-service
+  namespace: retail-store
+spec:
+  selector:
+    app: cart          
+    environment: dev
+    componet: backend

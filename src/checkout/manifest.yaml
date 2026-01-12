@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkout-deployment    
+  labels:
+    app: checkout              
+    environment: dev
+  namespace: retail-store
+spec:
+  replicas: 2               
+  selector:
+    matchLabels:
+      app: checkout            
+      environment: dev
+      componet: backend
+  template:
+    metadata:
+      labels:
+        app: checkout          
+        environment: dev
+        componet: backend
+    spec:
+      containers:
+      - name: checkout
+        image: sarthak6700/retail-store-checkout       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: checkout-service
+  namespace: retail-store
+spec:
+  selector:
+    app: checkout          
+    environment: dev
+    componet: backend
