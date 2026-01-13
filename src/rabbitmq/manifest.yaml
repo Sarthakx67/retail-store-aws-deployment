@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+  namespace: retail-store
+  labels:
+    app: rabbitmq
+spec:
+  ports:
+  - port: 5672
+    name: rabbitmq
+  selector:
+    app: rabbitmq
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rabbitmq
+  namespace: retail-store
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq # has to match .spec.template.metadata.labels
+  serviceName: "rabbitmq"
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: rabbitmq # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3
+        ports:
+        - containerPort: 5672
+          name: rabbitmq
+        env:
+        - name: RABBITMQ_DEFAULT_USER
+          value: rabbitmq_user
+        - name: RABBITMQ_DEFAULT_PASS
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secret
+              key: RABBITMQ_PASSWORD
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rabbitmq-secret
+type: Opaque 
+data:
+  RABBITMQ_PASSWORD: cGFzc3dvcmQ=
+  
