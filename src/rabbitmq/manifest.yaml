@@ -1,55 +1,55 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgresql
+  name: rabbitmq
   namespace: retail-store
   labels:
-    app: postgresql
+    app: rabbitmq
 spec:
   ports:
-  - port: 5432
-    name: postgresql
+  - port: 5672
+    name: rabbitmq
   selector:
-    app: postgresql
+    app: rabbitmq
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgresql
+  name: rabbitmq
   namespace: retail-store
 spec:
   selector:
     matchLabels:
-      app: postgresql # has to match .spec.template.metadata.labels
-  serviceName: "postgresql"
+      app: rabbitmq # has to match .spec.template.metadata.labels
+  serviceName: "rabbitmq"
   replicas: 1 # by default is 1
   template:
     metadata:
       labels:
-        app: postgresql # has to match .spec.selector.matchLabels
+        app: rabbitmq # has to match .spec.selector.matchLabels
     spec:
       containers:
-      - name: postgresql
-        image: postgres
+      - name: rabbitmq
+        image: rabbitmq:3
         ports:
-        - containerPort: 5432
-          name: postgresql
+        - containerPort: 5672
+          name: rabbitmq
         env:
-        - name: POSTGRES_USER
-          value: postgres_user
-        - name: POSTGRES_DB #for db name
-          value: postgres
-        - name: POSTGRES_PASSWORD
+        - name: RABBITMQ_USERNAME
+          value: rabbitmq_user
+        - name: RABBITMQ_DB #for db name
+          value: rabbitmq
+        - name: RABBITMQ_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgresql-secret
-              key: POSTGRES_PASSWORD
+              name: rabbitmq-secret
+              key: RABBITMQ_PASSWORD
         volumeMounts:
-        - name: postgres
-          mountPath: /var/lib/postgresql
+        - name: rabbitmq
+          mountPath: /var/lib/rabbitmq
   volumeClaimTemplates:
   - metadata:
-      name: postgres
+      name: rabbitmq
     spec:
       accessModes: [ "ReadWriteOnce" ]
       # storageClassName: "my-storage-class" only give if this name of volume is present
@@ -60,7 +60,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: postgresql-secret
+  name: rabbitmq-secret
 type: Opaque 
 data:
   POSTGRES_PASSWORD: cGFzc3dvcmQ=
