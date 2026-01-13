@@ -24,7 +24,7 @@ spec:
         image: amazon/dynamodb-local
         ports:
         - containerPort: 8000
-          name: dynamodb-port
+          name: dynamodb-port 
 ---
 apiVersion: v1
 kind: Service
