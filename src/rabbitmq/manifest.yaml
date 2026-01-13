@@ -35,27 +35,13 @@ spec:
         - containerPort: 5672
           name: rabbitmq
         env:
-        - name: RABBITMQ_USERNAME
+        - name: RABBITMQ_DEFAULT_USER
           value: rabbitmq_user
-        - name: RABBITMQ_DB #for db name
-          value: rabbitmq
-        - name: RABBITMQ_PASSWORD
+        - name: RABBITMQ_DEFAULT_PASS
           valueFrom:
             secretKeyRef:
               name: rabbitmq-secret
               key: RABBITMQ_PASSWORD
-        volumeMounts:
-        - name: rabbitmq
-          mountPath: /var/lib/rabbitmq
-  volumeClaimTemplates:
-  - metadata:
-      name: rabbitmq
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      # storageClassName: "my-storage-class" only give if this name of volume is present
-      resources:
-        requests:
-          storage: 5Gi
 ---
 apiVersion: v1
 kind: Secret
