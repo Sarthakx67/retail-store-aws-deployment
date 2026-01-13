@@ -63,5 +63,5 @@ metadata:
   name: rabbitmq-secret
 type: Opaque 
 data:
-  POSTGRES_PASSWORD: cGFzc3dvcmQ=
+  RABBITMQ_PASSWORD: cGFzc3dvcmQ=
   
