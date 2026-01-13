@@ -27,7 +27,7 @@ spec:
         - containerPort: 8080  
         envFrom:
         - configMapRef:
-          name: checkout-configmap
+            name: checkout-configmap
 ---
 apiVersion: v1
 kind: Service
