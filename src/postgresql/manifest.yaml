@@ -46,7 +46,7 @@ spec:
               key: POSTGRES_PASSWORD
         volumeMounts:
         - name: www
-          mountPath: /var/lib/postgresql/data
+          mountPath: /var/lib/postgresql
   volumeClaimTemplates:
   - metadata:
       name: www
