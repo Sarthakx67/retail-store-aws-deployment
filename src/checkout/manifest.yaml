@@ -25,6 +25,9 @@ spec:
         image: sarthak6700/retail-store-checkout   
         ports:
         - containerPort: 8080  
+        envFrom:
+        - configMapRef:
+          name: checkout-configmap
 ---
 apiVersion: v1
 kind: Service
