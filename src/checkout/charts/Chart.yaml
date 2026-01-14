@@ -1,6 +1,6 @@
 apiVersion: v2
-name: retail-store-catalog
-description: A Helm chart for retail store catalog service 
+name: retail-store-checkout
+description: A Helm chart for retail store checkout service 
 type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
