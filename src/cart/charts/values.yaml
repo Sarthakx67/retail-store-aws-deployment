@@ -1,0 +1,9 @@
+hpa:
+  minReplicas: 1
+  maxReplicas: 3
+  averageUtilization: 50
+configmap:
+  region: "ap-south-1"
+secrets:
+  accesskeyid: "anything"
+  secretaccesskey: "anything"

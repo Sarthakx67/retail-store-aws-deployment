@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-deployment    
+  labels:
+    app: cart              
+    environment: dev
+  namespace: retail-store
+spec:
+  selector:
+    matchLabels:
+      app: cart            
+      environment: dev
+      component: backend
+  template:
+    metadata:
+      labels:
+        app: cart          
+        environment: dev
+        component: backend
+    spec:
+      containers:
+      - name: cart
+        image: sarthak6700/retail-store-cart 
+        ports:
+        - containerPort: 8080   
+        envFrom:
+        - configMapRef:
+            name: cart-configmap
+        - secretRef:
+            name: secrets-basic-auth
+        resources:
+          limits:
+            cpu: 225m
+            memory: 512Mi
+          requests:
+            cpu: 100m 
+            memory: 256Mi
