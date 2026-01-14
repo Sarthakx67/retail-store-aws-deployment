@@ -27,10 +27,13 @@ spec:
         envFrom:
         - configMapRef:
             name: checkout-configmap
+        env:
+        - name: NODE_OPTIONS
+          value: "--max-old-space-size=768"
         resources:
           limits:
             cpu: 500m
-            memory: 1024Mi
+            memory: 1Gi
           requests:
             cpu: 200m 
             memory: 512Mi
