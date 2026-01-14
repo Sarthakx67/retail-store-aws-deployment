@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders  
+  labels:
+    app: orders              
+    environment: dev
+  namespace: retail-store
+spec:            
+  selector:
+    matchLabels:
+      app: orders            
+      environment: dev
+      component: backend
+  template:
+    metadata:
+      labels:
+        app: orders          
+        environment: dev
+        component: backend
+    spec:
+      containers:
+      - name: orders
+        image: sarthak6700/retail-store-orders    
+        ports:
+        - containerPort: 8080   
+        envFrom:
+        - configMapRef:
+            name: orders-configmap
+        - secretRef:
+            name: orders-secret
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1024Mi
+          requests:
+            cpu: 200m 
+            memory: 512Mi
