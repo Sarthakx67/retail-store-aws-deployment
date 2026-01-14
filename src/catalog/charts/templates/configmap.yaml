@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: retail-store
+  name: catalog-map
+data:
+  RETAIL_CATALOG_PERSISTENCE_PROVIDER: mysql
+  RETAIL_CATALOG_PERSISTENCE_ENDPOINT: mysql:3306
+  RETAIL_CATALOG_PERSISTENCE_DB_NAME: catalogdb
+  RETAIL_CATALOG_PERSISTENCE_USER: catalog_user
+  RETAIL_CATALOG_PERSISTENCE_CONNECT_TIMEOUT: "5"
