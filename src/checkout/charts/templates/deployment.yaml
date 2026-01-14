@@ -27,9 +27,9 @@ spec:
         envFrom:
         - configMapRef:
             name: checkout-configmap
-        env:
-        - name: NODE_OPTIONS
-          value: "--max-old-space-size=768"
+        # env:
+        # - name: NODE_OPTIONS
+        #   value: "--max-old-space-size=768"
         # resources:
         #   limits:
         #     cpu: 500m
