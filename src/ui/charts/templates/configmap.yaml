@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ui-configmap
+  namespace: retail-store
+data:
+  # Postgresql
+  RETAIL_UI_THEME: orange
+  RETAIL_UI_ENDPOINTS_CATALOG: http://catalog:8080
+  RETAIL_UI_ENDPOINTS_CARTS: http://cart:8080
+  RETAIL_UI_ENDPOINTS_ORDERS: http://orders:8080
+  RETAIL_UI_ENDPOINTS_CHECKOUT: http://checkout:8080
+  RETAIL_UI_CHAT_ENABLED: "false"

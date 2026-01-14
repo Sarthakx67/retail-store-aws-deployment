@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui   
+  labels:
+    app: ui              
+    environment: dev
+  namespace: retail-store
+spec:        
+  selector:
+    matchLabels:
+      app: ui            
+      environment: dev
+      componet: frontend
+  template:
+    metadata:
+      labels:
+        app: ui          
+        environment: dev
+        componet: frontend
+    spec:
+      containers:
+      - name: ui
+        image: sarthak6700/retail-store-ui 
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: orders-configmap  
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1024Mi
+          requests:
+            cpu: 200m 
+            memory: 512Mi
