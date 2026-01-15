@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: ui
-        image: 
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: 8080
         envFrom:
