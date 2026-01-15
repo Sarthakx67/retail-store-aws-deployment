@@ -1,6 +1,6 @@
 apiVersion: v2
 name: retail-store-dyanmodb
-description: A Helm chart for retail store dyanmodb service 
+description: A Helm chart for retail store dynamodb service 
 type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
