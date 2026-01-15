@@ -1,55 +1,65 @@
-cart:
-  environment: dev
+# Development specific overrides
+retail-store-cart:
+  enabled: true
+  image:
+    tag: dev # Use dev-specific image tags
+  replicaCount: 1 # Lower replica count for development
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+retail-store-catalog:
+  enabled: true
   image:
     tag: dev
   replicaCount: 1
   resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
     limits:
       cpu: 200m
-      memory: 384Mi
+      memory: 256Mi
 
-catalog:
-  environment: dev
+retail-store-checkout:
+  enabled: true
   image:
     tag: dev
   replicaCount: 1
   resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi # Higher memory for Node.js backends to avoid OOM
     limits:
-      cpu: 200m
-      memory: 384Mi
+      cpu: 400m
+      memory: 512Mi
 
-checkout:
-  environment: dev
+retail-store-orders:
+  enabled: true
   image:
     tag: dev
   replicaCount: 1
   resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
     limits:
       cpu: 200m
-      memory: 384Mi
+      memory: 256Mi
 
-orders:
-  environment: dev
+retail-store-ui:
+  enabled: true
   image:
     tag: dev
-  replicaCount: 1
+  replicaCount: 1 
   resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
     limits:
       cpu: 200m
-      memory: 384Mi
-
-ui:
-  environment: dev
-  image:
-    tag: dev
-  replicaCount: 1
-  resources:
-    limits:
-      cpu: 200m
-      memory: 384Mi
-
-
-# helm upgrade --install retail-store . -n retail-store-dev -f values.yaml -f values-dev.yaml
-
-# this means all other services like orders ui checkout will deploy normally define in thier own values.yaml
-# but for checkout its replicaCount will be changed to 1 and in cart its resources will be changed to given in values-dev.yaml
+      memory: 256Mi

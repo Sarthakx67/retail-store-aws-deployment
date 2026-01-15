@@ -5,39 +5,46 @@ type: application
 version: 1.0.0
 
 dependencies:
-  - name: cart
+  - name: retail-store-cart
     version: 0.0.1
     repository: "file://charts/cart"
 
-  - name: catalog
+  - name: retail-store-catalog
     version: 0.0.1
     repository: "file://charts/catalog"
-
-  - name: checkout
+  
+  - name: retail-store-checkout
     version: 0.0.1
     repository: "file://charts/checkout"
-
-  - name: orders
+  
+  - name: retail-store-orders
     version: 0.0.1
     repository: "file://charts/orders"
-
-  - name: dynamodb
+  
+  - name: retail-store-ui
+    version: 0.0.1
+    repository: "file://charts/ui"
+  
+  - name: retail-store-dynamodb
     version: 0.0.1
     repository: "file://charts/dynamodb"
-
-  - name: mysql
+  
+  - name: retail-store-mysql
     version: 0.0.1
     repository: "file://charts/mysql"
-
-  - name: postgresql
+  
+  - name: retail-store-postgresql
     version: 0.0.1
     repository: "file://charts/postgresql"
   
-  - name: rabbitmq
+  - name: retail-store-rabbitmq
     version: 0.0.1
     repository: "file://charts/rabbitmq"
   
-  - name: redis
+  - name: retail-store-redis
     version: 0.0.1
     repository: "file://charts/redis"
-  
+
+    #NOTE:
+      # name: retail-store-cart: This must match the name field inside charts/cart/Chart.yaml
+      # and the keys in your values-prod.yaml.

@@ -1,5 +1,5 @@
-cart:
-  environment: prod
+# Production specific overrides
+retail-store-cart:
   image:
     tag: v2
   replicaCount: 2
@@ -11,8 +11,7 @@ cart:
       cpu: 800m
       memory: 1Gi
 
-catalog:
-  environment: prod
+retail-store-catalog:
   image:
     tag: v2
   replicaCount: 2
@@ -24,8 +23,7 @@ catalog:
       cpu: 800m
       memory: 1Gi
 
-checkout:
-  environment: prod
+retail-store-checkout:
   image:
     tag: v2
   replicaCount: 2
@@ -37,8 +35,7 @@ checkout:
       cpu: 800m
       memory: 1Gi
 
-orders:
-  environment: prod
+retail-store-orders:
   image:
     tag: v2
   replicaCount: 2
@@ -50,8 +47,7 @@ orders:
       cpu: 800m
       memory: 1Gi
 
-ui:
-  environment: prod
+retail-store-ui:
   image:
     tag: v2
   replicaCount: 2
@@ -62,8 +58,3 @@ ui:
     limits:
       cpu: 800m
       memory: 1Gi
-
-# helm upgrade --install retail-store . -n retail-store-prod -f values.yaml -f values-prod.yaml
-
-# this means all other services like orders ui checkout will deploy normally define in thier own values.yaml
-# but for checkout its replicaCount will be changed to 2 and in cart its resources will be changed to given in values-prod.yaml
