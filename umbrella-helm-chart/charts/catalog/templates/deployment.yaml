@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog  
+  labels:
+    app: catalog              
+    environment: dev
+  namespace: retail-store
+spec:      
+  selector:
+    matchLabels:
+      app: catalog            
+      environment: dev
+      component: backend
+  template:
+    metadata:
+      labels:
+        app: catalog          
+        environment: dev
+        component: backend
+    spec:
+      containers:
+      - name: catalog
+        image: sarthak6700/retail-store-catalog      
+        ports:
+        - containerPort: 8080 
+        envFrom:
+        - configMapRef:
+            name: catalog-map
+        - secretRef:
+            name: catalog-secret
+        resources:
+          limits:
+            cpu: 225m
+            memory: 512Mi
+          requests:
+            cpu: 100m 
+            memory: 256Mi

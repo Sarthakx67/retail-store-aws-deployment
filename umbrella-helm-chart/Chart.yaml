@@ -1,0 +1,26 @@
+apiVersion: v2
+name: retail-store
+description: Umbrella chart for Retail Store application
+type: application
+version: 1.0.0
+
+dependencies:
+  - name: cart
+    version: 0.0.1
+    repository: "file://charts/cart"
+
+  - name: catalog
+    version: 0.0.1
+    repository: "file://charts/catalog"
+
+  - name: checkout
+    version: 0.0.1
+    repository: "file://charts/checkout"
+
+  - name: orders
+    version: 0.0.1
+    repository: "file://charts/orders"
+
+  - name: ui
+    version: 0.0.1
+    repository: "file://charts/ui"

@@ -1,0 +1,14 @@
+cart:
+  enabled: true
+
+checkout:
+  enabled: true
+
+catalog:
+  enabled: true
+
+orders:
+  enabled: true
+
+ui:
+  enabled: true

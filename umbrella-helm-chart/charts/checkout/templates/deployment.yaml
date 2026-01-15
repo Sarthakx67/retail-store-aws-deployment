@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkout
+  labels:
+    app: checkout              
+    environment: dev
+  namespace: retail-store
+spec:             
+  selector:
+    matchLabels:
+      app: checkout            
+      environment: dev
+      componet: backend
+  template:
+    metadata:
+      labels:
+        app: checkout          
+        environment: dev
+        componet: backend
+    spec:
+      containers:
+      - name: checkout
+        image: sarthak6700/retail-store-checkout:v1
+        ports:
+        - containerPort: 8080  
+        envFrom:
+        - configMapRef:
+            name: checkout-configmap
+        env:
+        - name: NODE_OPTIONS
+          value: "--max-old-space-size=768"
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+          requests:
+            cpu: 200m 
+            memory: 512Mi
+        
