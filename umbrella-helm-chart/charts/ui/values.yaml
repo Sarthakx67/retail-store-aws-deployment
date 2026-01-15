@@ -1,6 +1,6 @@
 environment: dev
 
-replicaCount: 1
+# replicaCount: 1
 
 image:
   repository: sarthak6700/retail-store-ui

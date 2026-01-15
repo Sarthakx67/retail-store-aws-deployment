@@ -6,7 +6,7 @@ metadata:
     app: catalog
     environment: {{ .Values.environment }}
 spec:      
-  replicas: {{ .Values.replicaCount }}
+  # replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: catalog
