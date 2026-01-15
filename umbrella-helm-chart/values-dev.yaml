@@ -1,8 +1,7 @@
 # Development specific overrides
 retail-store-cart:
   enabled: true
-  image:
-    tag: dev # Use dev-specific image tags
+  image: # Use dev-specific image tags
   replicaCount: 1 # Lower replica count for development
   resources:
     requests:
@@ -15,7 +14,6 @@ retail-store-cart:
 retail-store-catalog:
   enabled: true
   image:
-    tag: dev
   replicaCount: 1
   resources:
     requests:
@@ -28,7 +26,6 @@ retail-store-catalog:
 retail-store-checkout:
   enabled: true
   image:
-    tag: dev
   replicaCount: 1
   resources:
     requests:
@@ -41,7 +38,6 @@ retail-store-checkout:
 retail-store-orders:
   enabled: true
   image:
-    tag: dev
   replicaCount: 1
   resources:
     requests:
@@ -54,7 +50,6 @@ retail-store-orders:
 retail-store-ui:
   enabled: true
   image:
-    tag: dev
   replicaCount: 1 
   resources:
     requests:
