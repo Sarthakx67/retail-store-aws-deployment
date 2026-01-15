@@ -1,9 +1,27 @@
+environment: dev
+
+replicaCount: 1
+
+image:
+  repository: sarthak6700/retail-store-cart
+  tag: latest
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 300m
+    memory: 512Mi
+
 hpa:
   minReplicas: 1
   maxReplicas: 3
   averageUtilization: 70
+
 configmap:
   region: "ap-south-1"
+
 secrets:
   accesskeyid: "anything"
   secretaccesskey: "anything"

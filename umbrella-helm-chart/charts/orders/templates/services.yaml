@@ -2,11 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: orders
-  namespace: retail-store
 spec:
   selector:
     app: orders          
-    environment: dev
     component: backend
   ports:
   - protocol: TCP

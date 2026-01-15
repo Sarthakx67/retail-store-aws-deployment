@@ -3,25 +3,23 @@ kind: Deployment
 metadata:
   name: checkout
   labels:
-    app: checkout              
-    environment: dev
-  namespace: retail-store
-spec:             
+    app: checkout          
+    environment: {{ .Values.environment }}
+spec:            
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: checkout            
-      environment: dev
+      app: checkout         
       componet: backend
   template:
     metadata:
       labels:
-        app: checkout          
-        environment: dev
+        app: checkout       
         componet: backend
     spec:
       containers:
       - name: checkout
-        image: sarthak6700/retail-store-checkout:v1
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: 8080  
         envFrom:
@@ -31,10 +29,5 @@ spec:
         - name: NODE_OPTIONS
           value: "--max-old-space-size=768"
         resources:
-          limits:
-            cpu: 500m
-            memory: 1Gi
-          requests:
-            cpu: 200m 
-            memory: 512Mi
+{{ toYaml .Values.resources | indent 10 }}
         

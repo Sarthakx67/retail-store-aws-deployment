@@ -1,0 +1,55 @@
+cart:
+  environment: dev
+  image:
+    tag: dev
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 384Mi
+
+catalog:
+  environment: dev
+  image:
+    tag: dev
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 384Mi
+
+checkout:
+  environment: dev
+  image:
+    tag: dev
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 384Mi
+
+orders:
+  environment: dev
+  image:
+    tag: dev
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 384Mi
+
+ui:
+  environment: dev
+  image:
+    tag: dev
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 384Mi
+
+
+# helm upgrade --install retail-store . -n retail-store-dev -f values.yaml -f values-dev.yaml
+
+# this means all other services like orders ui checkout will deploy normally define in thier own values.yaml
+# but for checkout its replicaCount will be changed to 1 and in cart its resources will be changed to given in values-dev.yaml

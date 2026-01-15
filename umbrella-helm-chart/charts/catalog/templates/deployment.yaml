@@ -3,25 +3,23 @@ kind: Deployment
 metadata:
   name: catalog  
   labels:
-    app: catalog              
-    environment: dev
-  namespace: retail-store
+    app: catalog
+    environment: {{ .Values.environment }}
 spec:      
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: catalog            
-      environment: dev
+      app: catalog
       component: backend
   template:
     metadata:
       labels:
-        app: catalog          
-        environment: dev
+        app: catalog
         component: backend
     spec:
       containers:
       - name: catalog
-        image: sarthak6700/retail-store-catalog      
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"     
         ports:
         - containerPort: 8080 
         envFrom:
@@ -30,9 +28,4 @@ spec:
         - secretRef:
             name: catalog-secret
         resources:
-          limits:
-            cpu: 225m
-            memory: 512Mi
-          requests:
-            cpu: 100m 
-            memory: 256Mi
+{{ toYaml .Values.resources | indent 10 }}

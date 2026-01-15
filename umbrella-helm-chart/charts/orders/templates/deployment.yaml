@@ -4,24 +4,22 @@ metadata:
   name: orders  
   labels:
     app: orders              
-    environment: dev
-  namespace: retail-store
-spec:            
+    environment: {{ .Values.environment }}
+spec:           
+  replicas: {{ .Values.replicaCount }} 
   selector:
     matchLabels:
-      app: orders            
-      environment: dev
+      app: orders         
       component: backend
   template:
     metadata:
       labels:
-        app: orders          
-        environment: dev
+        app: orders         
         component: backend
     spec:
       containers:
       - name: orders
-        image: sarthak6700/retail-store-orders    
+        image:  "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: 8080   
         envFrom:
@@ -30,9 +28,4 @@ spec:
         - secretRef:
             name: orders-secret
         resources:
-          limits:
-            cpu: 500m
-            memory: 1024Mi
-          requests:
-            cpu: 200m 
-            memory: 512Mi
+{{ toYaml .Values.resources | indent 10 }}
