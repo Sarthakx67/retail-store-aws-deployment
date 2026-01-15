@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dynamodb
+  labels:
+    tier: db
+    environment: {{ .Values.environment }}
+spec:
+  serviceName: dynamodb
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      tier: db
+  template:
+    metadata:
+      labels:
+        tier: db
+    spec:
+      containers:
+      - name: dynamodb
+        image: amazon/dynamodb-local
+        ports:
+        - containerPort: 8000
+          name: dynamodb-port 
+        resources:
+{{ toYaml .Values.resources | indent 10 }}

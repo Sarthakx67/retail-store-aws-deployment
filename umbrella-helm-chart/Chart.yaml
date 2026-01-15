@@ -21,6 +21,23 @@ dependencies:
     version: 0.0.1
     repository: "file://charts/orders"
 
-  - name: ui
+  - name: dynamodb
     version: 0.0.1
-    repository: "file://charts/ui"
+    repository: "file://charts/dynamodb"
+
+  - name: mysql
+    version: 0.0.1
+    repository: "file://charts/mysql"
+
+  - name: postgresql
+    version: 0.0.1
+    repository: "file://charts/postgresql"
+  
+  - name: rabbitmq
+    version: 0.0.1
+    repository: "file://charts/rabbitmq"
+  
+  - name: redis
+    version: 0.0.1
+    repository: "file://charts/redis"
+  

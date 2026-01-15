@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgresql
+  labels:
+    tier: db
+    environment: {{ .Values.environment }}
+spec:
+  serviceName: postgresql
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: postgresql # has to match .spec.template.metadata.labels
+  template:
+    metadata:
+      labels:
+        app: postgresql # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: postgresql
+        image: postgres
+        ports:
+        - containerPort: 5432
+          name: postgresql
+        env:
+        - name: POSTGRES_USER
+          value: postgres_user
+        - name: POSTGRES_DB #for db name
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgresql-secret
+              key: POSTGRES_PASSWORD
+        volumeMounts:
+        - name: postgres
+          mountPath: /var/lib/postgresql
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      # storageClassName: "my-storage-class" only give if this name of volume is present
+      resources:
+        requests:
+          storage: 5Gi

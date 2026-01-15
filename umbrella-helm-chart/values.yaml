@@ -12,3 +12,19 @@ orders:
 
 ui:
   enabled: true
+
+dynamodb:
+  enabled: true
+
+mysql:
+  enabled: true
+
+postgresql:
+  enabled: true
+
+rabbitmq:
+  enabled: true
+
+redis:
+  enabled: true
+
