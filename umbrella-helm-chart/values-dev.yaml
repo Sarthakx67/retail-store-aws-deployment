@@ -5,12 +5,12 @@ retail-store-cart:
     tag: latest # Use latest-specific image tags
   replicaCount: 1 # Lower replica count for latestelopment
   resources:
-    requests:
-      cpu: 100m
-      memory: 128Mi
     limits:
-      cpu: 200m
-      memory: 256Mi
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 200m 
+      memory: 512Mi
 
 retail-store-catalog:
   enabled: true
@@ -18,12 +18,12 @@ retail-store-catalog:
     tag: latest
   replicaCount: 1
   resources:
-    requests:
-      cpu: 100m
-      memory: 128Mi
     limits:
-      cpu: 200m
-      memory: 256Mi
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 200m 
+      memory: 512Mi
 
 retail-store-checkout:
   enabled: true
@@ -31,11 +31,11 @@ retail-store-checkout:
     tag: v1
   replicaCount: 1
   resources:
-    requests:
-      cpu: 100m
-      memory: 256Mi # Higher memory for Node.js backends to avoid OOM
     limits:
-      cpu: 400m
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 200m 
       memory: 512Mi
 
 retail-store-orders:
@@ -44,12 +44,12 @@ retail-store-orders:
     tag: latest
   replicaCount: 1
   resources:
-    requests:
-      cpu: 100m
-      memory: 128Mi
     limits:
-      cpu: 200m
-      memory: 256Mi
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 200m 
+      memory: 512Mi
 
 retail-store-ui:
   enabled: true
@@ -57,9 +57,9 @@ retail-store-ui:
     tag: latest
   replicaCount: 1 
   resources:
-    requests:
-      cpu: 100m
-      memory: 128Mi
     limits:
-      cpu: 200m
-      memory: 256Mi
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 200m 
+      memory: 512Mi
