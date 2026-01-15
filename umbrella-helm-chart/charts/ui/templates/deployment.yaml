@@ -4,17 +4,17 @@ metadata:
   name: ui   
   labels:
     app: ui              
-    environment: dev
+    environment: {{ .Values.environment }}
 spec:        
   selector:
     matchLabels:
       app: ui            
-      componet: frontend
+      component: frontend
   template:
     metadata:
       labels:
         app: ui          
-        componet: frontend
+        component: frontend
     spec:
       containers:
       - name: ui
