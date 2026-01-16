@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: cart
-        image: sarthak6700/retail-store-cart 
+        image: sarthak6700/retail-store-cart:v1
         ports:
         - containerPort: 8080   
         envFrom:

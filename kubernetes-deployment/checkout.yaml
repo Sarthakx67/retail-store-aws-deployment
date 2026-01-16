@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: checkout
-        image: sarthak6700/retail-store-checkout   
+        image: sarthak6700/retail-store-checkout:v1 
         ports:
         - containerPort: 8080  
         envFrom:

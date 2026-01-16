@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: orders
-        image: sarthak6700/retail-store-orders    
+        image: sarthak6700/retail-store-orders:v1  
         ports:
         - containerPort: 8080   
         envFrom:
