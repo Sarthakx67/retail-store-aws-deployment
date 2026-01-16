@@ -1,27 +1,31 @@
-# -------- BUILD STAGE --------
+# ---------- BUILD STAGE ----------
 FROM golang:1.25-alpine AS builder
 
 WORKDIR /app
 
-# Copy go mod files first (for caching)
+# Install build dependencies for SQLite
+RUN apk add --no-cache gcc musl-dev sqlite-dev
+
+# Dependency caching
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Copy source code
+# Copy source
 COPY . .
 
-# Build static binary
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+# Build WITH CGO ENABLED
+RUN CGO_ENABLED=1 GOOS=linux GOARCH=amd64 \
     go build -o app
 
-# -------- RUNTIME STAGE --------
-FROM gcr.io/distroless/base-debian12
+# ---------- RUNTIME STAGE ----------
+FROM alpine:3.20
 
 WORKDIR /app
 
-COPY --from=builder /app/app .
+# Install runtime SQLite libs
+RUN apk add --no-cache sqlite-libs ca-certificates
 
-USER nonroot:nonroot
+COPY --from=builder /app/app .
 
 EXPOSE 8080
 
