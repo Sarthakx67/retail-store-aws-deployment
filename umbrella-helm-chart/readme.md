@@ -132,7 +132,7 @@ To remove the microservices and their configurations cleanly:
 
 ```bash
 # Remove the Helm release
-helm uninstall retail-store -n retail-store-prod
+helm uninstall retail-store -n retail-store-dev
 
 ```
 
