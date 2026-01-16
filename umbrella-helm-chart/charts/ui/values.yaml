@@ -4,7 +4,7 @@ environment: dev
 
 image:
   repository: sarthak6700/retail-store-ui
-  tag: latest
+  tag: v1
 
 resources:
   requests:

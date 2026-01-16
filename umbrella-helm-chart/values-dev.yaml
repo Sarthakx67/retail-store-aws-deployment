@@ -1,9 +1,9 @@
-# latestelopment specific overrides
+# development specific overrides
 retail-store-cart:
   enabled: true
   image:
-    tag: latest # Use latest-specific image tags
-  # replicaCount: 1 # Lower replica count for latestelopment
+    tag: v1 # Use dev-specific image tags
+  # replicaCount: 1 # Lower replica count for development
   resources:
     limits:
       cpu: 500m
@@ -15,7 +15,7 @@ retail-store-cart:
 retail-store-catalog:
   enabled: true
   image:
-    tag: latest
+    tag: v1
   # replicaCount: 1
   resources:
     limits:
@@ -41,7 +41,7 @@ retail-store-checkout:
 retail-store-orders:
   enabled: true
   image:
-    tag: latest
+    tag: v1
   # replicaCount: 1
   resources:
     limits:
@@ -54,7 +54,7 @@ retail-store-orders:
 retail-store-ui:
   enabled: true
   image:
-    tag: latest
+    tag: v1
   # replicaCount: 1 
   resources:
     limits:

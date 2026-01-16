@@ -1,7 +1,7 @@
 # Production specific overrides
 retail-store-cart:
   image:
-    tag: latest
+    tag: v1
   replicaCount: 2
   resources:
     requests:
@@ -13,7 +13,7 @@ retail-store-cart:
 
 retail-store-catalog:
   image:
-    tag: latest
+    tag: v1
   replicaCount: 2
   resources:
     requests:
@@ -37,7 +37,7 @@ retail-store-checkout:
 
 retail-store-orders:
   image:
-    tag: latest
+    tag: v1
   replicaCount: 2
   resources:
     requests:
@@ -49,7 +49,7 @@ retail-store-orders:
 
 retail-store-ui:
   image:
-    tag: latest
+    tag: v1
   replicaCount: 2
   resources:
     requests:
