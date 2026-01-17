@@ -84,7 +84,7 @@ Use a **Layered Values** strategy. `values.yaml` provides common defaults, while
 helm upgrade --install retail-store . \
   -n retail-store-dev \
   -f values.yaml \
-  -f values-dev.yaml \
+  -f values-dev.yaml \ 
   --create-namespace
 
 ```
