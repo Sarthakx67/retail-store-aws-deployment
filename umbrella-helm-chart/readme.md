@@ -47,7 +47,7 @@ chmod 700 get_helm.sh
 
 ---
 
-## 🚀 Deployment Guide
+## 🚀 Deployment Guidee
 
 ### **Step 1: Prepare Dependencies**
 
