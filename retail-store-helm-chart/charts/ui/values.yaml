@@ -19,6 +19,6 @@ hpa:
   maxReplicas: 3
   averageUtilization: 70
 
-Service:
+service:
   type: NodePort
   nodePort: 30080
