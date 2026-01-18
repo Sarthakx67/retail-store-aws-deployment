@@ -1,6 +1,10 @@
 # Global ENV
 environment: dev
 
+# DYNAMODB SERVICE
+retail-store-dynamodb:
+  enabled: true
+
 # CART SERVICE
 retail-store-cart:
   image:
@@ -74,7 +78,6 @@ retail-store-ui:
 
 # MYSQL DATABASE
 retail-store-mysql:
-  enabled: true
   replicaCount: 1
   persistence:
     storageClass: local-path
@@ -92,7 +95,6 @@ retail-store-mysql:
 
 # POSTGRESQL DATABASE
 retail-store-postgresql:
-  enabled: true
   replicaCount: 1
   persistence:
     storageClass: local-path

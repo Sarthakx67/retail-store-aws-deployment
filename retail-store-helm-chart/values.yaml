@@ -24,4 +24,4 @@ retail-store-rabbitmq:
 retail-store-postgresql:
   enabled: true
 retail-store-dynamodb:
-  enabled: true
+  enabled: false
