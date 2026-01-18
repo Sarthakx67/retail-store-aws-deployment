@@ -1,157 +1,228 @@
-# 🛒 Retail Store Microservices - Helm Umbrella Chart
+# 🛒 Retail Store Microservices – Helm Umbrella Chart
 
-This repository contains the **Umbrella Helm Chart** for the Retail Store application, a microservices-based system including Cart, Catalog, Checkout, Orders, UI, and their supporting databases. This setup allows for single-command deployments, environment isolation (Dev/Prod), and automated scaling.
+This repository contains the **Umbrella Helm Chart** for the Retail Store application — a microservices-based system including **Cart, Catalog, Checkout, Orders, UI**, and **supporting infrastructure** (DynamoDB-local, MySQL, Redis, RabbitMQ).
+
+The setup enables:
+
+* Single-command deployments
+* Clean **K3s (local)** vs **EKS (production)** separation
+* Environment isolation
+* Horizontal Pod Autoscaling (HPA)
+* Secure AWS access using **IRSA** in production
 
 ---
 
 ## 🛠️ Cluster Prerequisites & Setup
 
-Before deploying, ensure your environment is correctly configured. These steps are essential for **k3s** and cloud-based lab environments.
+### 1️⃣ Kubernetes Context (K3s)
 
-### 1. **Kubernetes Context (k3s)**
-
-The most critical line for a k3s setup is exporting your config so Helm and Kubectl can communicate with the API server.
+For K3s, you **must export the kubeconfig** so Helm and kubectl can talk to the cluster.
 
 ```bash
-# Export Kubeconfig (Required for every session)
+# Required for every session
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-
 ```
 
-*To make this permanent, add the line above to your `~/.bashrc` file.*
+📌 *To make this permanent, add it to `~/.bashrc` or `~/.zshrc`.*
 
-### 2. **Install Monitoring (Metrics Server)**
+---
 
-You must install the Metrics Server to enable `kubectl top` commands and Horizontal Pod Autoscaling (HPA).
+### 2️⃣ Install Metrics Server (Required for HPA)
+
+Metrics Server is mandatory for:
+
+* `kubectl top`
+* Horizontal Pod Autoscaling (HPA)
 
 ```bash
-# Install Metrics Server
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
-# Verify installation (Wait 1-2 minutes for data to flow)
+# Verify (wait ~1–2 minutes)
 kubectl top nodes
 kubectl top pods
-
 ```
 
-### 3. **Install Helm CLI**
+---
 
-Helm is the package manager used to deploy the umbrella chart.
+### 3️⃣ Install Helm CLI
+
+Helm is used to deploy the umbrella chart and manage releases.
 
 ```bash
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
-
 ```
 
 ---
 
-## 🚀 Deployment Guidee
+## 🚀 Deployment Guide
 
-### **Step 1: Prepare Dependencies**
+### 📌 Step 1: Prepare Dependencies
 
-The umbrella chart uses local sub-charts. You must link them before the first install.
+The umbrella chart uses **local subcharts**. This must be done once (or after chart changes).
 
 ```bash
 # Run inside the umbrella-helm-chart directory
 helm dependency update
-
 ```
 
-### **Step 2: Set Your Environment Context**
+---
 
-Set your default namespace to avoid typing `-n` with every command.
+### 📌 Step 2: (Optional) Set Default Namespace
+
+This avoids typing `-n` repeatedly.
 
 ```bash
-# For Development
+# Development (K3s)
 kubectl config set-context --current --namespace=retail-store-dev
 
-# For Production
+# Production (EKS)
 kubectl config set-context --current --namespace=retail-store-prod
-
 ```
 
-### **Step 3: Start/Upgrade the Application**
+---
 
-Use a **Layered Values** strategy. `values.yaml` provides common defaults, while `-dev` or `-prod` files provide overrides.
+## ▶️ Step 3: Deploy Using Environment-Specific Values
 
-#### **🟢 Start Development (DEV)**
+Helm uses **layered values**:
 
-* **Strategy**: Low resource limits, 1 replica per service.
+```
+values.yaml                  → base (env-agnostic)
+values/k3s/values-k3s.yaml   → local dev overrides
+values/eks/values-eks.yaml   → production overrides
+```
+
+---
+
+## 🟢 Start Development Environment (K3s)
+
+### Strategy
+
+* DynamoDB **local pod enabled**
+* Static AWS credentials (fake/local)
+* NodePort for UI
+* Lower resource usage
 
 ```bash
 helm upgrade --install retail-store . \
   -n retail-store-dev \
   -f values.yaml \
-  -f values-dev.yaml \ 
+  -f values/k3s/values-k3s.yaml \
   --create-namespace
-
 ```
 
-#### **🔴 Start Production (PROD)**
+✔ DynamoDB-local pod created
+✔ UI exposed via NodePort
+✔ Safe for local development
 
-* **Strategy**: High availability, 2-3 replicas per service, higher CPU/RAM.
+---
+
+## 🔴 Start Production Environment (EKS)
+
+### Strategy
+
+* **No DynamoDB pod** (uses AWS DynamoDB)
+* Secure access via **IRSA**
+* ClusterIP services + Ingress/ALB
+* Production-grade scaling
 
 ```bash
 helm upgrade --install retail-store . \
   -n retail-store-prod \
   -f values.yaml \
-  -f values-prod.yaml \
+  -f values/eks/values-eks.yaml \
   --create-namespace
-
 ```
+
+✔ No local databases
+✔ No AWS secrets in Git
+✔ Fully production-safe
 
 ---
 
 ## 🔍 Validation & Troubleshooting
 
-### **Preview Changes (Dry-Run)**
+### 🔎 Dry Run / Preview Rendered YAML
 
-To see exactly what YAML will be generated without deploying it, use the `template` command:
+Always validate before applying to prod:
 
 ```bash
-helm template retail-store . -f values.yaml -f values-prod.yaml
-
+helm template retail-store . \
+  -f values.yaml \
+  -f values/eks/values-eks.yaml
 ```
 
-### **Common Debugging Commands**
+---
 
-* **Check Pod Status**: `kubectl get pods`
-* **Check HPA/Scaling**: `kubectl get hpa`
-* **Live Logs**: `kubectl logs -f deployment/retail-store-checkout`
-* **Node Resources**: `kubectl top nodes`
+### 🛠 Common Debugging Commands
+
+```bash
+kubectl get pods
+kubectl get svc
+kubectl get hpa
+kubectl logs -f deployment/cart-deployment
+kubectl top nodes
+kubectl top pods
+```
 
 ---
 
 ## 🧹 Cleanup & Deletion
 
-### **Uninstalling the App**
-
-To remove the microservices and their configurations cleanly:
+### Uninstall the Application
 
 ```bash
-# Remove the Helm release
 helm uninstall retail-store -n retail-store-dev
-
-```
-
-### **Resetting the Environment**
-
-If you need to wipe everything, including namespaces and persistent volumes:
-
-```bash
-kubectl delete namespace retail-store-prod
-# For k3s cleanup of old crashes
-sudo coredumpctl purge
-
 ```
 
 ---
 
-## 📂 Directory Structure
+### Full Environment Cleanup
 
-* **`charts/`**: Contains individual sub-charts (cart, catalog, etc.).
-* **`Chart.yaml`**: Parent file defining all service dependencies.
-* **`values.yaml`**: Shared baseline configuration.
-* **`values-dev.yaml` / `values-prod.yaml**`: Environment-specific overrides.
+```bash
+kubectl delete namespace retail-store-prod
+
+# (K3s only) cleanup old crash dumps
+sudo coredumpctl purge
+```
+
+---
+
+## 📂 Directory Structure (Final)
+
+```
+umbrella-helm-chart/
+├── Chart.yaml                 # Umbrella chart & dependencies
+├── values.yaml                # Base values (env-agnostic)
+├── values/
+│   ├── k3s/
+│   │   └── values-k3s.yaml
+│   └── eks/
+│       └── values-eks.yaml
+├── charts/
+│   ├── cart/
+│   ├── catalog/
+│   ├── checkout/
+│   ├── orders/
+│   ├── ui/
+│   ├── dynamodb/              # Local-only (K3s)
+│   ├── mysql/
+│   ├── redis/
+│   └── rabbitmq/
+```
+
+---
+
+## 🧠 Key Design Principle (Important)
+
+> **Subcharts are environment-agnostic.
+> Environment behavior is controlled only via umbrella values files.**
+
+This design is:
+
+* GitOps-friendly
+* ArgoCD-ready
+* Interview-grade
+* Production-safe
+
