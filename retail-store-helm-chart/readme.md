@@ -153,6 +153,12 @@ helm template retail-store . \
   -f values/eks/values-eks.yaml
 ```
 
+```bash
+helm template retail-store . \
+  -f values.yaml \
+  -f values/k3s/values-dev-k3s.yaml
+```
+
 ---
 
 ### 🛠 Common Debugging Commands
