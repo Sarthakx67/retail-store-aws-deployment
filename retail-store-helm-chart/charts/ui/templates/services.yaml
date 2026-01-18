@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: ui
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.Service.type }}
   selector:
     app: ui          
     component: frontend
@@ -13,5 +13,5 @@ spec:
     port: 8080 
     targetPort: 8080
     {{- if eq .Values.service.type "NodePort" }}
-      nodePort: {{ .Values.service.nodePort }}
+      nodePort: {{ .Values.Service.nodePort }}
     {{- end }}
