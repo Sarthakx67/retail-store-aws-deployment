@@ -108,7 +108,7 @@ values/eks/values-eks.yaml   → production overrides
 helm upgrade --install retail-store . \
   -n retail-store-dev \
   -f values.yaml \
-  -f values/k3s/values-k3s.yaml \
+  -f values/k3s/values-dev-k3s.yaml \
   --create-namespace
 ```
 
@@ -131,7 +131,7 @@ helm upgrade --install retail-store . \
 helm upgrade --install retail-store . \
   -n retail-store-prod \
   -f values.yaml \
-  -f values/eks/values-eks.yaml \
+  -f values/eks/values-dev-eks.yaml \
   --create-namespace
 ```
 
@@ -197,9 +197,11 @@ umbrella-helm-chart/
 ├── values.yaml                # Base values (env-agnostic)
 ├── values/
 │   ├── k3s/
-│   │   └── values-k3s.yaml
+│   │   ├── values-dev-k3s.yaml
+│   │   ├── values-prod-k3s.yaml
 │   └── eks/
-│       └── values-eks.yaml
+│       ├── values-dev-eks.yaml
+│       ├── values-prod-eks.yaml
 ├── charts/
 │   ├── cart/
 │   ├── catalog/
