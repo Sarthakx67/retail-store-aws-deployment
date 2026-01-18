@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-postgresql-pvc
+spec:
+  storageClassName: "ebs-sc" # Use the StorageClass called ebs-sc to provision storage (MOST IMP LINE)
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+# In EKS, ebs-sc typically maps to:
+# AWS EBS volume
+# Created dynamically by EBS CSI driver
+# If ebs-sc does not exist → PVC will stay Pending forever.

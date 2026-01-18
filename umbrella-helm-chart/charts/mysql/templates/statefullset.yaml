@@ -40,12 +40,7 @@ spec:
         volumeMounts:
         - name: mysql-data
           mountPath: /var/lib/mysql
-  volumeClaimTemplates:
-  - metadata:
-      name: mysql-data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      # storageClassName: "my-storage-class"  no storage of this name is available so will stay pending
-      resources:
-        requests:
-          storage: 5Gi
+      volumes:
+      - name: mysql
+        persistentVolumeClaim: # this is the PVC
+          claimName: ebs-mysql-pvc  

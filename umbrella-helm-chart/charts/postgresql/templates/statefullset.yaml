@@ -35,12 +35,7 @@ spec:
         volumeMounts:
         - name: postgres
           mountPath: /var/lib/postgresql
-  volumeClaimTemplates:
-  - metadata:
-      name: postgres
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      # storageClassName: "my-storage-class" only give if this name of volume is present
-      resources:
-        requests:
-          storage: 5Gi
+      volumes:
+      - name: mysql
+        persistentVolumeClaim: # this is the PVC
+          claimName: ebs-postgresql-pvc
