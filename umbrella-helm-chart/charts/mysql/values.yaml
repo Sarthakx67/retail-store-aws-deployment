@@ -17,3 +17,7 @@ resources:
 secrets:
   rootPassword: password
   userPassword: password
+
+mysql:
+  database: catalogdb
+  user: catalog_user
