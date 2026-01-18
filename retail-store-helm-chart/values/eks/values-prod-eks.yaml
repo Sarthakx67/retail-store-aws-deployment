@@ -21,7 +21,7 @@ retail-store-cart:
   serviceAccount:
     create: true
     name: cart-sa
-    roleArn: arn:aws:iam::<ACCOUNT_ID>:role/cart-dynamodb-role
+    roleArn: arn:aws:iam::050451363764:role/cart-dynamodb-role
     
 retail-store-catalog:
   image:
