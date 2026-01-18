@@ -25,3 +25,4 @@ spec:
         - configMapRef:
             name: orders-configmap  
         resources:
+{{ toYaml .Values.resources | indent 10 }}

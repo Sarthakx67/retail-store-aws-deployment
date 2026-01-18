@@ -6,7 +6,6 @@ metadata:
     app: cart              
     environment: {{ .Values.environment }}
 spec: 
-  # replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: cart            
@@ -17,6 +16,9 @@ spec:
         app: cart          
         component: backend
     spec:
+      {{- if eq .Values.aws.authMethod "irsa" }}
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      {{- end }}
       containers:
       - name: cart
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -25,7 +27,9 @@ spec:
         envFrom:
         - configMapRef:
             name: cart-configmap
+        {{- if eq .Values.aws.authMethod "static" }}
         - secretRef:
-            name: secrets-basic-auth
+            name: aws-static-creds
+        {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}

@@ -4,7 +4,10 @@ metadata:
   name: cart-configmap
 data:
   RETAIL_CART_PERSISTENCE_PROVIDER: dynamodb
-  RETAIL_CART_PERSISTENCE_DYNAMODB_TABLE_NAME: Items
-  RETAIL_CART_PERSISTENCE_DYNAMODB_ENDPOINT: http://dynamodb:8000
+  RETAIL_CART_PERSISTENCE_DYNAMODB_TABLE_NAME: {{ .Values.configmap.tableName }}
+  AWS_REGION: {{ .Values.configmap.region }}
+
+  {{- if eq .Values.aws.authMethod "static" }}
+  RETAIL_CART_PERSISTENCE_DYNAMODB_ENDPOINT: {{ .Values.configmap.endpoint }}
   RETAIL_CART_PERSISTENCE_DYNAMODB_CREATE_TABLE: "true"
-  AWS_REGION: "{{ .Values.configmap.region }}"
+  {{- end }}

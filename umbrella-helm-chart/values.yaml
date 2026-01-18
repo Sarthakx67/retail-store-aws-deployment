@@ -1,23 +1,18 @@
-# Default values for all services
+# Default values for all services, no environment logic
 retail-store-cart:
   enabled: true
-  replicaCount: 1
 
 retail-store-catalog:
   enabled: true
-  replicaCount: 1
 
 retail-store-checkout:
   enabled: true
-  replicaCount: 1
 
 retail-store-orders:
   enabled: true
-  replicaCount: 1
 
 retail-store-ui:
   enabled: true
-  replicaCount: 1
 
 # Database defaults
 retail-store-mysql:

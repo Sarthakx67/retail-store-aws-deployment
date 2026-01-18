@@ -1,3 +1,4 @@
+{{- if .Values.enabled }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -24,3 +25,4 @@ spec:
           name: dynamodb-port 
         resources:
 {{ toYaml .Values.resources | indent 10 }}
+{{- end }}

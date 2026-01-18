@@ -1,5 +1,7 @@
 environment: dev
 
+enabled: false
+
 replicaCount: 1
 
 resources:

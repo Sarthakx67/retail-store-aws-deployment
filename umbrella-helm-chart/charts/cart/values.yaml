@@ -1,10 +1,8 @@
 environment: dev
 
-# replicaCount: 1
-
 image:
   repository: sarthak6700/retail-store-cart
-  tag: v1
+  tag: latest
 
 resources:
   requests:
@@ -19,9 +17,18 @@ hpa:
   maxReplicas: 3
   averageUtilization: 70
 
-configmap:
-  region: "ap-south-1"
+aws:
+  authMethod: none   # none | static | irsa
+
+serviceAccount:
+  name: ""
 
 secrets:
-  accesskeyid: "anything"
-  secretaccesskey: "anything"
+  enabled: false
+
+configmap:
+  region: ap-south-1
+  tableName: Items
+  
+  # In EKS, applications should never use static AWS credentials. DynamoDB access must be granted using IAM Roles for Service Accounts,
+  # allowing the AWS SDK to authenticate securely without exposing secrets.

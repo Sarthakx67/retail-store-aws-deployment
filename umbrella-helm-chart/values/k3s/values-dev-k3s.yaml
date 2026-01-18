@@ -1,22 +1,20 @@
 # development specific overrides
 retail-store-cart:
-  enabled: true
+  environment: dev
   image:
     tag: v1 # Use dev-specific image tags
-  # replicaCount: 1 # Lower replica count for development
-  resources:
-    limits:
-      cpu: 500m
-      memory: 1024Mi
-    requests:
-      cpu: 200m 
-      memory: 512Mi
-
+  aws:
+    authMethod: static
+  configmap:
+    endpoint: http://dynamodb:8000
+  secrets:
+    enabled: true
+    accessKeyId: local
+    secretAccessKey: local
+  
 retail-store-catalog:
-  enabled: true
   image:
     tag: v1
-  # replicaCount: 1
   resources:
     limits:
       cpu: 500m
@@ -26,10 +24,8 @@ retail-store-catalog:
       memory: 512Mi
 
 retail-store-checkout:
-  enabled: true
   image:
     tag: v1
-  # replicaCount: 1
   resources:
     limits:
       cpu: 500m
@@ -39,10 +35,8 @@ retail-store-checkout:
       memory: 512Mi
 
 retail-store-orders:
-  enabled: true
   image:
     tag: v1
-  # replicaCount: 1
   resources:
     limits:
       cpu: 500m
@@ -52,10 +46,8 @@ retail-store-orders:
       memory: 512Mi
 
 retail-store-ui:
-  enabled: true
   image:
-    tag: v1
-  # replicaCount: 1 
+    tag: v1 
   resources:
     limits:
       cpu: 500m
@@ -63,3 +55,6 @@ retail-store-ui:
     requests:
       cpu: 200m 
       memory: 512Mi
+  Service:
+    type: NodePort
+    nodePort: 30080
