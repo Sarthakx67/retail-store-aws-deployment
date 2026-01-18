@@ -12,6 +12,6 @@ spec:
     protocol: TCP
     port: 8080 
     targetPort: 8080
-    {{- if eq .Values.service.type "NodePort" }}
+    {{- if eq .Values.Service.type "NodePort" }}
       nodePort: {{ .Values.Service.nodePort }}
     {{- end }}
