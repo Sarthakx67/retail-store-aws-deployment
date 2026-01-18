@@ -3,6 +3,7 @@ kind: StatefulSet
 metadata:
   name: postgresql
   labels:
+    app: postgresql
     tier: db
     environment: {{ .Values.environment }}
 spec:
@@ -10,32 +11,47 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: postgresql # has to match .spec.template.metadata.labels
+      app: postgresql
+      tier: db
   template:
     metadata:
       labels:
-        app: postgresql # has to match .spec.selector.matchLabels
+        app: postgresql
+        tier: db
     spec:
       containers:
       - name: postgresql
-        image: postgres
+        image: postgres:15
         ports:
         - containerPort: 5432
           name: postgresql
         env:
         - name: POSTGRES_USER
-          value: postgres_user
-        - name: POSTGRES_DB #for db name
-          value: postgres
+          value: {{ .Values.postgres.user }}
+        - name: POSTGRES_DB
+          value: {{ .Values.postgres.database }}
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               name: postgresql-secret
               key: POSTGRES_PASSWORD
         volumeMounts:
-        - name: postgres
+        - name: postgresql-data
           mountPath: /var/lib/postgresql
-      volumes:
-      - name: mysql
-        persistentVolumeClaim: # this is the PVC
-          claimName: ebs-postgresql-pvc
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+
+# In Kubernetes, StatefulSets must use volumeClaimTemplates so that each replica gets its own persistent volume. 
+# Manually attaching a single PVC breaks scalability and reliability.
+
+  volumeClaimTemplates:
+  - metadata:
+      name: postgresql-data
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: {{ .Values.persistence.storageClass | quote }} # storageClassName must be quoted (Helm bug)
+      resources:
+        requests:
+          storage: {{ .Values.persistence.size }}
+

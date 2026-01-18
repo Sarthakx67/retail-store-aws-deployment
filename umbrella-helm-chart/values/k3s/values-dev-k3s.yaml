@@ -1,6 +1,8 @@
-# development specific overrides
+# Global ENV
+environment: dev
+
+# CART SERVICE
 retail-store-cart:
-  environment: dev
   image:
     tag: v1 # Use dev-specific image tags
   aws:
@@ -11,7 +13,15 @@ retail-store-cart:
     enabled: true
     accessKeyId: local
     secretAccessKey: local
-  
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 200m 
+      memory: 512Mi
+
+# CATALOG SERVICE  
 retail-store-catalog:
   image:
     tag: v1
@@ -23,6 +33,7 @@ retail-store-catalog:
       cpu: 200m 
       memory: 512Mi
 
+# CHECKOUT SERVICE
 retail-store-checkout:
   image:
     tag: v1
@@ -34,6 +45,7 @@ retail-store-checkout:
       cpu: 200m 
       memory: 512Mi
 
+# ORDERS SERVICE
 retail-store-orders:
   image:
     tag: v1
@@ -45,6 +57,7 @@ retail-store-orders:
       cpu: 200m 
       memory: 512Mi
 
+# UI SERVICE
 retail-store-ui:
   image:
     tag: v1 
@@ -58,3 +71,36 @@ retail-store-ui:
   Service:
     type: NodePort
     nodePort: 30080
+
+# MYSQL DATABASE
+retail-store-mysql:
+  enabled: true
+  replicaCount: 1
+  persistence:
+    storageClass: local-path
+    size: 5Gi
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  secrets:
+    rootPassword: password
+    userPassword: password
+
+# POSTGRESQL DATABASE
+retail-store-postgresql:
+  enabled: true
+  replicaCount: 1
+  persistence:
+    storageClass: local-path
+    size: 5Gi
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi

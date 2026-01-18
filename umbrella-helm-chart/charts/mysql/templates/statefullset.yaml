@@ -3,17 +3,20 @@ kind: StatefulSet
 metadata:
   name: mysql
   labels:
-    environment: {{ .Values.environment }}
+    app: mysql
     tier: db
+    environment: {{ .Values.environment }}
 spec:
   serviceName: mysql
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
+      app: mysql
       tier: db
   template:
     metadata:
       labels:
+        app: mysql
         tier: db
     spec:
       containers:
@@ -21,7 +24,7 @@ spec:
         image: mysql:8
         ports:
         - containerPort: 3306
-          name: mysql-port
+          name: mysql
         env: # contains all important variables to setup mysql
         - name: MYSQL_DATABASE
           value: catalogdb
@@ -40,7 +43,20 @@ spec:
         volumeMounts:
         - name: mysql-data
           mountPath: /var/lib/mysql
-      volumes:
-      - name: mysql
-        persistentVolumeClaim: # this is the PVC
-          claimName: ebs-mysql-pvc  
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+
+# In Kubernetes, StatefulSets must use volumeClaimTemplates so that each replica gets its own persistent volume. 
+# Manually attaching a single PVC breaks scalability and reliability.
+
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-data
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: {{ .Values.persistence.storageClass | quote }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.size }}
+

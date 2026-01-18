@@ -1,3 +1,22 @@
 environment: dev
 
 replicaCount: 1
+
+persistence:
+  size: 5Gi
+  storageClass: ""
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi
+
+secrets:
+  postgresPassword: password
+
+postgres:
+  user: postgres_user
+  database: postgres
