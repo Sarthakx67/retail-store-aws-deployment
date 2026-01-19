@@ -179,7 +179,7 @@ kubectl top pods
 ### Uninstall the Application
 
 ```bash
-helm uninstall retail-store -n retail-store-dev
+helm uninstall retail-store -n retail-store-prod
 ```
 
 ---
