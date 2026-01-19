@@ -60,3 +60,7 @@ spec:
         requests:
           storage: {{ .Values.persistence.size }}
 
+# Yes, volumeClaimTemplates use dynamic EBS provisioning.
+# Each StatefulSet pod gets its own EBS volume.
+# Data is NOT shared automatically.
+# Consistency is handled by the database using replication or clustering mechanisms, not by Kubernetes.
