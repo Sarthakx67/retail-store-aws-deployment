@@ -131,7 +131,7 @@ helm upgrade --install retail-store . \
 helm upgrade --install retail-store . \
   -n retail-store-prod \
   -f values.yaml \
-  -f values/eks/values-dev-eks.yaml \
+  -f values/eks/values-prod-eks.yaml \
   --create-namespace
 ```
 
@@ -150,7 +150,7 @@ Always validate before applying to prod:
 ```bash
 helm template retail-store . \
   -f values.yaml \
-  -f values/eks/values-eks.yaml
+  -f values/eks/values-prod-eks.yaml
 ```
 
 ```bash
