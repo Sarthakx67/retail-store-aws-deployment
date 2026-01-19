@@ -23,6 +23,6 @@ spec:
         - containerPort: 8080
         envFrom:
         - configMapRef:
-            name: orders-configmap  
+            name: ui-configmap  
         resources:
 {{ toYaml .Values.resources | indent 10 }}
