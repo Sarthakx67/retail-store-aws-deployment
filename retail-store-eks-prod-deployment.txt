@@ -78,3 +78,30 @@ kubectl get pv
 kubectl describe pvc mysql-data-mysql-0
 
 
+# login into mysql
+
+kubectl exec -it mysql-0 -- bash	
+mysql -u root -p password
+SHOW DATABASES;
+
+# login into postgresql
+
+kubectl exec -it postgresql-0 -- bash
+psql -U postgres_user -d postgres
+
+\l --> use this to list all database
+
+\c orders --> use this to connect to orders db
+
+\dt --> use this to list tables
+
+SELECT * FROM orders; --> List tables
+
+
+#delete full resources
+
+helm uninstall retail-store -n retail-store-prod
+
+kubectl delete namespace retail-store-prod
+
+eksctl delete cluster --config-file=eks.yaml
