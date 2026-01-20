@@ -1,0 +1,80 @@
+setup of k8s eks
+
+eksctl create cluster --config-file=eks.yaml
+
+
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+#install ebs-csi driver && attach ec2fullaccess role to nodes
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.25"
+
+#also attach full DynamoDb access to EKS node Roles
+
+kubectl config set-context --current --namespace=retail-store-prod
+
+helm dependency update
+
+helm template retail-store . \
+  -f values.yaml \
+  -f values/eks/values-prod-eks.yaml
+
+helm upgrade --install retail-store . \
+  -n retail-store-prod \
+  -f values.yaml \
+  -f values/eks/values-prod-eks.yaml \
+  --create-namespace
+  
+kubectl get pods
+kubectl get svc
+kubectl get hpa
+kubectl logs -f deployment/cart-deployment
+kubectl top nodes
+kubectl top pods
+
+helm uninstall retail-store -n retail-store-prod
+
+kubectl delete namespace retail-store-prod
+
+
+#IRSA setup for cart tom access dynamodb
+
+aws eks describe-cluster \
+  --name eks-ultra-cheap \
+  --query "cluster.identity.oidc.issuer"
+
+#check 
+aws iam list-open-id-connect-providers
+
+#verification
+
+kubectl get sa cart-sa -n retail-store-prod -o yaml
+kubectl logs deploy/cart-deployment -n retail-store-prod
+
+#rollout restart
+kubectl rollout restart deploy cart-deployment -n retail-store-dev
+
+#pv,pvc,svc check
+
+kubectl get sc
+kubectl get pvc
+kubectl get pods
+
+# final debugging command to memorise
+
+aws iam list-open-id-connect-providers
+aws iam get-role --role-name cart-dynamodb-role
+kubectl get sa cart-sa -o yaml
+kubectl logs deploy/cart-deployment
+
+#check dynamodb
+
+aws dynamodb describe-table --table-name Items
+
+#storage
+
+kubectl get sc
+kubectl get pvc
+kubectl get pv
+kubectl describe pvc mysql-data-mysql-0
+
+
