@@ -776,20 +776,6 @@ Contributions are welcome! Please:
 
 ---
 
-## 📝 License
-
-This project is licensed under the MIT License.
-
----
-
-## 👤 Author
-
-**Sarthak**
-- GitHub: [@sarthak6700](https://github.com/sarthak6700)
-- DockerHub: [sarthak6700](https://hub.docker.com/u/sarthak6700)
-
----
-
 <div align="center">
 
 **⭐ Star this repo if you find it helpful!**
