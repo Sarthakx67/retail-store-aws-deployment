@@ -54,37 +54,7 @@ This repository demonstrates a complete DevOps journey for deploying a retail st
 
 ## 🚀 Deployment Strategies
 
-### 1️⃣ Manual EC2 Deployment (Terraform)
-
-**Purpose**: Infrastructure as Code foundation with manual service orchestration
-
-**Best For**: Learning IaC, legacy migration, cost-conscious environments
-
-[→ View EC2 Deployment Guide](#ec2-deployment-with-terraform)
-
----
-
-### 2️⃣ Docker Compose
-
-**Purpose**: Rapid local development and integration testing
-
-**Best For**: Development environments, CI/CD testing, proof of concepts
-
-[→ View Docker Compose Guide](#docker-compose-deployment)
-
----
-
-### 3️⃣ Kubernetes Deployment (K3s)
-
-**Purpose**: Production-ready orchestration with cloud-agnostic patterns
-
-**Best For**: On-premises Kubernetes, edge computing, single-node production
-
-[→ View Kubernetes Guide](#kubernetes-deployment)
-
----
-
-### 4️⃣ Helm Chart (EKS Production)
+### Helm Chart (EKS Production)
 
 **Purpose**: Enterprise-grade multi-environment deployments with GitOps
 
@@ -96,8 +66,6 @@ This repository demonstrates a complete DevOps journey for deploying a retail st
 - Production security standards
 
 **Best For**: Multi-environment management (dev/staging/prod), AWS EKS deployments, GitOps workflows
-
-[→ View Helm Deployment Guide](#helm-chart-deployment)
 
 ---
 
