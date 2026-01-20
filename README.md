@@ -6,7 +6,7 @@
 [![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
 
-> **Production-grade microservices deployment showcasing multiple infrastructure patterns, from manual EC2 provisioning to automated Kubernetes orchestration with Helm.**
+> **Production-grade microservices deployment showcasing multiple infrastructure patterns, from manual EC2 provisioning to automated Kubernetes orchestration with Helm on AWS EKS.**
 
 This repository demonstrates a complete DevOps journey for deploying a retail store application using modern cloud-native practices. It includes four distinct deployment strategies, each solving different operational challenges.
 
@@ -17,14 +17,11 @@ This repository demonstrates a complete DevOps journey for deploying a retail st
 - [Architecture Overview](#-architecture-overview)
 - [Deployment Strategies](#-deployment-strategies)
 - [Technology Stack](#-technology-stack)
-- [Microservices Components](#-microservices-components)
 - [Quick Start](#-quick-start)
-- [Deployment Guides](#-deployment-guides)
+- [EKS Production Deployment](#-eks-production-deployment-guide)
 - [Infrastructure Details](#-infrastructure-details)
 - [Monitoring & Scaling](#-monitoring--scaling)
-- [Security & Best Practices](#-security--best-practices)
 - [Troubleshooting](#-troubleshooting)
-- [Contributing](#-contributing)
 
 ---
 
@@ -53,15 +50,6 @@ This repository demonstrates a complete DevOps journey for deploying a retail st
                             └─────────┘  └─────────┘
 ```
 
-### Infrastructure Patterns
-
-| Pattern | Use Case | Complexity |
-|---------|----------|------------|
-| **EC2 Manual** | Learning, legacy migration | ⭐ |
-| **Docker Compose** | Local development, testing | ⭐⭐ |
-| **Kubernetes (K3s)** | Single-node prod, edge computing | ⭐⭐⭐ |
-| **Helm + EKS** | Enterprise production, multi-env | ⭐⭐⭐⭐ |
-
 ---
 
 ## 🚀 Deployment Strategies
@@ -70,17 +58,7 @@ This repository demonstrates a complete DevOps journey for deploying a retail st
 
 **Purpose**: Infrastructure as Code foundation with manual service orchestration
 
-**Components**:
-- VPC with public/private subnets
-- EC2 instances with user-data scripts
-- Route53 DNS management
-- Security groups with least-privilege rules
-- SSM Parameter Store for configuration sharing
-
-**Best For**: 
-- Learning IaC fundamentals
-- Migrating monoliths to microservices
-- Cost-conscious environments
+**Best For**: Learning IaC, legacy migration, cost-conscious environments
 
 [→ View EC2 Deployment Guide](#ec2-deployment-with-terraform)
 
@@ -90,16 +68,7 @@ This repository demonstrates a complete DevOps journey for deploying a retail st
 
 **Purpose**: Rapid local development and integration testing
 
-**Features**:
-- Single-command deployment
-- Isolated network environment
-- Service dependency management
-- Instant environment setup
-
-**Best For**:
-- Development environments
-- CI/CD testing stages
-- Proof of concepts
+**Best For**: Development environments, CI/CD testing, proof of concepts
 
 [→ View Docker Compose Guide](#docker-compose-deployment)
 
@@ -109,23 +78,13 @@ This repository demonstrates a complete DevOps journey for deploying a retail st
 
 **Purpose**: Production-ready orchestration with cloud-agnostic patterns
 
-**Features**:
-- StatefulSets for databases
-- ConfigMaps and Secrets management
-- Horizontal Pod Autoscaling (HPA)
-- Service discovery via DNS
-- Persistent volume claims
-
-**Best For**:
-- On-premises Kubernetes
-- Edge computing
-- Single-node production
+**Best For**: On-premises Kubernetes, edge computing, single-node production
 
 [→ View Kubernetes Guide](#kubernetes-deployment)
 
 ---
 
-### 4️⃣ Helm Chart (EKS Ready)
+### 4️⃣ Helm Chart (EKS Production)
 
 **Purpose**: Enterprise-grade multi-environment deployments with GitOps
 
@@ -136,89 +95,9 @@ This repository demonstrates a complete DevOps journey for deploying a retail st
 - Dynamic storage provisioning
 - Production security standards
 
-**Best For**:
-- Multi-environment management (dev/staging/prod)
-- AWS EKS deployments
-- GitOps workflows (ArgoCD/Flux)
+**Best For**: Multi-environment management (dev/staging/prod), AWS EKS deployments, GitOps workflows
 
 [→ View Helm Deployment Guide](#helm-chart-deployment)
-
----
-
-## 🛠️ Technology Stack
-
-### Languages & Frameworks
-
-| Service | Language | Framework | Purpose |
-|---------|----------|-----------|---------|
-| UI | Java 21 | Spring Boot | Frontend application |
-| Cart | Java 21 | Spring Boot | Shopping cart management |
-| Catalog | Golang 1.25 | Native | Product catalog |
-| Orders | Java 21 | Spring Boot | Order processing |
-| Checkout | Node.js 20 | NestJS | Payment processing |
-
-### Infrastructure
-
-| Component | Technology | Version |
-|-----------|------------|---------|
-| Container Runtime | Docker | 24+ |
-| Orchestration | Kubernetes | 1.28+ |
-| Package Manager | Helm | 3.14+ |
-| IaC | Terraform | 1.7+ |
-| Cloud Provider | AWS | N/A |
-| Lightweight K8s | K3s | 1.28+ |
-
-### Databases & Messaging
-
-| Service | Technology | Usage |
-|---------|------------|-------|
-| Catalog | MySQL 8 | Product data |
-| Cart | DynamoDB | Session data |
-| Orders | PostgreSQL 15 | Order records |
-| Checkout | Redis 7 | Caching |
-| Messaging | RabbitMQ 3 | Event streaming |
-
----
-
-## 🧩 Microservices Components
-
-### UI Service
-- **Port**: 8080
-- **Role**: User-facing web interface
-- **Dependencies**: All backend services
-- **Environment Variables**:
-  ```bash
-  RETAIL_UI_ENDPOINTS_CATALOG=http://catalog:8080
-  RETAIL_UI_ENDPOINTS_CARTS=http://cart:8080
-  RETAIL_UI_ENDPOINTS_ORDERS=http://orders:8080
-  RETAIL_UI_ENDPOINTS_CHECKOUT=http://checkout:8080
-  ```
-
-### Catalog Service
-- **Port**: 8080
-- **Technology**: Golang with MySQL
-- **Features**: Product browsing, search, filtering
-- **Build**: CGO-enabled for SQLite compatibility
-
-### Cart Service
-- **Port**: 8080
-- **Technology**: Java with DynamoDB
-- **Features**: Shopping cart CRUD operations
-- **Storage**: 
-  - Local: DynamoDB Local
-  - Production: AWS DynamoDB (IRSA)
-
-### Orders Service
-- **Port**: 8080
-- **Technology**: Java with PostgreSQL & RabbitMQ
-- **Features**: Order creation, status tracking
-- **Messaging**: Publishes order events
-
-### Checkout Service
-- **Port**: 8080
-- **Technology**: Node.js with Redis
-- **Features**: Payment processing, order finalization
-- **Memory**: Requires `--max-old-space-size=768`
 
 ---
 
@@ -231,25 +110,11 @@ This repository demonstrates a complete DevOps journey for deploying a retail st
 - Docker 24+
 - kubectl 1.28+
 - Helm 3.14+
-- Terraform 1.7+ (for EC2 deployment)
 - AWS CLI (for EKS deployment)
+- eksctl (for EKS cluster creation)
 ```
 
-### Local Development (Docker Compose)
-
-```bash
-# Clone repository
-git clone <repository-url>
-cd src
-
-# Start all services
-docker-compose up -d
-
-# Access UI
-open http://localhost:80
-```
-
-### K3s Deployment
+### K3s Local Development
 
 ```bash
 # Install K3s
@@ -262,356 +127,203 @@ export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
 # Deploy application
-kubectl apply -f kubernetes-deployment/
-```
-
-### Helm Deployment (Production)
-
-```bash
-# Update dependencies
 cd retail-store-helm-chart
 helm dependency update
-
-# Deploy to K3s (local)
 helm upgrade --install retail-store . \
   -n retail-store-dev \
   -f values.yaml \
   -f values/k3s/values-dev-k3s.yaml \
   --create-namespace
 
-# Deploy to EKS (production)
-helm upgrade --install retail-store . \
-  -n retail-store-prod \
-  -f values.yaml \
-  -f values/eks/values-prod-eks.yaml \
-  --create-namespace
+# Access UI
+# NodePort: http://<node-ip>:30080
 ```
 
 ---
 
-## 📖 Deployment Guides
+## 🌩️ EKS Production Deployment Guide
 
-### EC2 Deployment with Terraform
+This section provides a complete, step-by-step guide for deploying the retail store application on AWS EKS with production-grade configurations.
 
-#### Architecture
-- **VPC**: `10.0.0.0/16`
-- **Public Subnet**: `10.0.1.0/24` (UI, VPN)
-- **Private Subnet**: `10.0.2.0/24` (Backend services)
-- **DNS**: Route53 private hosted zone
+### Prerequisites
 
-#### Deployment Order
+Before starting, ensure you have:
 
-```bash
-# 1. VPC Infrastructure
-cd aws-ec2-manual-terraform-deployment/vpc
-terraform init
-terraform apply
+- ✅ AWS account with appropriate permissions
+- ✅ AWS CLI installed and configured
+- ✅ kubectl 1.28+ installed
+- ✅ Helm 3.14+ installed
+- ✅ eksctl installed (optional but recommended)
 
-# 2. Security Groups
-cd ../firewall
-terraform apply
+### Step 1: Create EKS Cluster
 
-# 3. VPN Bastion
-cd ../vpn
-terraform apply
+#### Option A: Using eksctl (Recommended)
 
-# 4. Backend Services (in parallel)
-cd ../catalog && terraform apply &
-cd ../cart && terraform apply &
-cd ../orders && terraform apply &
-cd ../checkout && terraform apply &
-wait
-
-# 5. Frontend
-cd ../ui
-terraform apply
-```
-
-#### Configuration Management
-
-All resources share configuration via SSM Parameter Store:
-
-```hcl
-# Example parameter usage
-data "aws_ssm_parameter" "vpc_id" {
-  name = "/retail_store_aws/vpc_id"
-}
-```
-
-#### Security Features
-- Private subnet for backend services
-- Bastion host (VPN) for SSH access
-- Security group chaining
-- Route53 internal DNS
-- No public IPs on backend services
-
----
-
-### Docker Compose Deployment
-
-#### Network Architecture
+Create an `eks.yaml` configuration file:
 
 ```yaml
-networks:
-  retail-net:
-    driver: bridge
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: retail-store-cluster
+  region: ap-south-1
+  version: "1.28"
+
+nodeGroups:
+  - name: retail-store-nodes
+    instanceType: t3.medium
+    desiredCapacity: 3
+    minSize: 2
+    maxSize: 5
+    volumeSize: 20
+    ssh:
+      allow: true
+      publicKeyName: your-ec2-key
+    iam:
+      withAddonPolicies:
+        ebs: true
+        efs: true
+        albIngress: true
 ```
 
-All services communicate via internal DNS names.
-
-#### Service Dependencies
-
-```yaml
-ui:
-  depends_on:
-    - cart
-    - catalog
-    - checkout
-    - orders
-```
-
-Ensures backend services start before frontend.
-
-#### Usage
+Deploy the cluster:
 
 ```bash
-# Start
-docker-compose up -d
+# Create cluster
+eksctl create cluster --config-file=eks.yaml
 
-# View logs
-docker-compose logs -f [service]
+# This takes 15-20 minutes
+# Wait for completion
 
-# Stop
-docker-compose down
-
-# Rebuild after changes
-docker-compose up -d --build
+# Verify cluster access
+kubectl get nodes
+aws eks describe-cluster --name retail-store-cluster
 ```
 
----
+#### Option B: Using AWS Console
 
-### Kubernetes Deployment
+1. Go to AWS Console → EKS → Clusters → Create cluster
+2. Configure cluster settings:
+   - Name: `retail-store-cluster`
+   - Kubernetes version: 1.28
+   - Cluster service role: Create new or select existing
+3. Configure networking:
+   - VPC: Create new or select existing
+   - Subnets: Select at least 2 availability zones
+   - Security groups: Create new
+4. Create cluster (takes 15-20 minutes)
+5. Add node group:
+   - Instance type: t3.medium
+   - Desired size: 3 nodes
+   - IAM role: Create with EBS CSI permissions
 
-#### Namespace Structure
+### Step 2: Configure kubectl
 
 ```bash
-kubectl create namespace retail-store
-kubectl config set-context --current --namespace=retail-store
+# Update kubeconfig
+aws eks update-kubeconfig \
+  --region ap-south-1 \
+  --name retail-store-cluster
+
+# Verify connection
+kubectl get nodes
+kubectl cluster-info
 ```
 
-#### Resource Organization
+### Step 3: Install Required EKS Add-ons
 
-```
-kubernetes-deployment/
-├── namespace.yaml
-├── ui.yaml
-├── cart.yaml
-├── catalog.yaml
-├── orders.yaml
-├── checkout.yaml
-├── mysql.yaml
-├── dynamodb.yaml
-├── postgresql.yaml
-├── rabbitmq.yaml
-└── redis.yaml
-```
-
-#### Deployment
+#### 3.1 Install Metrics Server (Required for HPA)
 
 ```bash
-# Create namespace
-kubectl apply -f namespace.yaml
+# Install metrics server
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
-# Deploy databases (order matters)
-kubectl apply -f mysql.yaml
-kubectl apply -f postgresql.yaml
-kubectl apply -f redis.yaml
-kubectl apply -f rabbitmq.yaml
-kubectl apply -f dynamodb.yaml
+# Wait for deployment
+kubectl wait --for=condition=available deployment/metrics-server -n kube-system --timeout=300s
 
-# Wait for databases
-kubectl wait --for=condition=ready pod -l tier=db --timeout=300s
-
-# Deploy services
-kubectl apply -f catalog.yaml
-kubectl apply -f cart.yaml
-kubectl apply -f orders.yaml
-kubectl apply -f checkout.yaml
-kubectl apply -f ui.yaml
+# Verify installation
+kubectl get deployment metrics-server -n kube-system
+kubectl top nodes  # Should return node metrics
 ```
 
-#### Verification
+#### 3.2 Install AWS EBS CSI Driver (Required for Persistent Volumes)
 
 ```bash
-# Check pods
-kubectl get pods
+# Install EBS CSI driver
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.25"
 
-# Check services
-kubectl get svc
+# Verify installation
+kubectl get pods -n kube-system | grep ebs-csi
 
-# Check HPA
-kubectl get hpa
-
-# View logs
-kubectl logs -f deployment/ui-deployment
+# Expected output: 2 controller pods and daemonset pods on each node
 ```
 
-#### Access UI
+#### 3.3 Configure EBS IAM Permissions
 
 ```bash
-# NodePort (K3s)
-http://<node-ip>:30080
+# Get node instance role name
+NODE_ROLE=$(aws iam list-roles --query "Roles[?contains(RoleName,'nodegroup')].RoleName" --output text | head -1)
+
+# Attach EBS CSI policy
+aws iam attach-role-policy \
+  --role-name $NODE_ROLE \
+  --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy
+
+# Verify policy attachment
+aws iam list-attached-role-policies --role-name $NODE_ROLE
 ```
 
----
+### Step 4: Setup DynamoDB for Cart Service
 
-### Helm Chart Deployment
-
-#### Chart Structure
-
-```
-retail-store-helm-chart/
-├── Chart.yaml              # Umbrella chart
-├── values.yaml             # Base values
-├── values/
-│   ├── k3s/
-│   │   └── values-dev-k3s.yaml
-│   └── eks/
-│       └── values-prod-eks.yaml
-└── charts/                 # Subcharts
-    ├── cart/
-    ├── catalog/
-    ├── checkout/
-    ├── orders/
-    ├── ui/
-    ├── mysql/
-    ├── postgresql/
-    ├── redis/
-    ├── rabbitmq/
-    └── dynamodb/
-```
-
-#### Environment Strategy
-
-**Base Values** (`values.yaml`):
-- Environment-agnostic defaults
-- All services enabled
-
-**K3s Overrides** (`values/k3s/values-dev-k3s.yaml`):
-- DynamoDB local enabled
-- Static AWS credentials
-- NodePort for UI
-- `local-path` storage class
-
-**EKS Overrides** (`values/eks/values-prod-eks.yaml`):
-- DynamoDB local disabled
-- IRSA for AWS access
-- LoadBalancer for UI
-- `ebs-sc` storage class
-- Production resource limits
-
-#### Key Features
-
-##### 1. Horizontal Pod Autoscaling
-
-```yaml
-hpa:
-  minReplicas: 1
-  maxReplicas: 3
-  averageUtilization: 70
-```
-
-##### 2. Resource Management
-
-```yaml
-resources:
-  requests:
-    cpu: 200m
-    memory: 512Mi
-  limits:
-    cpu: 500m
-    memory: 1Gi
-```
-
-##### 3. AWS Authentication Methods
-
-**Local Development** (K3s):
-```yaml
-aws:
-  authMethod: static
-secrets:
-  accessKeyId: local
-  secretAccessKey: local
-configmap:
-  endpoint: http://dynamodb:8000
-```
-
-**Production** (EKS):
-```yaml
-aws:
-  authMethod: irsa
-serviceAccount:
-  name: cart-sa
-  roleArn: arn:aws:iam::ACCOUNT_ID:role/cart-dynamodb-role
-```
-
-##### 4. Storage Classes
-
-| Environment | Storage Class | Provider |
-|-------------|---------------|----------|
-| K3s | `local-path` | Local storage |
-| EKS | `ebs-sc` | AWS EBS |
-
-#### Deployment Commands
+#### 4.1 Create DynamoDB Table
 
 ```bash
-# Prepare dependencies
-helm dependency update
+# Create Items table
+aws dynamodb create-table \
+  --table-name Items \
+  --attribute-definitions AttributeName=id,AttributeType=S \
+  --key-schema AttributeName=id,KeyType=HASH \
+  --billing-mode PAY_PER_REQUEST \
+  --region ap-south-1
 
-# Dry run (validate)
-helm template retail-store . \
-  -f values.yaml \
-  -f values/k3s/values-dev-k3s.yaml
+# Verify table creation
+aws dynamodb describe-table \
+  --table-name Items \
+  --region ap-south-1 \
+  --query 'Table.[TableName,TableStatus,ItemCount]'
 
-# Install (K3s)
-helm upgrade --install retail-store . \
-  -n retail-store-dev \
-  -f values.yaml \
-  -f values/k3s/values-dev-k3s.yaml \
-  --create-namespace
-
-# Install (EKS)
-helm upgrade --install retail-store . \
-  -n retail-store-prod \
-  -f values.yaml \
-  -f values/eks/values-prod-eks.yaml \
-  --create-namespace
-
-# Check deployment
-helm list -n retail-store-dev
-kubectl get all -n retail-store-dev
-
-# Uninstall
-helm uninstall retail-store -n retail-store-dev
+# Expected output: ["Items", "ACTIVE", 0]
 ```
 
----
+#### 4.2 Enable OIDC Provider for IRSA
 
-## 🏗️ Infrastructure Details
+```bash
+# Check if OIDC provider exists
+OIDC_URL=$(aws eks describe-cluster \
+  --name retail-store-cluster \
+  --query "cluster.identity.oidc.issuer" \
+  --output text)
 
-### AWS EKS IRSA Setup
+echo "OIDC Provider URL: $OIDC_URL"
 
-#### Prerequisites
+# If no OIDC provider, enable it
+eksctl utils associate-iam-oidc-provider \
+  --cluster retail-store-cluster \
+  --approve
 
-1. **EKS Cluster** with OIDC provider enabled
-2. **DynamoDB Table** created (name: `Items`)
-3. **IAM Permissions** to create roles and policies
+# Verify OIDC provider exists
+aws iam list-open-id-connect-providers
+```
 
-#### Step-by-Step Setup
+#### 4.3 Create IAM Policy for DynamoDB Access
 
-##### 1. Create IAM Policy
+```bash
+# Get AWS account ID
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 
-```json
+# Create policy document
+cat > cart-dynamodb-policy.json <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -625,35 +337,80 @@ helm uninstall retail-store -n retail-store-dev
         "dynamodb:Query",
         "dynamodb:Scan"
       ],
-      "Resource": "arn:aws:dynamodb:REGION:ACCOUNT_ID:table/Items"
+      "Resource": "arn:aws:dynamodb:ap-south-1:${ACCOUNT_ID}:table/Items"
     }
   ]
 }
+EOF
+
+# Create IAM policy
+aws iam create-policy \
+  --policy-name cart-dynamodb-policy \
+  --policy-document file://cart-dynamodb-policy.json
+
+# Save policy ARN
+POLICY_ARN="arn:aws:iam::${ACCOUNT_ID}:policy/cart-dynamodb-policy"
+echo "Policy ARN: $POLICY_ARN"
 ```
 
-##### 2. Create IAM Role with Trust Relationship
+#### 4.4 Create IAM Role with IRSA Trust Relationship
 
-```json
+```bash
+# Extract OIDC provider ID
+OIDC_ID=$(echo $OIDC_URL | cut -d '/' -f 5)
+
+# Create trust policy
+cat > trust-policy.json <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::ACCOUNT_ID:oidc-provider/oidc.eks.REGION.amazonaws.com/id/OIDC_ID"
+        "Federated": "arn:aws:iam::${ACCOUNT_ID}:oidc-provider/oidc.eks.ap-south-1.amazonaws.com/id/${OIDC_ID}"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "oidc.eks.REGION.amazonaws.com/id/OIDC_ID:sub": "system:serviceaccount:retail-store-prod:cart-sa"
+          "oidc.eks.ap-south-1.amazonaws.com/id/${OIDC_ID}:sub": "system:serviceaccount:retail-store-prod:cart-sa"
         }
       }
     }
   ]
 }
+EOF
+
+# Create IAM role
+aws iam create-role \
+  --role-name cart-dynamodb-role \
+  --assume-role-policy-document file://trust-policy.json
+
+# Attach DynamoDB policy to role
+aws iam attach-role-policy \
+  --role-name cart-dynamodb-role \
+  --policy-arn $POLICY_ARN
+
+# Verify role creation
+aws iam get-role --role-name cart-dynamodb-role
 ```
 
-##### 3. Update Helm Values
+### Step 5: Deploy Application with Helm
+
+#### 5.1 Prepare Helm Chart
+
+```bash
+# Navigate to Helm chart directory
+cd retail-store-helm-chart
+
+# Update dependencies
+helm dependency update
+
+# This downloads all subchart dependencies
+```
+
+#### 5.2 Update Production Values
+
+Edit `values/eks/values-prod-eks.yaml` and update the IAM role ARN:
 
 ```yaml
 retail-store-cart:
@@ -661,66 +418,180 @@ retail-store-cart:
     authMethod: irsa
   serviceAccount:
     name: cart-sa
-    roleArn: arn:aws:iam::ACCOUNT_ID:role/cart-dynamodb-role
+    roleArn: arn:aws:iam::YOUR_ACCOUNT_ID:role/cart-dynamodb-role  # Update this
 ```
 
-##### 4. Verification
+Replace `YOUR_ACCOUNT_ID` with your actual AWS account ID.
+
+#### 5.3 Validate Configuration (Dry Run)
+
+```bash
+# Set namespace context
+kubectl config set-context --current --namespace=retail-store-prod
+
+# Perform dry run
+helm template retail-store . \
+  -f values.yaml \
+  -f values/eks/values-prod-eks.yaml \
+  --namespace retail-store-prod
+
+# Review the output for any errors
+```
+
+#### 5.4 Deploy to EKS
+
+```bash
+# Install application
+helm upgrade --install retail-store . \
+  -n retail-store-prod \
+  -f values.yaml \
+  -f values/eks/values-prod-eks.yaml \
+  --create-namespace \
+  --timeout 10m
+
+# This creates:
+# - Namespace: retail-store-prod
+# - All microservices deployments
+# - Database StatefulSets
+# - Services and ConfigMaps
+# - HPA autoscalers
+# - IRSA ServiceAccount
+```
+
+### Step 6: Verify Deployment
+
+```bash
+# Check Helm release
+helm list -n retail-store-prod
+
+# Check all pods
+kubectl get pods -n retail-store-prod
+
+# Expected output: All pods in Running state
+# NAME                           READY   STATUS    RESTARTS   AGE
+# cart-deployment-xxx            1/1     Running   0          2m
+# catalog-xxx                    1/1     Running   0          2m
+# checkout-xxx                   1/1     Running   0          2m
+# orders-xxx                     1/1     Running   0          2m
+# ui-xxx                         1/1     Running   0          2m
+# mysql-0                        1/1     Running   0          2m
+# postgresql-0                   1/1     Running   0          2m
+# redis-0                        1/1     Running   0          2m
+# rabbitmq-0                     1/1     Running   0          2m
+
+# Check services
+kubectl get svc -n retail-store-prod
+
+# Check HPA
+kubectl get hpa -n retail-store-prod
+
+# Check persistent volumes
+kubectl get pvc -n retail-store-prod
+kubectl get pv
+```
+
+### Step 7: Access the Application
+
+#### Get LoadBalancer URL
+
+```bash
+# Get UI service external IP
+kubectl get svc ui -n retail-store-prod
+
+# Wait for EXTERNAL-IP to be assigned (not <pending>)
+# This creates an AWS Classic Load Balancer
+
+# Example output:
+# NAME   TYPE           CLUSTER-IP      EXTERNAL-IP                          PORT(S)
+# ui     LoadBalancer   10.100.xxx.xxx  a1234567890.ap-south-1.elb.amazonaws.com   80:xxxxx/TCP
+
+# Access application
+curl http://<EXTERNAL-IP>
+
+# Or open in browser
+echo "http://$(kubectl get svc ui -n retail-store-prod -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+```
+
+### Step 8: Verify IRSA Configuration
 
 ```bash
 # Check ServiceAccount annotation
 kubectl describe sa cart-sa -n retail-store-prod
 
-# Check pod environment
+# Expected annotation:
+# eks.amazonaws.com/role-arn: arn:aws:iam::ACCOUNT_ID:role/cart-dynamodb-role
+
+# Check pod environment variables
 kubectl exec -it deployment/cart-deployment -n retail-store-prod -- env | grep AWS
 
-# Check application logs
-kubectl logs deployment/cart-deployment -n retail-store-prod
+# Expected variables:
+# AWS_ROLE_ARN=arn:aws:iam::ACCOUNT_ID:role/cart-dynamodb-role
+# AWS_WEB_IDENTITY_TOKEN_FILE=/var/run/secrets/eks.amazonaws.com/serviceaccount/token
+# AWS_REGION=ap-south-1
+
+# Check cart logs for successful DynamoDB connection
+kubectl logs deployment/cart-deployment -n retail-store-prod | tail -20
+
+# No AccessDenied errors = successful IRSA setup
 ```
 
----
+### Step 9: Test Application Functionality
 
-### Storage Management
+```bash
+# Test catalog service
+kubectl exec -it deployment/cart-deployment -n retail-store-prod -- \
+  curl http://catalog:8080/catalogue
 
-#### K3s (Local Path Provisioner)
+# Test cart service (should connect to DynamoDB)
+kubectl exec -it deployment/ui -n retail-store-prod -- \
+  curl http://cart:8080/cart/test-user
 
-```yaml
-persistence:
-  storageClass: local-path
-  size: 5Gi
+# Check database connectivity
+# MySQL
+kubectl exec -it mysql-0 -n retail-store-prod -- \
+  mysql -u catalog_user -ppassword -e "SHOW DATABASES;"
+
+# PostgreSQL
+kubectl exec -it postgresql-0 -n retail-store-prod -- \
+  psql -U postgres_user -d postgres -c "\l"
 ```
 
-- Storage located on node filesystem
-- No replication
-- Suitable for development
+### Step 10: Enable Auto-Scaling
 
-#### EKS (AWS EBS)
+The HPA is already configured in the Helm chart. Monitor scaling:
 
-```yaml
-persistence:
-  storageClass: ebs-sc
-  size: 5Gi
+```bash
+# Watch HPA status
+kubectl get hpa -n retail-store-prod -w
+
+# Generate load for testing (optional)
+kubectl run -it --rm load-generator \
+  --image=busybox \
+  -n retail-store-prod \
+  -- /bin/sh
+
+# Inside the pod
+while true; do wget -q -O- http://ui; done
 ```
 
-**Create EBS Storage Class**:
+### Step 11: Monitor Application
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: ebs-sc
-provisioner: ebs.csi.aws.com
-parameters:
-  type: gp3
-  encrypted: "true"
-volumeBindingMode: WaitForFirstConsumer
+```bash
+# View resource usage
+kubectl top nodes
+kubectl top pods -n retail-store-prod
+
+# Check logs
+kubectl logs -f deployment/cart-deployment -n retail-store-prod
+kubectl logs -f deployment/ui -n retail-store-prod
+
+# View events
+kubectl get events -n retail-store-prod --sort-by='.lastTimestamp'
+
+# Check service health
+kubectl exec -it deployment/ui -n retail-store-prod -- \
+  curl http://catalog:8080/health
 ```
-
-#### StatefulSet Volume Behavior
-
-- Each pod receives its own PVC
-- Volumes persist across pod restarts
-- Data NOT shared between replicas
-- Database replication handled at application level
 
 ---
 
@@ -728,283 +599,187 @@ volumeBindingMode: WaitForFirstConsumer
 
 ### Horizontal Pod Autoscaling
 
-#### Metrics Server Installation
-
-```bash
-kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-```
-
-#### Verify Metrics
-
-```bash
-kubectl top nodes
-kubectl top pods -n retail-store
-```
-
-#### HPA Configuration
+HPA is pre-configured in the Helm chart for all services:
 
 ```yaml
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: cart-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: cart-deployment
+hpa:
   minReplicas: 1
   maxReplicas: 3
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 70
+  averageUtilization: 70
 ```
 
-#### Monitor Scaling
+Monitor HPA:
 
 ```bash
-# Watch HPA
-kubectl get hpa -n retail-store -w
+# Watch HPA status
+kubectl get hpa -n retail-store-prod -w
 
-# Generate load
-kubectl run -it --rm load-generator --image=busybox /bin/sh
-while true; do wget -q -O- http://cart:8080/health; done
+# Detailed HPA info
+kubectl describe hpa cart-hpa -n retail-store-prod
 ```
+
+### Scaling Databases
+
+For production, consider:
+
+- **MySQL**: Use Amazon RDS Multi-AZ
+- **PostgreSQL**: Use Amazon RDS
+- **Redis**: Use Amazon ElastiCache
+- **RabbitMQ**: Use Amazon MQ
 
 ---
 
-## 🔒 Security & Best Practices
+## 🧹 Cleanup
 
-### Container Security
+### Uninstall Application Only
 
-#### Multi-Stage Builds
+```bash
+# Uninstall Helm release
+helm uninstall retail-store -n retail-store-prod
 
-```dockerfile
-FROM maven:3.9.9-amazoncorretto-21 AS build
-WORKDIR /app
-COPY pom.xml .
-RUN ./mvnw -B dependency:go-offline
-COPY src ./src
-RUN ./mvnw -B package -DskipTests
+# Delete namespace
+kubectl delete namespace retail-store-prod
 
-FROM amazoncorretto:21
-WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
-CMD ["java", "-jar", "app.jar"]
+# Persistent volumes are automatically deleted (ReclaimPolicy: Delete)
 ```
 
-**Benefits**:
-- Smaller final images
-- No build tools in production
-- Faster deployments
-- Reduced attack surface
+### Full Cleanup (Including AWS Resources)
 
-#### Build Optimization
+```bash
+# Delete application
+helm uninstall retail-store -n retail-store-prod
+kubectl delete namespace retail-store-prod
 
-- Dependency caching via layer separation
-- `.dockerignore` to exclude unnecessary files
-- Non-root users (recommended)
+# Delete DynamoDB table
+aws dynamodb delete-table \
+  --table-name Items \
+  --region ap-south-1
 
-### Kubernetes Security
+# Delete IAM resources
+aws iam detach-role-policy \
+  --role-name cart-dynamodb-role \
+  --policy-arn arn:aws:iam::${ACCOUNT_ID}:policy/cart-dynamodb-policy
 
-#### Secrets Management
+aws iam delete-role --role-name cart-dynamodb-role
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysql-secret
-type: Opaque
-data:
-  MYSQL_PASSWORD: <base64-encoded>
+aws iam delete-policy \
+  --policy-arn arn:aws:iam::${ACCOUNT_ID}:policy/cart-dynamodb-policy
+
+# Delete EKS cluster
+eksctl delete cluster --name retail-store-cluster
 ```
-
-**Best Practices**:
-- Use external secrets management (AWS Secrets Manager, Vault)
-- Rotate credentials regularly
-- Never commit secrets to Git
-- Use RBAC to limit secret access
-
-#### Network Policies (Recommended)
-
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: backend-policy
-spec:
-  podSelector:
-    matchLabels:
-      component: backend
-  policyTypes:
-  - Ingress
-  ingress:
-  - from:
-    - podSelector:
-        matchLabels:
-          component: frontend
-```
-
-#### Resource Quotas
-
-```yaml
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: compute-quota
-spec:
-  hard:
-    requests.cpu: "4"
-    requests.memory: 8Gi
-    limits.cpu: "8"
-    limits.memory: 16Gi
-```
-
-### AWS Security
-
-#### IAM Least Privilege
-
-- Use IRSA instead of static credentials
-- Scope policies to specific resources
-- Enable CloudTrail logging
-- Regular security audits
-
-#### VPC Configuration
-
-- Private subnets for backend services
-- NAT Gateway for outbound traffic
-- Security groups with specific CIDR blocks
-- VPC Flow Logs enabled
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Common Issues
+### EKS-Specific Issues
 
 #### Pod CrashLoopBackOff
 
 ```bash
 # Check logs
-kubectl logs <pod-name> -n retail-store --previous
+kubectl logs <pod-name> -n retail-store-prod --previous
 
 # Describe pod
-kubectl describe pod <pod-name> -n retail-store
+kubectl describe pod <pod-name> -n retail-store-prod
 
 # Common causes:
-# - Missing environment variables
-# - Database connection failures
+# - Missing EBS CSI driver
+# - Incorrect IAM role configuration
+# - DynamoDB table doesn't exist
 # - Resource limits too low
-# - Image pull errors
 ```
 
-#### Service Not Accessible
+#### Persistent Volume Issues
 
 ```bash
-# Check service endpoints
-kubectl get endpoints -n retail-store
+# Check storage class
+kubectl get sc
 
-# Verify pod labels match service selector
-kubectl get pods --show-labels -n retail-store
+# Check PVCs
+kubectl get pvc -n retail-store-prod
 
-# Test internal connectivity
-kubectl run -it --rm debug --image=nicolaka/netshoot -- bash
-curl http://catalog:8080/health
-```
-
-#### Database Connection Issues
-
-```bash
-# Check database pod status
-kubectl get pods -l tier=db -n retail-store
-
-# Check persistent volumes
-kubectl get pvc -n retail-store
-
-# Verify secrets
-kubectl get secret mysql-secret -o yaml -n retail-store
-```
-
-#### HPA Not Scaling
-
-```bash
-# Verify metrics server
-kubectl get deployment metrics-server -n kube-system
-
-# Check HPA status
-kubectl describe hpa cart-hpa -n retail-store
+# Describe PVC
+kubectl describe pvc mysql-data-mysql-0 -n retail-store-prod
 
 # Common issues:
-# - Metrics server not installed
-# - Resource requests not defined
-# - Insufficient cluster resources
+# - EBS CSI driver not installed
+# - IAM permissions missing
+# - Storage class misconfigured
 ```
 
-#### DynamoDB Connection (EKS)
+#### LoadBalancer Service Pending
 
 ```bash
-# Verify IRSA setup
-kubectl describe sa cart-sa -n retail-store-prod
+# Check service
+kubectl describe svc ui -n retail-store-prod
 
-# Check pod AWS credentials
+# Common issues:
+# - Insufficient subnet IPs
+# - Security group restrictions
+# - AWS Load Balancer Controller not configured
+```
+
+#### IRSA Authentication Failures
+
+```bash
+# Verify OIDC provider
+aws iam list-open-id-connect-providers
+
+# Check IAM role
+aws iam get-role --role-name cart-dynamodb-role
+
+# Verify ServiceAccount
+kubectl get sa cart-sa -n retail-store-prod -o yaml
+
+# Check pod logs
+kubectl logs deployment/cart-deployment -n retail-store-prod
+
+# Common issues:
+# - OIDC provider not enabled
+# - Trust relationship incorrect
+# - ServiceAccount annotation missing
+```
+
+#### DynamoDB Connection Issues
+
+```bash
+# Verify table exists
+aws dynamodb describe-table --table-name Items --region ap-south-1
+
+# Test from pod
 kubectl exec -it deployment/cart-deployment -n retail-store-prod -- env | grep AWS
 
 # Common issues:
-# - ServiceAccount not annotated
-# - IAM role trust policy incorrect
-# - OIDC provider not enabled
-# - DynamoDB table doesn't exist
+# - Table doesn't exist
+# - Wrong region
+# - IAM policy incorrect
+# - Static credentials present (conflicts with IRSA)
 ```
 
 ### Debug Commands
 
 ```bash
-# Interactive shell in pod
-kubectl exec -it deployment/cart-deployment -n retail-store -- /bin/sh
+# Check cluster health
+kubectl get nodes
+kubectl cluster-info
 
-# Port forward for local access
-kubectl port-forward svc/ui 8080:8080 -n retail-store
+# Check EBS CSI driver
+kubectl get pods -n kube-system | grep ebs-csi
 
 # View all resources
-kubectl get all -n retail-store
+kubectl get all -n retail-store-prod
 
 # Check resource usage
-kubectl top pods -n retail-store --sort-by=cpu
+kubectl top nodes
+kubectl top pods -n retail-store-prod
 
-# Export logs
-kubectl logs deployment/cart-deployment -n retail-store > cart.log
-```
+# Interactive shell
+kubectl exec -it deployment/cart-deployment -n retail-store-prod -- /bin/sh
 
----
-
-## 🧪 Testing
-
-### Health Checks
-
-```bash
-# Individual services
-curl http://<service-ip>:8080/health
-
-# From within cluster
-kubectl run -it --rm curl --image=curlimages/curl -- sh
-curl http://catalog:8080/health
-curl http://cart:8080/health
-curl http://orders:8080/health
-curl http://checkout:8080/health
-```
-
-### Load Testing
-
-```bash
-# Install hey
-go install github.com/rakyll/hey@latest
-
-# Run load test
-hey -z 60s -c 10 http://<ui-ip>:8080
+# Port forward for debugging
+kubectl port-forward svc/ui 8080:80 -n retail-store-prod
 ```
 
 ---
@@ -1012,57 +787,38 @@ hey -z 60s -c 10 http://<ui-ip>:8080
 ## 📚 Additional Resources
 
 ### Documentation
-- [Kubernetes Best Practices](https://kubernetes.io/docs/concepts/configuration/overview/)
-- [Helm Chart Guide](https://helm.sh/docs/chart_template_guide/)
 - [AWS EKS Best Practices](https://aws.github.io/aws-eks-best-practices/)
-- [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+- [Kubernetes Documentation](https://kubernetes.io/docs/)
+- [Helm Documentation](https://helm.sh/docs/)
+- [IRSA Setup Guide](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html)
 
-### Related Projects
-- [Original Retail Store App](https://github.com/aws-containers/retail-store-sample-app)
-- [K3s Documentation](https://docs.k3s.io/)
-- [Docker Compose Reference](https://docs.docker.com/compose/)
+### Architecture Diagrams
+See `assets/` folder for detailed architecture diagrams
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these guidelines:
+Contributions are welcome! Please:
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/improvement`)
-3. Commit changes (`git commit -am 'Add new feature'`)
-4. Push to branch (`git push origin feature/improvement`)
-5. Open a Pull Request
-
-### Code Standards
-- Use meaningful commit messages
-- Add comments to complex logic
-- Update documentation for new features
-- Test all changes locally before submitting
+2. Create a feature branch
+3. Test changes thoroughly
+4. Submit a pull request
 
 ---
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ---
 
 ## 👤 Author
 
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your Profile](https://linkedin.com/in/yourprofile)
-- Email: your.email@example.com
-
----
-
-## 🙏 Acknowledgments
-
-- AWS Containers team for the original retail store sample app
-- Kubernetes community for excellent documentation
-- Helm community for chart best practices
-- All contributors who help improve this project
+**Sarthak**
+- GitHub: [@sarthak6700](https://github.com/sarthak6700)
+- DockerHub: [sarthak6700](https://hub.docker.com/u/sarthak6700)
 
 ---
 
