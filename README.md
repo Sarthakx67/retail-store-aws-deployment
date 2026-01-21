@@ -201,7 +201,7 @@ kubectl cluster-info
 
 ### Step 3: Install Required EKS Add-ons
 
-#### 3.1 Install Metrics Server (Required for HPA)
+#### 3.1 Install Metrics Server (Required for HPA).
 
 ```bash
 # Install metrics server
