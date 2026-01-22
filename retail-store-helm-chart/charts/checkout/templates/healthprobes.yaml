@@ -1,0 +1,22 @@
+startupProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  failureThreshold: 30
+  periodSeconds: 5
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  periodSeconds: 10
+
+readinessProbe:
+  tcpSocket:
+    port: 8080
+  periodSeconds: 5
+
+# Why this is correct:
+# App not responding → restart (liveness)
+# App starting slowly → protected (startup)
+# Port closed / app overloaded → stop traffic (readiness)

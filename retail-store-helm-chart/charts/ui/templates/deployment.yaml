@@ -24,5 +24,16 @@ spec:
         envFrom:
         - configMapRef:
             name: ui-configmap  
+        args:
+        - liveness
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+            httpHeaders:
+            - name: Custom-Header
+              value: Awesome
+          initialDelaySeconds: 3
+          periodSeconds: 3
         resources:
 {{ toYaml .Values.resources | indent 10 }}
