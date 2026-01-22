@@ -3,7 +3,7 @@ startupProbe:
   httpGet:
     path: /health
     port: 8080
-  failureThreshold: 30
+  failureThreshold: 40
   periodSeconds: 5
 
 livenessProbe:
