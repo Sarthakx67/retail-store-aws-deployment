@@ -1,7 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cart # if i give anyother name like cart-service ui will call http://cart-service:8080 not http://cart:8080
+  name: cart
+  labels:
+    app: cart
+    component: backend # if i give anyother name like cart-service ui will call http://cart-service:8080 not http://cart:8080
 spec:
   selector:
     app: cart         
