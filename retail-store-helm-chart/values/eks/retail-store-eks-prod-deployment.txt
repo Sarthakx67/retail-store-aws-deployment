@@ -23,7 +23,11 @@ helm upgrade --install retail-store . \
   -f values.yaml \
   -f values/eks/values-prod-eks.yaml \
   --create-namespace
-  
+
+# command to upgrade helm chart  
+helm upgrade retail-store ./retail-store-helm-chart -n retail-store-dev
+
+
 kubectl get pods
 kubectl get svc
 kubectl get hpa
