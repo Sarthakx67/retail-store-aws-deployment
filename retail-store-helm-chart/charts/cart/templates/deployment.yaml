@@ -33,3 +33,4 @@ spec:
         {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}
+{{ include "cart.healthProbes" . | indent 10 }}

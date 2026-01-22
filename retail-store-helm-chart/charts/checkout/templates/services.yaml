@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     app: checkout          
-    componet: backend
+    component: backend
   ports:
   - protocol: TCP
     port: 8080

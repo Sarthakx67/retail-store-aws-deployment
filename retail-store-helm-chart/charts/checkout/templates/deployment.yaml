@@ -10,12 +10,12 @@ spec:
   selector:
     matchLabels:
       app: checkout         
-      componet: backend
+      component: backend
   template:
     metadata:
       labels:
         app: checkout       
-        componet: backend
+        component: backend
     spec:
       containers:
       - name: checkout
@@ -30,4 +30,4 @@ spec:
           value: "--max-old-space-size=768"
         resources:
 {{ toYaml .Values.resources | indent 10 }}
-        
+{{ include "checkout.healthProbes" . | indent 10 }}

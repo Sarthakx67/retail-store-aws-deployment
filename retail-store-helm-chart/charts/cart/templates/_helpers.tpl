@@ -1,23 +1,20 @@
+{{- define "cart.healthProbes" }}
 startupProbe:
   httpGet:
-    path: /health
+    path: /actuator/health/liveness
     port: 8080
   failureThreshold: 30
   periodSeconds: 5
 
 livenessProbe:
   httpGet:
-    path: /health
+    path: /actuator/health/liveness
     port: 8080
   periodSeconds: 10
 
 readinessProbe:
-  tcpSocket:
+  httpGet:
+    path: /actuator/health/readiness
     port: 8080
   periodSeconds: 5
-
-# Use TCP for readiness.
-# Why?
-# No separate readiness endpoint
-# /health is app-level only
-# DB issues should stop traffic, not restart pod
+{{- end }}

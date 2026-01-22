@@ -29,3 +29,4 @@ spec:
             name: orders-secret
         resources:
 {{ toYaml .Values.resources | indent 10 }}
+{{ include "orders.healthProbes" . | indent 10 }}
