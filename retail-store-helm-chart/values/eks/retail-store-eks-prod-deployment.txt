@@ -105,3 +105,12 @@ helm uninstall retail-store -n retail-store-prod
 kubectl delete namespace retail-store-prod
 
 eksctl delete cluster --config-file=eks.yaml
+
+#advantages of healthProbes
+
+they reduced deployment time from 12minutes to 2 minutes as i dont have to manually start 
+each stopped deployment due to connection failure 
+
+liveness probe --> check if application is working
+readiness probe --> check if application is ready to serve
+startup probe --> give application time to start to prevent it being killed 
