@@ -37,4 +37,4 @@ spec:
           periodSeconds: 3
         resources:
 {{ toYaml .Values.resources | indent 10 }}
-{{ include "ui.healthProbes" . | indent 10 }}
+{{ include "ui.healthProbes" . | indent 8 }}

@@ -30,4 +30,4 @@ spec:
           value: "--max-old-space-size=768"
         resources:
 {{ toYaml .Values.resources | indent 10 }}
-{{ include "checkout.healthProbes" . | indent 10 }}
+{{ include "checkout.healthProbes" . | indent 8 }}

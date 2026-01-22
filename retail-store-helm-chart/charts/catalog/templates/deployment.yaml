@@ -29,4 +29,4 @@ spec:
             name: catalog-secret
         resources:
 {{ toYaml .Values.resources | indent 10 }}
-{{ include "catalog.healthProbes" . | indent 10 }}
+{{ include "catalog.healthProbes" . | indent 8 }}
