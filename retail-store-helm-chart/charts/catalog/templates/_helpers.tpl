@@ -1,4 +1,4 @@
-{{- define "catalog.healthProbes" }}
+{{ define "catalog.healthProbes" }}
 startupProbe:
   httpGet:
     path: /health
@@ -16,9 +16,9 @@ readinessProbe:
   tcpSocket:
     port: 8080
   periodSeconds: 5
-{{- end }}
+{{ end }}
 # Use TCP for readiness.
 # Why?
 # No separate readiness endpoint
-# /health is app-level only
+# /health is applevel only
 # DB issues should stop traffic, not restart pod

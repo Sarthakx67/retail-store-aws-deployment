@@ -1,5 +1,5 @@
 # Startup lets the app start, Liveness keeps it alive, Readiness lets traffic in.
-{{- define "ui.healthProbes" }}
+{{ define "ui.healthProbes" }}
 startupProbe:
   httpGet:
     path: /actuator/health/liveness
@@ -18,7 +18,7 @@ readinessProbe:
     path: /actuator/health/readiness
     port: 8080
   periodSeconds: 5
-{{- end }}
+{{ end }}
 # Startup = don’t kill yet
 # Liveness = restart if dead
 # Readiness = stop traffic

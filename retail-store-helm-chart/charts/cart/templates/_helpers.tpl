@@ -1,4 +1,4 @@
-{{- define "cart.healthProbes" }}
+{{ define "cart.healthProbes" }}
 startupProbe:
   httpGet:
     path: /actuator/health/liveness
@@ -17,4 +17,4 @@ readinessProbe:
     path: /actuator/health/readiness
     port: 8080
   periodSeconds: 5
-{{- end }}
+{{ end }}

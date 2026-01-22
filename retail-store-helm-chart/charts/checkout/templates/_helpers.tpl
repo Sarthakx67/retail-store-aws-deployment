@@ -1,4 +1,4 @@
-{{- define "checkout.healthProbes" }}
+{{ define "checkout.healthProbes" }}
 startupProbe:
   httpGet:
     path: /health
@@ -17,7 +17,7 @@ readinessProbe:
     port: 8080
   periodSeconds: 5
 
-{{- end }}
+{{ end }}
 
 # Why this is correct:
 # App not responding → restart (liveness)
