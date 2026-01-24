@@ -132,12 +132,6 @@ sum(rate(http_server_requests_seconds_count[1m])) by (uri)
 sum(rate(gin_requests_total[1m])) by (path)
 ```
 
-**Node (checkout, ui)**
-
-```promql
-sum(rate(http_requests_total[1m])) by (route)
-```
-
 #### What traffic tells you
 
 * Load increase
@@ -156,13 +150,6 @@ A service can be:
 * receiving traffic
 * but **failing every request**
 
-#### Error rate (example: Go / Gin)
-
-```promql
-sum(rate(gin_requests_total{status=~"5.."}[5m]))
-/
-sum(rate(gin_requests_total[5m]))
-```
 
 #### How to interpret
 
