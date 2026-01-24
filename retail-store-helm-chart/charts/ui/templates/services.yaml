@@ -2,13 +2,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ui
+  labels:
+    app: ui
+    component: backend
 spec:
   type: {{ .Values.service.type }}
   selector:
     app: ui          
     component: frontend
   ports:
-  - name: ui-service-port
+  - name: ui
     protocol: TCP
     port: 80
     targetPort: 8080
