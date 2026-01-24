@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: checkout-monitor
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: checkout
+      component: backend
+  namespaceSelector:
+    matchNames:
+      - retail-store-{{ .Values.environment }}
+  endpoints:
+  - port: checkout
+    path: /metrics
+    interval: 15s

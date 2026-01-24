@@ -2,11 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: checkout
+  labels:
+    app: checkout
+    component: backend # if i give anyother name like checkout-service ui will call http://checkout-service:8080 not http://checkout:8080
 spec:
   selector:
-    app: checkout          
+    app: checkout         
     component: backend
   ports:
   - protocol: TCP
+    name: checkout
     port: 8080
-    targetPort: 8080
+    targetPort: 8080 
