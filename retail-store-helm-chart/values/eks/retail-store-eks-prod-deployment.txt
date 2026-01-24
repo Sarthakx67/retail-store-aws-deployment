@@ -144,8 +144,8 @@ If you are on your **local laptop** and k3s is on an EC2 instance:
 ### Step 1: SSH into EC2 with port forwarding
 
 ```bash
-ssh -i key.pem -L 3000:localhost:3000 ec2-user@13.201.85.173
-
+cd Sarthak\'s-Important/
+ssh -i EC2-key.pem -L 3000:localhost:3000 ec2-user@13.203.220.13
 ```
 
 ### Step 2: On EC2, run

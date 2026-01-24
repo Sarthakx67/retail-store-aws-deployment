@@ -2,11 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: catalog
+  labels:
+    app: catalog
+    component: backend # if i give anyother name like catalog-service ui will call http://catalog-service:8080 not http://catalog:8080
 spec:
   selector:
-    app: catalog      
+    app: catalog         
     component: backend
   ports:
   - protocol: TCP
+    name: catalog
     port: 8080
-    targetPort: 8080
+    targetPort: 8080 
