@@ -4,7 +4,7 @@ metadata:
   name: ui
   labels:
     app: ui
-    component: backend
+    component: frontend
 spec:
   type: {{ .Values.service.type }}
   selector:

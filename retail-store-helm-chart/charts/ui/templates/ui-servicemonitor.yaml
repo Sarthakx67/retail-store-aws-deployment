@@ -9,10 +9,10 @@ spec:
   selector:
     matchLabels:
       app: ui
-      component: backend
+      component: frontend
   namespaceSelector:
     matchNames:
-      - retail-store-dev
+      - retail-store-{{ .Values.environment }}
   endpoints:
   - port: ui
     path: /actuator/prometheus
