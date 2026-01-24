@@ -12,7 +12,7 @@ spec:
       component: backend
   namespaceSelector:
     matchNames:
-      - retail-store-dev
+      - retail-store-{{ .Values.environment }}
   endpoints:
   - port: cart
     path: /actuator/prometheus
