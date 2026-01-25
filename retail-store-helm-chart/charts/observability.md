@@ -214,7 +214,7 @@ increase(kube_pod_container_status_restarts_total[15m])
 
 ### 5.2 CPU Throttling (Hidden Killer)
 
-```promql
+```promql 
 rate(container_cpu_cfs_throttled_seconds_total[5m])
 ```
 
