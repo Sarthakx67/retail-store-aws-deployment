@@ -146,13 +146,14 @@ If you are on your **local laptop** and k3s is on an EC2 instance:
 ```bash
 cd Sarthak\'s-Important/
 ssh -i EC2-key.pem -L 3000:localhost:3000 ec2-user@13.203.220.13
+ssh -i EC2-key.pem -L 9090:localhost:9090 ec2-user@3.110.114.4
 ```
 
 ### Step 2: On EC2, run
 
 ```bash
 kubectl port-forward svc/monitoring-grafana 3000:80 -n monitoring
-
+kubectl port-forward svc/prometheus-operated 9090:9090 -n monitoring
 ```
 
 ### Step 3: Open on your laptop
