@@ -10,6 +10,7 @@ pipeline {
                 ls -ltr
                 pwd
                 echo "Building Docker Image"
+                cd ./src/cart
                 docker build -t retail-store-cart:v2 .
               '''
             }
