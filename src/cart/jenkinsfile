@@ -1,0 +1,28 @@
+pipeline {
+    agent any // to give agent label 
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+              sh '''
+                ls -ltr
+                pwd
+                echo "Hello from GitHub Push webhook event"
+                printenv
+              '''
+            }
+        }
+    }
+    post { 
+        always { 
+            echo 'I will always run whether job is success or not'
+        }
+        success{
+            echo 'I will run only when job is success'
+        }
+        failure{
+            echo 'I will run when failure'
+        }
+    }
+}
