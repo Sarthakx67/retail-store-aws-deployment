@@ -7,10 +7,10 @@ pipeline {
                 echo 'installing..'
               sh '''
                 pwd
-                sudo apt update
-                sudo apt install docker.io -y
-                sudo usermod -aG docker jenkins
-                sudo systemctl restart jenkins
+                apt update
+                apt install docker.io -y
+                usermod -aG docker jenkins
+                systemctl restart jenkins
                 docker ps
               '''
             }
