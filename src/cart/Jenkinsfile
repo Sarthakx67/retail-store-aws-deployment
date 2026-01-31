@@ -2,14 +2,27 @@ pipeline {
     agent any // to give agent label 
 
     stages {
+        stage('installing docker') {
+            steps {
+                echo 'installing..'
+              sh '''
+                pwd
+                sudo apt update
+                sudo apt install docker.io -y
+                sudo usermod -aG docker jenkins
+                sudo systemctl restart jenkins
+                docker ps
+              '''
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Building..'
               sh '''
                 ls -ltr
                 pwd
-                echo "Hello from GitHub Push webhook event"
-                printenv
+                echo "Building Docker Image"
+                docker build -t retail-store-cart:v2 .
               '''
             }
         }
