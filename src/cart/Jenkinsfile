@@ -28,7 +28,14 @@ pipeline {
                 }
             }
         }
-
+        stage('Push Image') {
+            steps {
+                sh '''
+                docker tag retail-store-cart:v2 sarthak6700/retail-store-cart:v2
+                docker push sarthak6700/retail-store-cart:v2
+                '''
+            }
+        }
     }
     post { 
         always { 
