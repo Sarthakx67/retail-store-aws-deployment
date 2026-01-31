@@ -1,20 +1,8 @@
 pipeline {
-    agent any // to give agent label 
+    agent { node { label 'AGENT-1' } }
 
     stages {
-        stage('installing docker') {
-            steps {
-                echo 'installing..'
-              sh '''
-                pwd
-                apt update
-                apt install docker.io -y
-                usermod -aG docker jenkins
-                systemctl restart jenkins
-                docker ps
-              '''
-            }
-        }
+        
         stage('Build') {
             steps {
                 echo 'Building..'
