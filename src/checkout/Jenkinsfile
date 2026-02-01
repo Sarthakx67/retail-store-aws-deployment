@@ -3,7 +3,7 @@ pipeline {
 
     stages {
 
-        stage('Read Version from pom.xml') {
+        stage('Read Version from package.json') {
             steps {
                 script {
                     def packageJson = readJSON(file: 'package.json')
