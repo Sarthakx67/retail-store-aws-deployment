@@ -1,12 +1,13 @@
 pipeline {
     agent { label 'AGENT-1' }
-    
+
     environment {
         VERSION = ""
         IMAGE_NAME = ""
     }
-    
+
     stages {
+
         stage('Get version') {
             steps {
                 script {
@@ -15,16 +16,16 @@ pipeline {
                         script: "cd src/cart && mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tail -n 1",
                         returnStdout: true
                     ).trim()
-                    
+
                     // Now IMAGE name can use it
                     env.IMAGE_NAME = "sarthak6700/retail-store-cart:${env.VERSION}"
-                    
+
                     echo "Version = ${env.VERSION}"
                     echo "Image Name = ${env.IMAGE_NAME}"
                 }
             }
         }
-        
+
         stage('Build Docker Image') {
             steps {
                 sh """
@@ -34,7 +35,7 @@ pipeline {
                 """
             }
         }
-        
+
         stage('Docker Login') {
             steps {
                 withCredentials([usernamePassword(
@@ -46,7 +47,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Push Image') {
             steps {
                 sh "docker push ${IMAGE_NAME}"
