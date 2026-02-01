@@ -6,7 +6,19 @@ pipeline {
     }
 
     stages {
+        stage('Get version'){
+            steps{
+                script{
+                    def version = sh(
+                        script: "cd src/cart && mvn help:evaluate -Dexpression=project.version -q -DforceStdout",
+                        returnStdout: true
+                    ).trim()
 
+                    env.IMAGE_NAME = "sarthak6700/retail-store-cart:${version}"
+                    echo "Docker image will be tagged as ${env.IMAGE_NAME}"
+                }
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 sh '''
