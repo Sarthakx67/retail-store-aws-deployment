@@ -1,20 +1,22 @@
 pipeline {
     agent { node { label 'AGENT-1' } }
 
+    environment {
+        IMAGE_NAME = "sarthak6700/retail-store-cart:${BUILD_NUMBER}"
+    }
+
     stages {
-        
-        stage('Build') {
+
+        stage('Build Docker Image') {
             steps {
-                echo 'Building..'
-              sh '''
-                ls -ltr
-                pwd
+                sh '''
                 echo "Building Docker Image"
-                cd ./src/cart
-                docker build -t retail-store-cart:v2 .
-              '''
+                cd src/cart
+                docker build -t $IMAGE_NAME .
+                '''
             }
         }
+
         stage('Docker Login') {
             steps {
                 withCredentials([usernamePassword(
@@ -28,24 +30,55 @@ pipeline {
                 }
             }
         }
+
         stage('Push Image') {
             steps {
                 sh '''
-                docker tag retail-store-cart:v2 sarthak6700/retail-store-cart:v2
-                docker push sarthak6700/retail-store-cart:v2
+                docker push $IMAGE_NAME
+                '''
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh '''
+                kubectl set image deployment/cart cart=$IMAGE_NAME
+                '''
+            }
+        }
+
+        stage('Verify Rollout') {
+            steps {
+                sh '''
+                kubectl rollout status deployment/cart
+                '''                
+            }
+        }
+
+        stage('Health Check') {
+            steps {
+                sh '''
+                sleep 10
+                curl -f http://YOUR_SERVICE_URL/actuator/health
                 '''
             }
         }
     }
-    post { 
-        always { 
-            echo 'I will always run whether job is success or not'
+
+    post {
+        failure {
+            echo "Deployment failed — rolling back..."
+            sh '''
+            kubectl rollout undo deployment/cart
+            '''
         }
-        success{
-            echo 'I will run only when job is success'
+
+        success {
+            echo "Deployment successful!"
         }
-        failure{
-            echo 'I will run when failure'
+
+        always {
+            echo "Pipeline finished"
         }
     }
 }
