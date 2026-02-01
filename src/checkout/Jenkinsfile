@@ -1,18 +1,17 @@
 pipeline {
     agent { node { label 'AGENT-1' } }
-
+    environment{
+        //here if you create any variable you will have global access, since it is environment no need of def
+        packageVersion = ''
+    }
     stages {
-
-        stage('Read Version from package.json') {
-            steps {
-                script {
-                    def packageJson = readJSON file: 'src/checkout/package.json'
-                    def version = packageJson.version
-
-                    env.IMAGE_NAME = "sarthak6700/retail-store-checkout:${version}"
-
-                    echo "Version detected: ${version}"
-                    echo "Image will be tagged as: ${env.IMAGE_NAME}"
+        stage('Get version'){
+            steps{
+                script{
+                    def packageJson = readJSON(file: 'package.json')
+                    packageVersion = packageJson.version
+                    echo "version: ${packageVersion}"
+                    env.IMAGE_NAME = "sarthak6700/retail-store-orders:${packageVersion}"
                 }
             }
         }
