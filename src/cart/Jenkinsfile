@@ -1,39 +1,40 @@
 pipeline {
-    agent { node { label 'AGENT-1' } }
-
+    agent { label 'AGENT-1' }
+    
     environment {
-        IMAGE_NAME = "" 
+        VERSION = ""
+        IMAGE_NAME = ""
     }
-
+    
     stages {
         stage('Get version') {
             steps {
                 script {
+                    // Save version GLOBALLY
                     env.VERSION = sh(
                         script: "cd src/cart && mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tail -n 1",
                         returnStdout: true
                     ).trim()
-
-                    echo "Maven version detected: ${env.VERSION}"
-
+                    
+                    // Now IMAGE name can use it
                     env.IMAGE_NAME = "sarthak6700/retail-store-cart:${env.VERSION}"
                     
-                    echo "Image name set to: ${env.IMAGE_NAME}"
+                    echo "Version = ${env.VERSION}"
+                    echo "Image Name = ${env.IMAGE_NAME}"
                 }
             }
         }
+        
         stage('Build Docker Image') {
             steps {
-                script {
-                    sh """
-                    echo "Building Docker Image: ${env.IMAGE_NAME}"
-                    cd src/cart
-                    docker build -t ${env.IMAGE_NAME} .
-                    """
-                }
+                sh """
+                echo "Building Docker Image: ${IMAGE_NAME}"
+                cd src/cart
+                docker build -t ${IMAGE_NAME} .
+                """
             }
         }
-
+        
         stage('Docker Login') {
             steps {
                 withCredentials([usernamePassword(
@@ -41,20 +42,14 @@ pipeline {
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    sh '''
-                    echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                    '''
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
                 }
             }
         }
-
+        
         stage('Push Image') {
             steps {
-                script {
-                    sh """
-                    docker push ${env.IMAGE_NAME}
-                    """
-                }
+                sh "docker push ${IMAGE_NAME}"
             }
         }
 
