@@ -51,30 +51,30 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                sh '''
-                kubectl set image deployment/cart cart=$IMAGE_NAME
-                '''
-            }
-        }
+        // stage('Deploy to Kubernetes') {
+        //     steps {
+        //         sh '''
+        //         kubectl set image deployment/cart cart=$IMAGE_NAME
+        //         '''
+        //     }
+        // }
 
-        stage('Verify Rollout') {
-            steps {
-                sh '''
-                kubectl rollout status deployment/cart
-                '''                
-            }
-        }
+        // stage('Verify Rollout') {
+        //     steps {
+        //         sh '''
+        //         kubectl rollout status deployment/cart
+        //         '''                
+        //     }
+        // }
 
-        stage('Health Check') {
-            steps {
-                sh '''
-                sleep 10
-                curl -f http://YOUR_SERVICE_URL/actuator/health
-                '''
-            }
-        }
+        // stage('Health Check') {
+        //     steps {
+        //         sh '''
+        //         sleep 10
+        //         curl -f http://YOUR_SERVICE_URL/actuator/health
+        //         '''
+        //     }
+        // }
     }
 
     post {
