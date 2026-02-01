@@ -1,38 +1,34 @@
 pipeline {
-    agent { label 'AGENT-1' }
-
-    environment {
-        VERSION = ""
-        IMAGE_NAME = ""
-    }
+    agent { node { label 'AGENT-1' } }
 
     stages {
 
-        stage('Get version') {
+        stage('Read Version from pom.xml') {
             steps {
                 script {
-                    // Save version GLOBALLY
-                    env.VERSION = sh(
-                        script: "cd src/cart && mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tail -n 1",
+                    def version = sh(
+                        script: "cd src/cart && mvn help:evaluate -Dexpression=project.version -q -DforceStdout",
                         returnStdout: true
                     ).trim()
 
-                    // Now IMAGE name can use it
-                    env.IMAGE_NAME = "sarthak6700/retail-store-cart:${env.VERSION}"
-
-                    echo "Version = ${env.VERSION}"
-                    echo "Image Name = ${env.IMAGE_NAME}"
+                    env.IMAGE_NAME = "sarthak6700/retail-store-cart:${version}"
+                    env.VERSION = version
+                    
+                    echo "Version detected: ${version}"
+                    echo "Image will be tagged as: ${env.IMAGE_NAME}"
                 }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh """
-                echo "Building Docker Image: ${IMAGE_NAME}"
-                cd src/cart
-                docker build -t ${IMAGE_NAME} .
-                """
+                script {
+                    sh """
+                    echo "Building image: ${env.IMAGE_NAME}"
+                    cd src/cart
+                    docker build -t "${env.IMAGE_NAME}" .
+                    """
+                }
             }
         }
 
@@ -43,14 +39,21 @@ pipeline {
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    sh '''
+                    echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                    '''
                 }
             }
         }
 
         stage('Push Image') {
             steps {
-                sh "docker push ${IMAGE_NAME}"
+                script {
+                    sh """
+                    echo "Pushing image: ${env.IMAGE_NAME}"
+                    docker push "${env.IMAGE_NAME}"
+                    """
+                }
             }
         }
 
@@ -58,7 +61,7 @@ pipeline {
         //     steps {
         //         script {
         //             sh """
-        //             kubectl set image deployment/cart cart=${env.IMAGE_NAME}
+        //             kubectl set image deployment/cart cart="${env.IMAGE_NAME}"
         //             """
         //         }
         //     }
@@ -66,9 +69,7 @@ pipeline {
 
         // stage('Verify Rollout') {
         //     steps {
-        //         sh '''
-        //         kubectl rollout status deployment/cart
-        //         '''                
+        //         sh 'kubectl rollout status deployment/cart'
         //     }
         // }
 
@@ -85,17 +86,16 @@ pipeline {
     post {
         failure {
             echo "Deployment failed — rolling back..."
-            sh '''
-            kubectl rollout undo deployment/cart
-            '''
+            sh 'kubectl rollout undo deployment/cart || true'
         }
-
         success {
-            echo "Deployment successful!"
+            script {
+                echo "Deployment successful!"
+                echo "Deployed image: ${env.IMAGE_NAME}"
+            }
         }
-
         always {
-            echo "Pipeline finished"
+            sh 'docker logout || true'
         }
     }
 }
