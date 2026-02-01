@@ -2,7 +2,7 @@ pipeline {
     agent { node { label 'AGENT-1' } }
 
     environment {
-        IMAGE_NAME = "sarthak6700/retail-store-cart:${version}"
+        IMAGE_NAME = "" 
     }
 
     stages {
@@ -15,7 +15,7 @@ pipeline {
                     ).trim()
 
                     echo "Maven version detected: ${version}"
-                    env.IMAGE_NAME = "sarthak6700/retail-store-cart:${version}"
+                    env.IMAGE_NAME = "sarthak6700/retail-store-cart:${env.VERSION}"
                 }
             }
         }
