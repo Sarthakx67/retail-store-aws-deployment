@@ -1,13 +1,11 @@
 pipeline {
-    agent { label 'AGENT-1' }
+    agent { node { label 'AGENT-1' } }
 
     environment {
-        IMAGE_NAME = ""
-        VERSION = ""
+        IMAGE_NAME = "" 
     }
 
     stages {
-
         stage('Get version') {
             steps {
                 script {
@@ -16,20 +14,23 @@ pipeline {
                         returnStdout: true
                     ).trim()
 
-                    env.IMAGE_NAME = "sarthak6700/retail-store-cart:${env.VERSION}"
+                    echo "Maven version detected: ${env.VERSION}"
 
-                    echo "Version: ${env.VERSION}"
-                    echo "Image: ${env.IMAGE_NAME}"
+                    env.IMAGE_NAME = "sarthak6700/retail-store-cart:${env.VERSION}"
+                    
+                    echo "Image name set to: ${env.IMAGE_NAME}"
                 }
             }
         }
         stage('Build Docker Image') {
             steps {
-                sh '''
-                echo "Building Docker Image"
-                cd src/cart
-                docker build -t $IMAGE_NAME .
-                '''
+                script {
+                    sh """
+                    echo "Building Docker Image: ${env.IMAGE_NAME}"
+                    cd src/cart
+                    docker build -t ${env.IMAGE_NAME} .
+                    """
+                }
             }
         }
 
@@ -49,17 +50,21 @@ pipeline {
 
         stage('Push Image') {
             steps {
-                sh '''
-                docker push $IMAGE_NAME
-                '''
+                script {
+                    sh """
+                    docker push ${env.IMAGE_NAME}
+                    """
+                }
             }
         }
 
         // stage('Deploy to Kubernetes') {
         //     steps {
-        //         sh '''
-        //         kubectl set image deployment/cart cart=$IMAGE_NAME
-        //         '''
+        //         script {
+        //             sh """
+        //             kubectl set image deployment/cart cart=${env.IMAGE_NAME}
+        //             """
+        //         }
         //     }
         // }
 
