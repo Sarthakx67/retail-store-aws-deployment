@@ -6,17 +6,17 @@ pipeline {
         stage('Read Version from package.json') {
             steps {
                 script {
-                    def packageJson = readJSON(file: 'package.json')
-                    packageVersion = packageJson.version
-                    echo "version: ${packageVersion}"
+                    def packageJson = readJSON file: 'src/checkout/package.json'
+                    def version = packageJson.version
 
-                    env.IMAGE_NAME = "sarthak6700/retail-store-checkout:$packageVersion"
-                    
-                    echo "Version detected: $packageVersion"
+                    env.IMAGE_NAME = "sarthak6700/retail-store-checkout:${version}"
+
+                    echo "Version detected: ${version}"
                     echo "Image will be tagged as: ${env.IMAGE_NAME}"
                 }
             }
         }
+
 
         stage('Build Docker Image') {
             steps {
