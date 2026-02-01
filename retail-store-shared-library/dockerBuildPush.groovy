@@ -1,6 +1,6 @@
 def call(Map config) {
 
-    sh "docker build -t $IMAGE src/${config.service}"
+    sh "docker build -t ${env.IMAGE} src/${config.service}"
 
     withCredentials([usernamePassword(
         credentialsId: 'dockerhub-creds',
@@ -10,5 +10,5 @@ def call(Map config) {
         sh 'echo $PASS | docker login -u $USER --password-stdin'
     }
 
-    sh "docker push $IMAGE"
+    sh "docker push ${env.IMAGE}"
 }

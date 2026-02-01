@@ -1,11 +1,18 @@
 def call(Map config) {
+
     sh """
-    kubectl set image deployment/${config.deployName} ${config.deployName}=$IMAGE
+    echo "🚀 Deploying ${config.service} version ${config.version}"
 
-    kubectl rollout status deployment/${config.deployName}
+    cd helm-repo/retail-store-helm-chart
 
+    helm upgrade --install retail-store . \
+        -n retail-store-${config.namespace} \
+        --set ${config.service}.image.tag=${config.version} \
+        -f values.yaml \
+        -f values/${config.env}/values-${config.namespace}-${config.env}.yaml \
+        --create-namespace \
+        --timeout 10m
+
+    kubectl rollout status deployment/${config.service} -n ${config.namespace}
     """
-    // sleep 10
-    // curl -f ${config.healthUrl} || kubectl rollout undo deployment/${config.deployName}
-    // """
 }
