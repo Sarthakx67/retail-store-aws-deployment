@@ -9,12 +9,13 @@ pipeline {
         stage('Get version') {
             steps {
                 script {
-                    def version = sh(
+                    env.VERSION = sh(
                         script: "cd src/cart && mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tail -n 1",
                         returnStdout: true
                     ).trim()
 
-                    echo "Maven version detected: ${version}"
+                    echo "Maven version detected: ${env.VERSION}"
+
                     env.IMAGE_NAME = "sarthak6700/retail-store-cart:${env.VERSION}"
                 }
             }
