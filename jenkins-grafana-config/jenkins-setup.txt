@@ -18,5 +18,4 @@ setup of nodes
 
 check resources
     - check creation of serviceaccount of services
-    - check attachment of ebs volume to statefullset
-    
+    - check attachment of ebs volume to statefullset.
