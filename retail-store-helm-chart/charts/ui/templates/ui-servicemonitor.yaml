@@ -12,7 +12,7 @@ spec:
       component: frontend
   namespaceSelector:
     matchNames:
-      - retail-store-{{ .Values.environment }}
+      - retail-store-{{ .Values.global.environment }}
   endpoints:
   - port: ui
     path: /actuator/prometheus

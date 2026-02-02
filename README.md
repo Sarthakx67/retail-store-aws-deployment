@@ -192,7 +192,7 @@ aws eks describe-cluster --name retail-store-cluster
 # Update kubeconfig
 aws eks update-kubeconfig \
   --region ap-south-1 \
-  --name retail-store-cluster
+  --name eks-cluster
 
 # Verify connection
 kubectl get nodes

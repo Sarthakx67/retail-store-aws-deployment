@@ -12,7 +12,7 @@ spec:
       component: backend
   namespaceSelector:
     matchNames:
-      - retail-store-{{ .Values.environment }}
+      - retail-store-{{ .Values.global.environment }}
   endpoints:
   - port: catalog
     path: /metrics

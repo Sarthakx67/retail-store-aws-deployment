@@ -1,6 +1,7 @@
 # Global ENV
-environment: prod
-
+global:
+  environment: prod
+  
 # DYNAMODB SERVICE
 retail-store-dynamodb:
   enabled: false
