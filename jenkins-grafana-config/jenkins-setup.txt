@@ -1,0 +1,22 @@
+create jenkins server
+add nodes
+put /home/ec2-user/Jenkins in config
+add jenkins shared libraray in global trusted pipeline
+add docker credentials 
+add "pipeline utility steps" plugin in jenkins with  "pipeline stage view"
+and while creating job/pipeline of service select src/cart/jenkinsfile
+
+give these roles to kubernetes nodes
+    - ec2full access
+    - dynamodb full access
+
+setup of nodes
+    it should have 
+        - ebs csi driver install
+        - metrics server --> "kubectl top nodes" should be working
+        - monitoring installed with prometheus and grafana
+
+check resources
+    - check creation of serviceaccount of services
+    - check attachment of ebs volume to statefullset
+    
