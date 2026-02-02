@@ -13,6 +13,6 @@ def call(Map config) {
         --create-namespace \
         --timeout 10m
 
-    kubectl rollout status deployment/${config.service} -n ${config.namespace}
+    kubectl rollout status deployment/${config.service} -n retail-store-${config.namespace}
     """
 }
