@@ -1,5 +1,5 @@
 # Global ENV
-environment: dev
+environment: prod
 
 # DYNAMODB SERVICE
 retail-store-dynamodb:
