@@ -1,3 +1,5 @@
+#for testing purpose
+
 create jenkins server
 add nodes
 put /home/ec2-user/Jenkins in config
