@@ -720,7 +720,7 @@ aws dynamodb describe-table --table-name Items --region ap-south-1
 kubectl exec -it deployment/cart-deployment -n retail-store-prod -- env | grep AWS
 
 # Common issues:
-# - Table doesn't exist
+# - Table doesn't exist.
 # - Wrong region
 # - IAM policy incorrect
 # - Static credentials present (conflicts with IRSA)
