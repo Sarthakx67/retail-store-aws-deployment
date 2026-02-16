@@ -9,6 +9,9 @@
   <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" />
   <img src="https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white" />
   <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white" />
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
   <img src="https://img.shields.io/badge/Helm-0F1689?style=for-the-badge&logo=helm&logoColor=white" />
   <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white" />
@@ -34,6 +37,7 @@
 <td width="50%" valign="top">
 
 ### ⚡️ What I Built
+
 ✅ **Full AWS Infrastructure** - VPC, EKS, IAM from scratch  
 ✅ **Zero Secrets** - IRSA for secure AWS access  
 ✅ **Complete CI/CD** - Jenkins pipeline automation  
@@ -45,6 +49,7 @@
 <td width="50%" valign="top">
 
 ### 🎯 DevOps Skills Proven
+
 🔹 Infrastructure as Code (Terraform)  
 🔹 Container Orchestration (K8s + Helm)  
 🔹 CI/CD Pipeline Design (Jenkins)  
@@ -68,11 +73,13 @@
 
 <table>
 <tr>
-<td width="33%" align="center">
+<td width="33%" align="center" valign="top">
 
 ### ☁️ Cloud & Infrastructure
 
 <img src="https://skillicons.dev/icons?i=aws,terraform,kubernetes,docker" />
+
+<br>
 
 **AWS Services**
 - EKS (Elastic Kubernetes Service)
@@ -86,11 +93,13 @@
 - SSM Parameter Store
 
 </td>
-<td width="33%" align="center">
+<td width="33%" align="center" valign="top">
 
 ### 🔄 CI/CD & Automation
 
 <img src="https://skillicons.dev/icons?i=jenkins,bash,git,github" />
+
+<br>
 
 **Pipeline Engineering**
 - Jenkins shared libraries
@@ -104,11 +113,13 @@
 - Environment management
 
 </td>
-<td width="33%" align="center">
+<td width="33%" align="center" valign="top">
 
 ### 📊 Monitoring & Security
 
 <img src="https://skillicons.dev/icons?i=prometheus,grafana,linux" />
+
+<br>
 
 **Observability**
 - Prometheus metrics
@@ -142,7 +153,45 @@
 
 ### Production AWS Infrastructure
 
-![RoboShop Architecture Diagram](./assets/architecture.png)
+</div>
+
+```ascii
+╔══════════════════════════════════════════════════════════════════╗
+║                    AWS Cloud (ap-south-1)                        ║
+║  ┌────────────────────────────────────────────────────────┐      ║
+║  │                  VPC (10.0.0.0/16)                     │      ║
+║  │                                                         │      ║
+║  │  ┌──────────┐  ┌──────────┐  ┌──────────┐             │      ║
+║  │  │ Public   │  │ Public   │  │ Public   │             │      ║
+║  │  │ Subnet   │  │ Subnet   │  │ Subnet   │             │      ║
+║  │  │   AZ-1   │  │   AZ-2   │  │   AZ-3   │             │      ║
+║  │  └────┬─────┘  └────┬─────┘  └────┬─────┘             │      ║
+║  │       │             │             │                     │      ║
+║  │    ┌──▼─────────────▼─────────────▼──┐                │      ║
+║  │    │  Application Load Balancer      │                │      ║
+║  │    └──┬─────────────┬─────────────┬──┘                │      ║
+║  │       │             │             │                     │      ║
+║  │  ┌────▼─────┐  ┌────▼─────┐  ┌────▼─────┐             │      ║
+║  │  │ Private  │  │ Private  │  │ Private  │             │      ║
+║  │  │ Subnet   │  │ Subnet   │  │ Subnet   │             │      ║
+║  │  │          │  │          │  │          │             │      ║
+║  │  │ ┌──────┐ │  │ ┌──────┐ │  │ ┌──────┐ │             │      ║
+║  │  │ │ EKS  │ │  │ │ EKS  │ │  │ │ EKS  │ │             │      ║
+║  │  │ │ Node │ │  │ │ Node │ │  │ │ Node │ │             │      ║
+║  │  │ └──────┘ │  │ └──────┘ │  │ └──────┘ │             │      ║
+║  │  │          │  │          │  │          │             │      ║
+║  │  │ Pods:    │  │ Pods:    │  │ Pods:    │             │      ║
+║  │  │ • UI     │  │ • Catalog│  │ • Orders │             │      ║
+║  │  │ • Cart   │  │ • MySQL  │  │ • Postgres│            │      ║
+║  │  │ • Checkout│ │ • Redis  │  │ • RabbitMQ│            │      ║
+║  │  └──────────┘  └──────────┘  └──────────┘             │      ║
+║  └─────────────────────────────────────────────────────────┘      ║
+║                           │                                       ║
+║                    ┌──────▼────────┐                              ║
+║                    │   DynamoDB    │  ← IRSA Secured              ║
+║                    └───────────────┘                              ║
+╚══════════════════════════════════════════════════════════════════╝
+```
 
 <div align="center">
 
@@ -159,54 +208,54 @@
 <table>
 <tr>
 <td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="50" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="60" height="60" />
 <br><strong>AWS</strong>
 <br><sub>EKS, VPC, IAM</sub>
 </td>
 <td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" width="50" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" width="60" height="60" />
 <br><strong>Kubernetes</strong>
 <br><sub>v1.28+</sub>
 </td>
 <td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" width="50" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" width="60" height="60" />
 <br><strong>Terraform</strong>
 <br><sub>IaC</sub>
 </td>
 <td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" width="50" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" width="60" height="60" />
 <br><strong>Jenkins</strong>
 <br><sub>CI/CD</sub>
 </td>
 <td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="50" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="60" height="60" />
 <br><strong>Docker</strong>
 <br><sub>Containers</sub>
 </td>
 </tr>
 <tr>
 <td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" width="50" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" width="60" height="60" />
 <br><strong>Prometheus</strong>
 <br><sub>Metrics</sub>
 </td>
 <td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" width="50" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" width="60" height="60" />
 <br><strong>Grafana</strong>
 <br><sub>Dashboards</sub>
 </td>
 <td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="50" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="60" height="60" />
 <br><strong>Java</strong>
 <br><sub>Spring Boot</sub>
 </td>
 <td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" width="50" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" width="60" height="60" />
 <br><strong>Go</strong>
 <br><sub>Backend</sub>
 </td>
 <td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="50" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="60" height="60" />
 <br><strong>Node.js</strong>
 <br><sub>Microservice</sub>
 </td>
@@ -227,9 +276,10 @@
 
 <table>
 <tr>
-<td width="50%">
+<td width="50%" valign="top">
 
 **Traditional Approach** ❌
+
 ```yaml
 # BAD: Hardcoded credentials
 env:
@@ -239,15 +289,18 @@ env:
     value: "wJalrXUtnFEMI/K7MDENG/..."
 ```
 
+<br>
+
 **Problems:**
 - 🔴 Secrets in code/config
 - 🔴 Manual rotation
 - 🔴 Audit nightmare
 
 </td>
-<td width="50%">
+<td width="50%" valign="top">
 
 **My Implementation** ✅
+
 ```yaml
 # GOOD: IRSA
 apiVersion: v1
@@ -293,13 +346,12 @@ helm upgrade --install retail-store . \
 helm install monitoring prometheus-community/kube-prometheus-stack
 
 # ④ Verify Everything Works
-kubectl get pods -A
-kubectl top nodes
+kubectl get pods -A && kubectl top nodes
 ```
 
 <div align="center">
 
-**⏱️ Total Time: ~15 minutes | 🤖 Manual Steps: 0**
+**⏱️ Total Time: ~15 minutes** | **🤖 Manual Steps: 0**
 
 </div>
 
@@ -315,40 +367,56 @@ kubectl top nodes
 
 <table>
 <tr>
-<td width="25%" align="center">
+<td width="25%" align="center" valign="top">
 
 📈 **Request Rate**
 
-HTTP requests/sec per service
+<br>
+
+HTTP requests/sec  
+per service
 
 </td>
-<td width="25%" align="center">
+<td width="25%" align="center" valign="top">
 
 🔴 **Error Rate**
 
-5xx errors and failures
+<br>
+
+5xx errors and  
+failures
 
 </td>
-<td width="25%" align="center">
+<td width="25%" align="center" valign="top">
 
 ⏱️ **Latency**
 
-P95/P99 response times
+<br>
+
+P95/P99  
+response times
 
 </td>
-<td width="25%" align="center">
+<td width="25%" align="center" valign="top">
 
 💻 **Resources**
 
-CPU, Memory, Throttling
+<br>
+
+CPU, Memory,  
+Throttling
 
 </td>
 </tr>
 </table>
 
+<div align="center">
+
 **Grafana Dashboards:** Custom per-service metrics  
 **Alerts:** Prometheus AlertManager  
 **Log Aggregation:** kubectl logs + potential ELK integration
+
+</div>
 
 ---
 
@@ -380,11 +448,12 @@ graph LR
     style J fill:#FF9800
 ```
 
-**Jenkins Shared Library Features:**
-- Auto version detection from source files
-- Multi-language build support
-- Environment-specific deployments
-- Automated rollback on failure
+<div align="center">
+
+**Jenkins Shared Library Features:**  
+Auto version detection • Multi-language builds • Environment-specific deployments • Automated rollback
+
+</div>
 
 ---
 
@@ -424,7 +493,7 @@ aws-retail-store/
 
 <table>
 <tr>
-<td width="50%">
+<td width="50%" valign="top">
 
 ### 🎯 Technical Skills
 
@@ -438,7 +507,7 @@ aws-retail-store/
 ✅ Multi-language builds  
 
 </td>
-<td width="50%">
+<td width="50%" valign="top">
 
 ### 🧠 DevOps Mindset
 
@@ -484,6 +553,8 @@ aws-retail-store/
 
 Building **Secure, Scalable, Observable** cloud-native systems
 
+<br>
+
 <p align="center">
   <a href="mailto:sarthak.devops@email.com">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
@@ -499,6 +570,8 @@ Building **Secure, Scalable, Observable** cloud-native systems
 ---
 
 ### 🌟 If this project helped you, please star the repository!
+
+<br>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer" width="100%">
 
