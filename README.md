@@ -1,4 +1,4 @@
-# Hi, I'm Sarthak Singh 👋
+<!-- # Hi, I'm Sarthak Singh 👋
 
 **DevOps Engineer | Cloud Infrastructure Specialist | 2nd Year Computer Engineering Student**
 
@@ -259,4 +259,70 @@ I'm actively looking for opportunities to contribute to production infrastructur
 
 ![Profile Views](https://komarev.com/ghpvc/?username=Sarthakx67&color=blue&style=flat-square)
 
+</div> -->
+
+# 🛒 Sarthak Singh | DevOps & Platform Engineer 👋
+### "Architecting Secure, Scalable, and Observable Systems"
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/sarthak-singh-a0aa62322)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=for-the-badge&logo=github)](https://github.com/Sarthakx67)
+[![Availability](https://img.shields.io/badge/Availability-Internship_May_2026-brightgreen?style=for-the-badge)](https://www.linkedin.com/in/sarthak-singh-a0aa62322)
+
+---
+
+## 🎯 Professional Summary
+I am a 2nd-year Computer Engineering student building **production-grade cloud infrastructure**. I specialize in transforming complex microservices into resilient, automated ecosystems. My philosophy centers on **Security (Zero-Trust)**, **Scalability**, and **Observability**.
+
+---
+
+## 🛠️ Technical Arsenal
+| Cloud & Orchestration | CI/CD & Automation | Observability & Data |
+| :--- | :--- | :--- |
+| ![AWS](https://img.shields.io/badge/AWS-232F3E?logo=amazon-aws&style=flat-square) | ![Jenkins](https://img.shields.io/badge/Jenkins-D24939?logo=jenkins&style=flat-square) | ![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?logo=prometheus&style=flat-square) |
+| ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?logo=kubernetes&style=flat-square) | ![Terraform](https://img.shields.io/badge/Terraform-7B42BC?logo=terraform&style=flat-square) | ![Grafana](https://img.shields.io/badge/Grafana-F46800?logo=grafana&style=flat-square) |
+| ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&style=flat-square) | ![Ansible](https://img.shields.io/badge/Ansible-EE0000?logo=ansible&style=flat-square) | ![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&style=flat-square) |
+
+---
+
+## 🚀 Featured Project: AWS Retail Store Microservices
+**A Production-Grade, Cloud-Native Platform**
+
+
+### 🖼️ Evidence of Work (System Gallery)
+| Application Frontend | Kubernetes Resource Health | Prometheus Monitoring |
+| :---: | :---: | :---: |
+| <img src="assets/01-ui.png" width="250" /> | <img src="assets/status-pod-svc-pv-pvc.png" width="250" /> | <img src="assets/application-services.png" width="250" /> |
+| *01-ui.png* | *status-pod-svc-pv-pvc.png* | *application-services.png* |
+
+### 🔑 Key Engineering Achievements
+* **IaC & Automation:** 100% automated provisioning via **Modular Terraform**. Modularized VPC, EKS, and IAM for zero-drift deployments.
+* **Zero-Trust Security:** Implemented **IRSA (IAM Roles for Service Accounts)**. Services interact with DynamoDB via OIDC tokens, eliminating hardcoded credentials.
+* **Advanced CI/CD:** Built a custom **Jenkins Shared Library** in Groovy to standardize multi-stage builds and automated Helm deployments.
+* **Observability:** Full stack monitoring using **Prometheus & Grafana** with custom ServiceMonitors for request rates and P95 latency.
+
+---
+
+## 📊 Metrics & Impact
+* **Deployment Efficiency:** Setup time reduced from hours to **~12 minutes** via IaC.
+* **Self-Healing:** Configured Liveness/Readiness probes + HPA, ensuring **99.9% availability** during traffic spikes.
+* **Optimized Storage:** Dynamic EBS provisioning using the **EBS CSI Driver**.
+
+---
+
+## 💼 Why Work With Me?
+- **Production-Ready Mindset:** I build for "Day 2 Operations" (scaling, logging, patching).
+- **Systems Thinking:** I bridge the gap between application code (Java/Go/Node) and infrastructure performance.
+- **Fast Mover:** Seeking a **DevOps/SRE Internship for Summer 2026** and ready to clear technical rounds today.
+
+---
+
+## 📫 Let's Connect!
+- **LinkedIn:** [linkedin.com/in/sarthak-singh-a0aa62322](https://www.linkedin.com/in/sarthak-singh-a0aa62322)
+- **GitHub:** [@Sarthakx67](https://github.com/Sarthakx67)
+- **Email:** [sarthak.devops@email.com]
+
+<div align="center">
+  <img src="https://komarev.com/ghpvc/?username=Sarthakx67&color=blue&style=flat-square" />
+  <br>
+  <b>Building secure, scalable, and observable cloud infrastructure.</b>
 </div>
