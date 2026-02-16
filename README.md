@@ -463,14 +463,14 @@ Auto version detection • Multi-language builds • Environment-specific deploy
 
 **Application Services Overview**
 
-![Application Services](./assets/application-service-1.png)
+![Application Service Detail](./assets/application-services.png)
 
 </td>
 <td width="50%" align="center">
 
 **Service Details**
 
-![Application Service Detail](./assets/application-services.png)
+![Application Services](./assets/application-service-1.png)
 
 </td>
 </tr>
