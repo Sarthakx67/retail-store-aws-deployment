@@ -22,7 +22,7 @@
   <a href="#-production-highlights">Highlights</a> •
   <a href="#-my-devops-skills">Skills</a> •
   <a href="#-tech-stack">Stack</a> •
-  <a href="#-architecture">Architecture</a> •
+  <a href="#-architecture">Architecture</a> 
 </p>
 
 </div>
