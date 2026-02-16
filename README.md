@@ -243,7 +243,6 @@
 📈 **Request Rate**
 
 <br>
-
 HTTP requests/sec  
 per service
 
