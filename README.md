@@ -58,9 +58,7 @@ A robust pipeline that bridges the gap between development and production:
 ```text
 ├── terraform/               # Infrastructure as Code (VPC, EKS, Security Groups)
 ├── retail-store-helm-chart/ # Production Helm charts (Umbrella pattern)
-├── jenkins/                 # Groovy Pipeline (Jenkinsfile)
-├── manifests/               # (Optional) Raw K8s YAMLs for manual reference
-└── docs/                    # Detailed deployment & troubleshooting guides
+└── jenkins/                 # Groovy Pipeline (Jenkinsfile)
 
 ```
 
