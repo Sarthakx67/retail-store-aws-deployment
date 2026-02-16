@@ -1,271 +1,209 @@
-# 🚀 AWS Retail Store – Production-Grade Microservices Platform
+# AWS Retail Store: Production-Grade Microservices Platform
 
-> Secure • Scalable • Observable • Fully Automated  
-> Built with AWS EKS, Terraform, Kubernetes, Helm & Jenkins
-
----
-
-# 🌐 Live Application Preview
-
-## 🖥️ Customer UI
-
-<p align="center">
-  <img src="./assets/01-ui.png" width="900"/>
-</p>
+> Enterprise microservices deployment on AWS EKS with automated CI/CD, IRSA security, and production-grade observability
 
 ---
 
-## 🛍️ Product Catalog
+## 🎯 What This Demonstrates
 
-<p align="center">
-  <img src="./assets/02-catalog.png" width="900"/>
-</p>
+This project showcases **production-ready DevOps practices** for deploying a polyglot microservices application:
 
----
-
-## 🛒 Shopping Cart
-
-<p align="center">
-  <img src="./assets/03-cart.png" width="900"/>
-</p>
+- **Infrastructure as Code** – Full Terraform automation (VPC, EKS, IAM, Security Groups)
+- **Container Orchestration** – Kubernetes on AWS EKS with Helm umbrella charts
+- **CI/CD Automation** – Jenkins pipelines with automated image builds and deployments
+- **Zero-Trust Security** – IAM Roles for Service Accounts (IRSA) - no hardcoded credentials
+- **Production Monitoring** – Prometheus + Grafana with custom service dashboards
+- **Autoscaling** – Horizontal Pod Autoscaling based on CPU/memory metrics
 
 ---
 
-## 💳 Checkout Flow
+## 🏗️ Architecture Overview
 
-<p align="center">
-  <img src="./assets/04-checkout-1.png" width="900"/>
-  <br/><br/>
-  <img src="./assets/05-checkout-2.png" width="900"/>
-  <br/><br/>
-  <img src="./assets/06-checkout-3.png" width="900"/>
-</p>
+**Multi-tier microservices architecture across 3 Availability Zones in AWS ap-south-1**
 
----
+### Key Components:
+- **Frontend**: Java Spring Boot UI
+- **Backend Services**: Cart (Java), Catalog (Go), Orders (Java), Checkout (Node.js)
+- **Data Stores**: MySQL, PostgreSQL, Redis, RabbitMQ, DynamoDB
+- **Infrastructure**: Custom VPC with private subnets, EKS cluster, Application Load Balancer
 
-## 📦 Orders Management
-
-<p align="center">
-  <img src="./assets/07-orders.png" width="900"/>
-</p>
+### Security Implementation:
+- EKS worker nodes in **private subnets** (no direct internet exposure)
+- **IRSA** for Cart service → DynamoDB access via temporary credentials
+- Security Groups with least-privilege access
+- Secrets management via Kubernetes Secrets
 
 ---
 
-# 🏗️ Architecture Overview
+## 💼 Core DevOps Skills Demonstrated
 
-## 🔹 Application Services
+### 1. Infrastructure Automation
+- Terraform modules for VPC, EKS, IAM, Security Groups
+- State management and modular design
+- AWS SSM Parameter Store for cross-stack references
+- Dynamic provisioning with AWS EBS CSI Driver
 
-<p align="center">
-  <img src="./assets/application-services.png" width="900"/>
-</p>
+### 2. Container & Orchestration
+- Multi-stage Docker builds for optimized images
+- Helm umbrella charts with environment-specific values
+- StatefulSets for databases with persistent volumes
+- HPA configuration with startup/liveness/readiness probes
 
-- UI (Spring Boot)
-- Cart (Spring Boot + DynamoDB)
-- Catalog (Go + MySQL)
-- Orders (Spring Boot + PostgreSQL)
-- Checkout (Node.js + Redis)
+### 3. CI/CD Pipeline
+- Jenkins shared libraries for reusable pipeline code
+- Automated version detection (Maven, Go, Node.js)
+- Docker image builds and push to registry
+- Automated Helm deployments with rollout verification
 
----
+### 4. Security & IAM
+- IRSA implementation (no AWS access keys in pods)
+- OIDC provider integration for EKS
+- IAM policy design with least-privilege access
+- ServiceAccount annotations for role assumption
 
-## 🔹 EKS Worker Nodes (Private Subnets)
-
-<p align="center">
-  <img src="./assets/eks-nodes-workstation.png" width="900"/>
-</p>
-
-✔ Private subnet deployment  
-✔ No direct internet exposure  
-✔ IAM Roles for Service Accounts (IRSA)
-
----
-
-## 🔹 Kubernetes Resource Status
-
-<p align="center">
-  <img src="./assets/status-pod-svc-pv-pvc.png" width="900"/>
-</p>
-
-✔ Pods  
-✔ Services  
-✔ Persistent Volumes  
-✔ Persistent Volume Claims  
+### 5. Observability
+- Prometheus ServiceMonitors for metrics collection
+- Custom Grafana dashboards per service
+- Application instrumentation (/actuator/prometheus, /metrics)
+- Request rate, error rate, latency (P95), CPU throttling monitoring
 
 ---
 
-## 🔹 Persistent Storage (EBS CSI)
+## 🚀 Quick Deployment
 
-<p align="center">
-  <img src="./assets/volumes.png" width="900"/>
-</p>
+### Prerequisites
+- AWS account with EKS access
+- kubectl and Helm CLI installed
+- AWS CLI configured
 
-✔ Dynamic EBS provisioning  
-✔ StatefulSets for databases  
-✔ Persistent storage lifecycle management  
+### Deploy to EKS Production
+```bash
+# 1. Create infrastructure
+cd terraform/
+terraform init
+terraform apply
 
----
+# 2. Install metrics server (required for HPA)
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
-## 🔹 PostgreSQL Orders Database
+# 3. Deploy application
+cd retail-store-helm-chart/
+helm dependency update
+helm upgrade --install retail-store . \
+  -n retail-store-prod \
+  -f values.yaml \
+  -f values/eks/values-prod-eks.yaml \
+  --create-namespace
 
-<p align="center">
-  <img src="./assets/postgresql-orders.png" width="900"/>
-</p>
-
-✔ Dedicated Orders DB  
-✔ Stateful workload  
-✔ Persistent volume backed  
-
----
-
-# ⚙️ Infrastructure as Code (Terraform)
-
-<p align="center">
-  <img src="./assets/aws-ec2-manual-terraform-deployment.png" width="900"/>
-</p>
-
-### Key Highlights
-
-- Modular Terraform structure
-- Remote state management
-- Parameterized configuration via SSM
-- Zero-downtime updates
-- Multi-AZ VPC architecture
-
----
-
-# 🔄 CI/CD Automation (Jenkins)
-
-<p align="center">
-  <img src="./assets/retail-store-Jenkins-shared-library.png" width="900"/>
-</p>
-
-### Pipeline Features
-
-- Automated version detection
-- Multi-stage Docker builds
-- Image tagging & registry push
-- Helm-based Kubernetes deployment
-- Shared pipeline libraries
-
----
-
-# 📦 Helm Deployment Structure
-
-<p align="center">
-  <img src="./assets/retail-store-helm-chart.png" width="900"/>
-</p>
-
-### Helm Features
-
-- Umbrella chart architecture
-- Environment-based values (k3s vs EKS)
-- Horizontal Pod Autoscaling (HPA)
-- Liveness, Readiness, Startup probes
-- ConfigMap & Secret management
-
----
-
-# 📊 Observability & Monitoring
-
-✔ Prometheus (metrics collection)  
-✔ Grafana (dashboards)  
-✔ Custom metrics (RPS, error rate, P95 latency)  
-✔ Resource monitoring (CPU, memory, restarts)  
-✔ ServiceMonitor auto-discovery  
-
----
-
-# 🔐 Security Best Practices Implemented
-
-- IRSA (No AWS keys in code)
-- OIDC integration between EKS and IAM
-- Least privilege IAM policies
-- Private worker nodes
-- Security groups with minimal ingress rules
-
----
-
-# 📈 Performance Improvements
-
-| Metric | Before | After |
-|--------|--------|--------|
-| Deployment Time | 12 minutes | 1.5 minutes |
-| Infrastructure Setup | Manual | Fully Automated |
-| Scalability | Static | HPA 1–3 replicas |
-| Credentials | Hardcoded | Zero credentials |
-
----
-
-# 🛠️ Tech Stack
-
-### Infrastructure
-AWS (EKS, EC2, VPC, IAM, ALB, RDS, DynamoDB)  
-Terraform  
-Kubernetes  
-Helm  
-
-### CI/CD
-Jenkins (Groovy Pipelines)  
-Docker  
-
-### Monitoring
-Prometheus  
-Grafana  
-
-### Databases
-MySQL  
-PostgreSQL  
-Redis  
-RabbitMQ  
-DynamoDB  
-
-### Languages
-Java  
-Go  
-Node.js  
-Bash  
-
----
-
-# 🎯 What This Project Demonstrates
-
-✔ Production-ready cloud architecture  
-✔ Real-world Kubernetes orchestration  
-✔ Advanced IAM & IRSA security  
-✔ Infrastructure as Code mastery  
-✔ CI/CD automation  
-✔ Monitoring & Observability  
-✔ Multi-database microservices design  
-
----
-
-# 📂 Repository Structure
-
+# 4. Verify deployment
+kubectl get pods -n retail-store-prod
+kubectl top nodes
+kubectl get hpa
 ```
-retail-store-aws-deployment/
+
+---
+
+## 📊 Monitoring & Observability
+
+**Prometheus + Grafana stack** monitors:
+- HTTP request rates and error rates (5xx)
+- P95/P99 latency percentiles
+- JVM memory and CPU usage
+- Pod restarts and resource throttling
+
+Access Grafana:
+```bash
+kubectl port-forward svc/monitoring-grafana 3000:80 -n monitoring
+# Username: admin
+# Password: kubectl get secret monitoring-grafana -n monitoring -o jsonpath="{.data.admin-password}" | base64 -d
+```
+
+---
+
+## 🔄 CI/CD Pipeline Flow
+```
+Developer Push → GitHub
+      ↓
+Jenkins Detects Change
+      ↓
+Version Detection (Maven/Go/Node)
+      ↓
+Docker Build (Multi-stage)
+      ↓
+Push to Registry (Docker Hub/ECR)
+      ↓
+Helm Upgrade Deployment
+      ↓
+Rollout Verification
+```
+
+**Jenkins Shared Library** handles:
+- Automatic version extraction from source files
+- Conditional Docker builds based on service type
+- Environment-specific Helm value selection
+- Deployment health checks
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Cloud** | AWS (EKS, ECR, DynamoDB, VPC, IAM, ALB) |
+| **IaC** | Terraform (modular structure) |
+| **Orchestration** | Kubernetes 1.28+ with Helm 3 |
+| **CI/CD** | Jenkins with Groovy pipelines |
+| **Monitoring** | Prometheus + Grafana |
+| **Languages** | Java (Spring Boot), Go (Gin), Node.js (NestJS) |
+| **Databases** | MySQL 8, PostgreSQL 15, Redis 7, RabbitMQ 3 |
+
+---
+
+## 📂 Repository Structure
+```
+├── terraform/                      # Infrastructure as Code
+│   ├── vpc/                       # VPC, Subnets, IGW
+│   ├── firewall/                  # Security Groups
+│   ├── cart/, catalog/, ui/       # EC2 service modules
+│   └── vpn/                       # Bastion host
 │
-├── terraform/
-├── retail-store-helm-chart/
-├── retail-store-Jenkins-shared-library/
-├── assets/
-└── README.md
+├── retail-store-helm-chart/        # Kubernetes deployment
+│   ├── Chart.yaml                 # Umbrella chart
+│   ├── values/
+│   │   ├── k3s/                   # Local development
+│   │   └── eks/                   # Production AWS
+│   └── charts/                    # Service subcharts
+│
+└── retail-store-Jenkins-shared-library/
+    ├── detectVersion.groovy       # Auto version detection
+    ├── dockerBuildPush.groovy     # Container builds
+    └── deployK8s.groovy           # Helm deployments
 ```
 
 ---
 
-# 👨‍💻 About the Engineer
+## 🎓 Key Learning Outcomes
 
-**Sarthak Singh**  
-DevOps Engineer | Cloud Infrastructure Specialist  
-2nd Year Computer Engineering Student  
+This project demonstrates:
 
-🔗 LinkedIn: https://www.linkedin.com/in/sarthak-singh-a0aa62322  
-🐙 GitHub: https://github.com/Sarthakx67  
-📧 Email: sarthak.devops@email.com  
+1. **Production mindset** – Private subnets, IRSA, no hardcoded secrets
+2. **Scalability** – HPA, StatefulSets with PVCs, multi-AZ deployment
+3. **Automation** – Terraform + Jenkins + Helm = zero manual steps
+4. **Troubleshooting** – Health probes, metrics, logs, resource monitoring
+5. **GitOps readiness** – Environment-specific values, declarative configuration
 
 ---
 
-<div align="center">
+## 👤 About Me
 
-### ⭐ If you find this project valuable, consider starring the repository!
+**Sarthak Singh** – 2nd Year Computer Engineering Student  
+Aspiring DevOps Engineer focused on **Secure, Scalable, Observable** systems
 
-</div>
+📧 sarthak.devops@email.com  
+🔗 [LinkedIn](https://www.linkedin.com/in/sarthak-singh-a0aa62322) | [GitHub](https://github.com/Sarthakx67)
+
+---
+
+## 📄 License
+
+This project is open-source and available for educational purposes.
