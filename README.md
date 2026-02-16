@@ -151,8 +151,6 @@
 
 <div align="center">
 
-### Production AWS Infrastructure
-
 ![RoboShop Architecture Diagram](./assets/architecture.png)
 
 <div align="center">
