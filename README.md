@@ -69,7 +69,7 @@ A robust pipeline that bridges the gap between development and production:
 I am a 2nd-year Computer Engineering student and aspiring DevOps Engineer. I focus on building systems that are **Secure, Scalable, and Observable.**
 
 **Let's Connect:**
-[LinkedIn](https://www.google.com/search?q=https://www.linkedin.com/in/sarthak-singh-a0aa62322) | [GitHub](https://www.google.com/search?q=https://github.com/Sarthakx67) | [Email Me](mailto:sarthak.devops@email.com)
+[LinkedIn](https://www.google.com/search?q=https://www.linkedin.com/in/sarthak-singh-a0aa62322) | [GitHub](https://www.google.com/search?q=https://github.com/Sarthakx67) 
 
 ---
 
