@@ -384,6 +384,135 @@ Auto version detection • Multi-language builds • Environment-specific deploy
 
 ---
 
+## 📸 Project Screenshots & Infrastructure
+
+<div align="center">
+
+### Application UI & User Flow
+
+</div>
+
+<table>
+<tr>
+<td width="50%" align="center">
+
+**Home Page**
+
+![Home UI](./assets/01-ui.png)
+
+</td>
+<td width="50%" align="center">
+
+**Product Catalog**
+
+![Catalog](./assets/02-catalog.png)
+
+</td>
+</tr>
+<tr>
+<td width="50%" align="center">
+
+**Shopping Cart**
+
+![Cart](./assets/03-cart.png)
+
+</td>
+<td width="50%" align="center">
+
+**Checkout - Step 1**
+
+![Checkout 1](./assets/04-checkout-1.png)
+
+</td>
+</tr>
+<tr>
+<td width="50%" align="center">
+
+**Checkout - Step 2**
+
+![Checkout 2](./assets/05-checkout-2.png)
+
+</td>
+<td width="50%" align="center">
+
+**Checkout - Step 3**
+
+![Checkout 3](./assets/06-checkout-3.png)
+
+</td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+
+**Order History**
+
+![Orders](./assets/07-orders.png)
+
+</td>
+</tr>
+</table>
+
+---
+
+<div align="center">
+
+### Kubernetes Infrastructure & Services
+
+</div>
+
+<table>
+<tr>
+<td width="50%" align="center">
+
+**Application Services Overview**
+
+![Application Services](./assets/application-services-1.png)
+
+</td>
+<td width="50%" align="center">
+
+**Service Details**
+
+![Application Service Detail](./assets/application-service.png)
+
+</td>
+</tr>
+<tr>
+<td width="50%" align="center">
+
+**EKS Nodes & Workstation**
+
+![EKS Nodes](./assets/eks-nodes-workstation.png)
+
+</td>
+<td width="50%" align="center">
+
+**Pods, Services, PV & PVC Status**
+
+![Status](./assets/status-pod-svc-pv-pvc.png)
+
+</td>
+</tr>
+<tr>
+<td width="50%" align="center">
+
+**Persistent Volumes**
+
+![Volumes](./assets/volumes.png)
+
+</td>
+<td width="50%" align="center">
+
+**PostgreSQL Orders Database**
+
+![PostgreSQL](./assets/postgresql-orders.png)
+
+</td>
+</tr>
+</table>
+
+---
+
 <div align="center">
 
 ## 👨‍💻 About Me
