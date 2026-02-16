@@ -1,209 +1,543 @@
-# AWS Retail Store: Production-Grade Microservices Platform
+<div align="center">
 
-> Enterprise microservices deployment on AWS EKS with automated CI/CD, IRSA security, and production-grade observability
+![Header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=Production%20Kubernetes%20on%20AWS&fontSize=50&fontColor=fff&animation=twinkling&fontAlignY=35)
 
----
+### 🚀 Enterprise Microservices Platform | DevOps Portfolio Project
 
-## 🎯 What This Demonstrates
+<p align="center">
+  <img src="https://img.shields.io/badge/AWS-EKS-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white" />
+  <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" />
+  <img src="https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white" />
+  <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white" />
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
+  <img src="https://img.shields.io/badge/Helm-0F1689?style=for-the-badge&logo=helm&logoColor=white" />
+  <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white" />
+  <img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white" />
+</p>
 
-This project showcases **production-ready DevOps practices** for deploying a polyglot microservices application:
+<p align="center">
+  <a href="#-production-highlights">Highlights</a> •
+  <a href="#-my-devops-skills">Skills</a> •
+  <a href="#-tech-stack">Stack</a> •
+  <a href="#-architecture">Architecture</a> •
+  <a href="#-quick-demo">Demo</a>
+</p>
 
-- **Infrastructure as Code** – Full Terraform automation (VPC, EKS, IAM, Security Groups)
-- **Container Orchestration** – Kubernetes on AWS EKS with Helm umbrella charts
-- **CI/CD Automation** – Jenkins pipelines with automated image builds and deployments
-- **Zero-Trust Security** – IAM Roles for Service Accounts (IRSA) - no hardcoded credentials
-- **Production Monitoring** – Prometheus + Grafana with custom service dashboards
-- **Autoscaling** – Horizontal Pod Autoscaling based on CPU/memory metrics
-
----
-
-## 🏗️ Architecture Overview
-
-**Multi-tier microservices architecture across 3 Availability Zones in AWS ap-south-1**
-
-### Key Components:
-- **Frontend**: Java Spring Boot UI
-- **Backend Services**: Cart (Java), Catalog (Go), Orders (Java), Checkout (Node.js)
-- **Data Stores**: MySQL, PostgreSQL, Redis, RabbitMQ, DynamoDB
-- **Infrastructure**: Custom VPC with private subnets, EKS cluster, Application Load Balancer
-
-### Security Implementation:
-- EKS worker nodes in **private subnets** (no direct internet exposure)
-- **IRSA** for Cart service → DynamoDB access via temporary credentials
-- Security Groups with least-privilege access
-- Secrets management via Kubernetes Secrets
+</div>
 
 ---
 
-## 💼 Core DevOps Skills Demonstrated
+## 💡 Production Highlights
 
-### 1. Infrastructure Automation
-- Terraform modules for VPC, EKS, IAM, Security Groups
-- State management and modular design
-- AWS SSM Parameter Store for cross-stack references
-- Dynamic provisioning with AWS EBS CSI Driver
+<table>
+<tr>
+<td width="50%" valign="top">
 
-### 2. Container & Orchestration
-- Multi-stage Docker builds for optimized images
-- Helm umbrella charts with environment-specific values
-- StatefulSets for databases with persistent volumes
-- HPA configuration with startup/liveness/readiness probes
+### ⚡️ What I Built
+✅ **Full AWS Infrastructure** - VPC, EKS, IAM from scratch  
+✅ **Zero Secrets** - IRSA for secure AWS access  
+✅ **Complete CI/CD** - Jenkins pipeline automation  
+✅ **Production Monitoring** - Prometheus + Grafana  
+✅ **Auto-Scaling** - HPA with custom metrics  
+✅ **Multi-Environment** - Dev/Prod separation  
 
-### 3. CI/CD Pipeline
-- Jenkins shared libraries for reusable pipeline code
-- Automated version detection (Maven, Go, Node.js)
-- Docker image builds and push to registry
-- Automated Helm deployments with rollout verification
+</td>
+<td width="50%" valign="top">
 
-### 4. Security & IAM
-- IRSA implementation (no AWS access keys in pods)
-- OIDC provider integration for EKS
-- IAM policy design with least-privilege access
-- ServiceAccount annotations for role assumption
+### 🎯 DevOps Skills Proven
+🔹 Infrastructure as Code (Terraform)  
+🔹 Container Orchestration (K8s + Helm)  
+🔹 CI/CD Pipeline Design (Jenkins)  
+🔹 Cloud Security (IRSA, Private Subnets)  
+🔹 Observability (Metrics, Dashboards)  
+🔹 GitOps Practices  
 
-### 5. Observability
-- Prometheus ServiceMonitors for metrics collection
-- Custom Grafana dashboards per service
-- Application instrumentation (/actuator/prometheus, /metrics)
-- Request rate, error rate, latency (P95), CPU throttling monitoring
+</td>
+</tr>
+</table>
 
 ---
 
-## 🚀 Quick Deployment
+## 🛠 My DevOps Skills
 
-### Prerequisites
-- AWS account with EKS access
-- kubectl and Helm CLI installed
-- AWS CLI configured
+<div align="center">
 
-### Deploy to EKS Production
+### Core Competencies
+
+</div>
+
+<table>
+<tr>
+<td width="33%" align="center">
+
+### ☁️ Cloud & Infrastructure
+
+<img src="https://skillicons.dev/icons?i=aws,terraform,kubernetes,docker" />
+
+**AWS Services**
+- EKS (Elastic Kubernetes Service)
+- VPC Design (Multi-AZ)
+- IAM Roles & Policies
+- DynamoDB, ALB, ECR
+
+**Infrastructure as Code**
+- Terraform modules
+- State management
+- SSM Parameter Store
+
+</td>
+<td width="33%" align="center">
+
+### 🔄 CI/CD & Automation
+
+<img src="https://skillicons.dev/icons?i=jenkins,bash,git,github" />
+
+**Pipeline Engineering**
+- Jenkins shared libraries
+- Multi-language builds
+- Docker image automation
+- Helm deployments
+
+**Version Control**
+- Git workflows
+- GitOps practices
+- Environment management
+
+</td>
+<td width="33%" align="center">
+
+### 📊 Monitoring & Security
+
+<img src="https://skillicons.dev/icons?i=prometheus,grafana,linux" />
+
+**Observability**
+- Prometheus metrics
+- Grafana dashboards
+- Service monitors
+- Log aggregation
+
+**Security**
+- IRSA (no hardcoded creds)
+- Network isolation
+- Secret management
+- Security groups
+
+</td>
+</tr>
+</table>
+
+<div align="center">
+
+### Programming & Tools
+
+<img src="https://skillicons.dev/icons?i=java,go,nodejs,spring,mysql,postgres,redis,nginx" />
+
+</div>
+
+---
+
+## 🏗 Architecture
+
+<div align="center">
+
+### Production AWS Infrastructure
+
+</div>
+
+```ascii
+╔══════════════════════════════════════════════════════════════════╗
+║                    AWS Cloud (ap-south-1)                        ║
+║  ┌────────────────────────────────────────────────────────┐      ║
+║  │                  VPC (10.0.0.0/16)                     │      ║
+║  │                                                         │      ║
+║  │  ┌──────────┐  ┌──────────┐  ┌──────────┐             │      ║
+║  │  │ Public   │  │ Public   │  │ Public   │             │      ║
+║  │  │ Subnet   │  │ Subnet   │  │ Subnet   │             │      ║
+║  │  │   AZ-1   │  │   AZ-2   │  │   AZ-3   │             │      ║
+║  │  └────┬─────┘  └────┬─────┘  └────┬─────┘             │      ║
+║  │       │             │             │                     │      ║
+║  │    ┌──▼─────────────▼─────────────▼──┐                │      ║
+║  │    │  Application Load Balancer      │                │      ║
+║  │    └──┬─────────────┬─────────────┬──┘                │      ║
+║  │       │             │             │                     │      ║
+║  │  ┌────▼─────┐  ┌────▼─────┐  ┌────▼─────┐             │      ║
+║  │  │ Private  │  │ Private  │  │ Private  │             │      ║
+║  │  │ Subnet   │  │ Subnet   │  │ Subnet   │             │      ║
+║  │  │          │  │          │  │          │             │      ║
+║  │  │ ┌──────┐ │  │ ┌──────┐ │  │ ┌──────┐ │             │      ║
+║  │  │ │ EKS  │ │  │ │ EKS  │ │  │ │ EKS  │ │             │      ║
+║  │  │ │ Node │ │  │ │ Node │ │  │ │ Node │ │             │      ║
+║  │  │ └──────┘ │  │ └──────┘ │  │ └──────┘ │             │      ║
+║  │  │          │  │          │  │          │             │      ║
+║  │  │ Pods:    │  │ Pods:    │  │ Pods:    │             │      ║
+║  │  │ • UI     │  │ • Catalog│  │ • Orders │             │      ║
+║  │  │ • Cart   │  │ • MySQL  │  │ • Postgres│            │      ║
+║  │  │ • Checkout│ │ • Redis  │  │ • RabbitMQ│            │      ║
+║  │  └──────────┘  └──────────┘  └──────────┘             │      ║
+║  └─────────────────────────────────────────────────────────┘      ║
+║                           │                                       ║
+║                    ┌──────▼────────┐                              ║
+║                    │   DynamoDB    │  ← IRSA Secured              ║
+║                    └───────────────┘                              ║
+╚══════════════════════════════════════════════════════════════════╝
+```
+
+<div align="center">
+
+**5 Microservices** | **4 Databases** | **3 Availability Zones** | **Zero Hardcoded Secrets**
+
+</div>
+
+---
+
+## 🎨 Tech Stack
+
+<div align="center">
+
+<table>
+<tr>
+<td align="center" width="20%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="50" />
+<br><strong>AWS</strong>
+<br><sub>EKS, VPC, IAM</sub>
+</td>
+<td align="center" width="20%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" width="50" />
+<br><strong>Kubernetes</strong>
+<br><sub>v1.28+</sub>
+</td>
+<td align="center" width="20%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" width="50" />
+<br><strong>Terraform</strong>
+<br><sub>IaC</sub>
+</td>
+<td align="center" width="20%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" width="50" />
+<br><strong>Jenkins</strong>
+<br><sub>CI/CD</sub>
+</td>
+<td align="center" width="20%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="50" />
+<br><strong>Docker</strong>
+<br><sub>Containers</sub>
+</td>
+</tr>
+<tr>
+<td align="center" width="20%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" width="50" />
+<br><strong>Prometheus</strong>
+<br><sub>Metrics</sub>
+</td>
+<td align="center" width="20%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" width="50" />
+<br><strong>Grafana</strong>
+<br><sub>Dashboards</sub>
+</td>
+<td align="center" width="20%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="50" />
+<br><strong>Java</strong>
+<br><sub>Spring Boot</sub>
+</td>
+<td align="center" width="20%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" width="50" />
+<br><strong>Go</strong>
+<br><sub>Backend</sub>
+</td>
+<td align="center" width="20%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="50" />
+<br><strong>Node.js</strong>
+<br><sub>Microservice</sub>
+</td>
+</tr>
+</table>
+
+</div>
+
+---
+
+## 🔐 Security Implementation
+
+<div align="center">
+
+### IRSA (IAM Roles for Service Accounts)
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+**Traditional Approach** ❌
+```yaml
+# BAD: Hardcoded credentials
+env:
+  - name: AWS_ACCESS_KEY_ID
+    value: "AKIAIOSFODNN7EXAMPLE"
+  - name: AWS_SECRET_ACCESS_KEY
+    value: "wJalrXUtnFEMI/K7MDENG/..."
+```
+
+**Problems:**
+- 🔴 Secrets in code/config
+- 🔴 Manual rotation
+- 🔴 Audit nightmare
+
+</td>
+<td width="50%">
+
+**My Implementation** ✅
+```yaml
+# GOOD: IRSA
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    eks.amazonaws.com/role-arn: 
+      arn:aws:iam::ACCOUNT:role/cart-role
+---
+spec:
+  serviceAccountName: cart-sa
+```
+
+**Benefits:**
+- ✅ Zero secrets in pods
+- ✅ Auto credential rotation
+- ✅ CloudTrail audit logs
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🚀 Quick Demo
+
+<div align="center">
+
+### Deploy Production Environment in 4 Commands
+
+</div>
+
 ```bash
-# 1. Create infrastructure
-cd terraform/
-terraform init
-terraform apply
+# ① Provision AWS Infrastructure (Terraform)
+terraform init && terraform apply -auto-approve
 
-# 2. Install metrics server (required for HPA)
-kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-
-# 3. Deploy application
-cd retail-store-helm-chart/
-helm dependency update
+# ② Deploy Application (Helm)
 helm upgrade --install retail-store . \
-  -n retail-store-prod \
-  -f values.yaml \
   -f values/eks/values-prod-eks.yaml \
   --create-namespace
 
-# 4. Verify deployment
-kubectl get pods -n retail-store-prod
+# ③ Install Monitoring Stack
+helm install monitoring prometheus-community/kube-prometheus-stack
+
+# ④ Verify Everything Works
+kubectl get pods -A
 kubectl top nodes
-kubectl get hpa
 ```
+
+<div align="center">
+
+**⏱️ Total Time: ~15 minutes | 🤖 Manual Steps: 0**
+
+</div>
 
 ---
 
-## 📊 Monitoring & Observability
+## 📊 Monitoring Dashboard
 
-**Prometheus + Grafana stack** monitors:
-- HTTP request rates and error rates (5xx)
-- P95/P99 latency percentiles
-- JVM memory and CPU usage
-- Pod restarts and resource throttling
+<div align="center">
 
-Access Grafana:
-```bash
-kubectl port-forward svc/monitoring-grafana 3000:80 -n monitoring
-# Username: admin
-# Password: kubectl get secret monitoring-grafana -n monitoring -o jsonpath="{.data.admin-password}" | base64 -d
-```
+### What I Monitor in Production
 
----
+</div>
 
-## 🔄 CI/CD Pipeline Flow
-```
-Developer Push → GitHub
-      ↓
-Jenkins Detects Change
-      ↓
-Version Detection (Maven/Go/Node)
-      ↓
-Docker Build (Multi-stage)
-      ↓
-Push to Registry (Docker Hub/ECR)
-      ↓
-Helm Upgrade Deployment
-      ↓
-Rollout Verification
-```
+<table>
+<tr>
+<td width="25%" align="center">
 
-**Jenkins Shared Library** handles:
-- Automatic version extraction from source files
-- Conditional Docker builds based on service type
-- Environment-specific Helm value selection
-- Deployment health checks
+📈 **Request Rate**
 
----
+HTTP requests/sec per service
 
-## 🛠️ Technology Stack
+</td>
+<td width="25%" align="center">
 
-| Layer | Technology |
-|-------|------------|
-| **Cloud** | AWS (EKS, ECR, DynamoDB, VPC, IAM, ALB) |
-| **IaC** | Terraform (modular structure) |
-| **Orchestration** | Kubernetes 1.28+ with Helm 3 |
-| **CI/CD** | Jenkins with Groovy pipelines |
-| **Monitoring** | Prometheus + Grafana |
-| **Languages** | Java (Spring Boot), Go (Gin), Node.js (NestJS) |
-| **Databases** | MySQL 8, PostgreSQL 15, Redis 7, RabbitMQ 3 |
+🔴 **Error Rate**
+
+5xx errors and failures
+
+</td>
+<td width="25%" align="center">
+
+⏱️ **Latency**
+
+P95/P99 response times
+
+</td>
+<td width="25%" align="center">
+
+💻 **Resources**
+
+CPU, Memory, Throttling
+
+</td>
+</tr>
+</table>
+
+**Grafana Dashboards:** Custom per-service metrics  
+**Alerts:** Prometheus AlertManager  
+**Log Aggregation:** kubectl logs + potential ELK integration
 
 ---
 
-## 📂 Repository Structure
+## 🔄 CI/CD Pipeline
+
+<div align="center">
+
+### Automated Build → Test → Deploy
+
+</div>
+
+```mermaid
+graph LR
+    A[Git Push] --> B[Jenkins Webhook]
+    B --> C{Detect Version}
+    C -->|Maven| D[Build Java]
+    C -->|Go| E[Build Go]
+    C -->|Node| F[Build Node]
+    D --> G[Docker Build]
+    E --> G
+    F --> G
+    G --> H[Push to Registry]
+    H --> I[Helm Deploy]
+    I --> J[Health Check]
+    J --> K[✅ Production]
+    
+    style A fill:#4CAF50
+    style K fill:#2196F3
+    style J fill:#FF9800
 ```
-├── terraform/                      # Infrastructure as Code
-│   ├── vpc/                       # VPC, Subnets, IGW
-│   ├── firewall/                  # Security Groups
-│   ├── cart/, catalog/, ui/       # EC2 service modules
-│   └── vpn/                       # Bastion host
+
+**Jenkins Shared Library Features:**
+- Auto version detection from source files
+- Multi-language build support
+- Environment-specific deployments
+- Automated rollback on failure
+
+---
+
+## 📂 Project Structure
+
+```
+aws-retail-store/
 │
-├── retail-store-helm-chart/        # Kubernetes deployment
-│   ├── Chart.yaml                 # Umbrella chart
+├── 🏗️ terraform/                    # Infrastructure as Code
+│   ├── vpc/                         # Network layer
+│   ├── firewall/                    # Security groups
+│   └── [services]/                  # EC2 modules
+│
+├── ☸️ retail-store-helm-chart/      # Kubernetes manifests
+│   ├── Chart.yaml                   # Umbrella chart
 │   ├── values/
-│   │   ├── k3s/                   # Local development
-│   │   └── eks/                   # Production AWS
-│   └── charts/                    # Service subcharts
+│   │   ├── k3s/                     # Local dev
+│   │   └── eks/                     # Production AWS
+│   └── charts/                      # Microservices
+│       ├── cart/                    # Java + DynamoDB
+│       ├── catalog/                 # Go + MySQL
+│       ├── checkout/                # Node.js + Redis
+│       ├── orders/                  # Java + PostgreSQL
+│       └── ui/                      # Spring Boot frontend
 │
-└── retail-store-Jenkins-shared-library/
-    ├── detectVersion.groovy       # Auto version detection
-    ├── dockerBuildPush.groovy     # Container builds
-    └── deployK8s.groovy           # Helm deployments
+└── 🔧 Jenkins-shared-library/       # Reusable pipeline code
+    ├── detectVersion.groovy         # Auto versioning
+    ├── dockerBuildPush.groovy       # Container builds
+    └── deployK8s.groovy             # Helm deployments
 ```
 
 ---
 
-## 🎓 Key Learning Outcomes
+## 💼 What This Project Demonstrates
 
-This project demonstrates:
+<div align="center">
 
-1. **Production mindset** – Private subnets, IRSA, no hardcoded secrets
-2. **Scalability** – HPA, StatefulSets with PVCs, multi-AZ deployment
-3. **Automation** – Terraform + Jenkins + Helm = zero manual steps
-4. **Troubleshooting** – Health probes, metrics, logs, resource monitoring
-5. **GitOps readiness** – Environment-specific values, declarative configuration
+<table>
+<tr>
+<td width="50%">
+
+### 🎯 Technical Skills
+
+✅ AWS cloud architecture  
+✅ Kubernetes orchestration  
+✅ Infrastructure as Code  
+✅ CI/CD pipeline design  
+✅ Container optimization  
+✅ Monitoring & observability  
+✅ Security best practices  
+✅ Multi-language builds  
+
+</td>
+<td width="50%">
+
+### 🧠 DevOps Mindset
+
+✅ Production-ready thinking  
+✅ GitOps workflows  
+✅ Zero-trust security  
+✅ Automation-first approach  
+✅ Scalability planning  
+✅ Cost optimization  
+✅ Disaster recovery  
+✅ Documentation culture  
+
+</td>
+</tr>
+</table>
+
+</div>
 
 ---
 
-## 👤 About Me
+## 🎓 Key Learnings
 
-**Sarthak Singh** – 2nd Year Computer Engineering Student  
-Aspiring DevOps Engineer focused on **Secure, Scalable, Observable** systems
+<div align="center">
 
-📧 sarthak.devops@email.com  
-🔗 [LinkedIn](https://www.linkedin.com/in/sarthak-singh-a0aa62322) | [GitHub](https://github.com/Sarthakx67)
+| Concept | Implementation |
+|---------|----------------|
+| **Security** | IRSA instead of access keys, private subnets, least-privilege IAM |
+| **Scalability** | HPA, StatefulSets with PVCs, multi-AZ deployment |
+| **Automation** | Terraform + Jenkins + Helm = zero manual deployment |
+| **Observability** | Prometheus metrics, Grafana dashboards, health probes |
+| **GitOps** | Environment-specific values, declarative configs |
+
+</div>
 
 ---
 
-## 📄 License
+<div align="center">
 
-This project is open-source and available for educational purposes.
+## 👨‍💻 About Me
+
+**Sarthak Singh**  
+*2nd Year Computer Engineering Student | DevOps Enthusiast*
+
+Building **Secure, Scalable, Observable** cloud-native systems
+
+<p align="center">
+  <a href="mailto:sarthak.devops@email.com">
+    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
+  </a>
+  <a href="https://www.linkedin.com/in/sarthak-singh-a0aa62322">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
+  </a>
+  <a href="https://github.com/Sarthakx67">
+    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+</p>
+
+---
+
+### 🌟 If this project helped you, please star the repository!
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer" width="100%">
+
+</div>
