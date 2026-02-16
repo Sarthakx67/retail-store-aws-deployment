@@ -228,65 +228,6 @@
 
 ---
 
-## 🔐 Security Implementation
-
-<div align="center">
-
-### IRSA (IAM Roles for Service Accounts)
-
-</div>
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-**Traditional Approach** ❌
-
-```yaml
-# BAD: Hardcoded credentials
-env:
-  - name: AWS_ACCESS_KEY_ID
-    value: "AKIAIOSFODNN7EXAMPLE"
-  - name: AWS_SECRET_ACCESS_KEY
-    value: "wJalrXUtnFEMI/K7MDENG/..."
-```
-
-<br>
-
-**Problems:**
-- 🔴 Secrets in code/config
-- 🔴 Manual rotation
-- 🔴 Audit nightmare
-
-</td>
-<td width="50%" valign="top">
-
-**My Implementation** ✅
-
-```yaml
-# GOOD: IRSA
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  annotations:
-    eks.amazonaws.com/role-arn: 
-      arn:aws:iam::ACCOUNT:role/cart-role
----
-spec:
-  serviceAccountName: cart-sa
-```
-
-**Benefits:**
-- ✅ Zero secrets in pods
-- ✅ Auto credential rotation
-- ✅ CloudTrail audit logs
-
-</td>
-</tr>
-</table>
-
----
-
 ## 🚀 Quick Demo
 
 <div align="center">
@@ -296,18 +237,16 @@ spec:
 </div>
 
 ```bash
-# ① Provision AWS Infrastructure (Terraform)
-terraform init && terraform apply -auto-approve
 
-# ② Deploy Application (Helm)
+# Deploy Application (Helm)
 helm upgrade --install retail-store . \
   -f values/eks/values-prod-eks.yaml \
   --create-namespace
 
-# ③ Install Monitoring Stack
+# Install Monitoring Stack
 helm install monitoring prometheus-community/kube-prometheus-stack
 
-# ④ Verify Everything Works
+# Verify Everything Works
 kubectl get pods -A && kubectl top nodes
 ```
 
