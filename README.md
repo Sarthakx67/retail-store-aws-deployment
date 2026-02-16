@@ -75,6 +75,3 @@ I am a 2nd-year Computer Engineering student and aspiring DevOps Engineer. I foc
 
 ---
 
-*⭐ Star this repo if you find this architecture helpful!*
-
-```
