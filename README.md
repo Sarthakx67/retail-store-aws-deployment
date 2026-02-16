@@ -228,36 +228,6 @@
 
 ---
 
-## 🚀 Quick Demo
-
-<div align="center">
-
-### Deploy Production Environment in 4 Commands
-
-</div>
-
-```bash
-
-# Deploy Application (Helm)
-helm upgrade --install retail-store . \
-  -f values/eks/values-prod-eks.yaml \
-  --create-namespace
-
-# Install Monitoring Stack
-helm install monitoring prometheus-community/kube-prometheus-stack
-
-# Verify Everything Works
-kubectl get pods -A && kubectl top nodes
-```
-
-<div align="center">
-
-**⏱️ Total Time: ~15 minutes** | **🤖 Manual Steps: 0**
-
-</div>
-
----
-
 ## 📊 Monitoring Dashboard
 
 <div align="center">
