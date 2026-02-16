@@ -327,36 +327,6 @@ Auto version detection • Multi-language builds • Environment-specific deploy
 
 ---
 
-## 📂 Project Structure
-
-```
-aws-retail-store/
-│
-├── 🏗️ terraform/                    # Infrastructure as Code
-│   ├── vpc/                         # Network layer
-│   ├── firewall/                    # Security groups
-│   └── [services]/                  # EC2 modules
-│
-├── ☸️ retail-store-helm-chart/      # Kubernetes manifests
-│   ├── Chart.yaml                   # Umbrella chart
-│   ├── values/
-│   │   ├── k3s/                     # Local dev
-│   │   └── eks/                     # Production AWS
-│   └── charts/                      # Microservices
-│       ├── cart/                    # Java + DynamoDB
-│       ├── catalog/                 # Go + MySQL
-│       ├── checkout/                # Node.js + Redis
-│       ├── orders/                  # Java + PostgreSQL
-│       └── ui/                      # Spring Boot frontend
-│
-└── 🔧 Jenkins-shared-library/       # Reusable pipeline code
-    ├── detectVersion.groovy         # Auto versioning
-    ├── dockerBuildPush.groovy       # Container builds
-    └── deployK8s.groovy             # Helm deployments
-```
-
----
-
 ## 💼 What This Project Demonstrates
 
 <div align="center">
@@ -426,9 +396,6 @@ Building **Secure, Scalable, Observable** cloud-native systems
 <br>
 
 <p align="center">
-  <a href="mailto:sarthak.devops@email.com">
-    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
-  </a>
   <a href="https://www.linkedin.com/in/sarthak-singh-a0aa62322">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
   </a>
