@@ -23,7 +23,6 @@
   <a href="#-my-devops-skills">Skills</a> •
   <a href="#-tech-stack">Stack</a> •
   <a href="#-architecture">Architecture</a> •
-  <a href="#-quick-demo">Demo</a>
 </p>
 
 </div>
