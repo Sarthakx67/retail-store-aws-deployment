@@ -512,13 +512,6 @@ Auto version detection • Multi-language builds • Environment-specific deploy
 
 <div align="center">
 
-## 👨‍💻 About Me
-
-**Sarthak Singh**  
-*2nd Year Computer Engineering Student | DevOps Enthusiast*
-
-Building **Secure, Scalable, Observable** cloud-native systems
-
 <br>
 
 <p align="center">
