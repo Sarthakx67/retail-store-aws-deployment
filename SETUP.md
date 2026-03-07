@@ -127,14 +127,14 @@ helm dependency update
 # Dry run first
 helm template retail-store . \
   -f values.yaml \
-  -f values/eks/values-prod-eks.yaml \
+  -f values/prod/values-prod.yaml \
   --namespace retail-store-prod
 
 # Deploy
 helm upgrade --install retail-store . \
   -n retail-store-prod \
   -f values.yaml \
-  -f values/eks/values-prod-eks.yaml \
+  -f values/prod/values-prod.yaml \
   --create-namespace \
   --timeout 10m
 ```
@@ -256,7 +256,7 @@ aws iam attach-role-policy \
 
 ### 5. Update Helm Values
 
-Edit `values/eks/values-prod-eks.yaml`:
+Edit `values/prod/values-prod.yaml`:
 
 ```yaml
 retail-store-cart:
