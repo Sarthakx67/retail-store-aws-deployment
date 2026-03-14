@@ -98,9 +98,9 @@ kubectl cluster-info
 #### Metrics Server (Required for HPA)
 
 ```bash
-kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-
-kubectl wait --for=condition=available deployment/metrics-server -n kube-system --timeout=300s
+helm upgrade --install metrics-server metrics-server/metrics-server \
+-n kube-system \
+--set args="{--kubelet-insecure-tls}"
 kubectl top nodes  # Should return metrics
 ```
 
