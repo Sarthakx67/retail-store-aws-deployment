@@ -19,11 +19,11 @@ spec:
       # Later files override earlier files — same as how you run it manually
       valueFiles:
         - values.yaml
-        - values/prod/values-prod.yaml
+        - values/dev/values-dev.yaml
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: retail-store-prod
+    namespace: retail-store-dev
 
   syncPolicy:
     automated:
