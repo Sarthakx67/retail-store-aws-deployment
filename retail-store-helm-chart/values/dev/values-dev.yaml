@@ -24,6 +24,10 @@ retail-store-cart:
     requests:
       cpu: 200m 
       memory: 512Mi
+  hpa:
+    minReplicas: 2
+    maxReplicas: 5
+    averageUtilization: 70
 
 # CATALOG SERVICE  
 retail-store-catalog:
