@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/Sarthakx67/retail-store-aws-deployment.git   # Git repo containing manifests
     targetRevision: main           # Git branch or tag (e.g., main, dev, release-1.0)
-    path: argocd-deployment/application-config   # Path inside repo where manifests live
+    path: retail-store-helm-chart/charts/cart   # Path inside repo where manifests live
   destination:
     server: https://kubernetes.default.svc   # Target cluster API
     namespace: default             # Namespace in which to deploy the app
