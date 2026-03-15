@@ -1,0 +1,19 @@
+
+apiVersion: argoproj.io/v1alpha1   # API group for ArgoCD resources
+kind: Application                  # Resource type is "Application"
+metadata:
+  name: cart            # Name of this ArgoCD application
+  namespace: argocd                # Must be created in the 'argocd' namespace
+spec:
+  project: default                 # ArgoCD Project (logical grouping of apps)
+  source:
+    repoURL: https://github.com/Sarthakx67/retail-store-aws-deployment.git   # Git repo containing manifests
+    targetRevision: main           # Git branch or tag (e.g., main, dev, release-1.0)
+    path: argocd-deployment/application-config   # Path inside repo where manifests live
+  destination:
+    server: https://kubernetes.default.svc   # Target cluster API
+    namespace: default             # Namespace in which to deploy the app
+  syncPolicy:                      # Defines how ArgoCD syncs the app
+    automated:                     # Enable auto-sync
+      prune: true                  # Delete resources removed from Git
+      selfHeal: true               # Fix drift if resources are changed manually
