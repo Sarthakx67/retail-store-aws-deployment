@@ -17,6 +17,12 @@ spec:
         app: catalog
         component: backend
     spec:
+      initContainers:
+      - name: wait-for-mysql
+        image: busybox
+        # keeps retrying until MySQL port is open, then exits 0
+        # only then does the main catalog container start
+        command: ['sh', '-c', 'until nc -z mysql 3306; do echo waiting for mysql; sleep 2; done']
       containers:
       - name: catalog
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"     
@@ -24,9 +30,18 @@ spec:
         - containerPort: 8080 
         envFrom:
         - configMapRef:
-            name: catalog-map
+            name: catalog-map 
         - secretRef:
             name: catalog-secret
         resources:
 {{ toYaml .Values.resources | indent 10 }}
 {{ include "catalog.healthProbes" . | indent 8 }}
+
+
+
+### Init Container for Catalog 
+# An init container runs to completion before the main container starts. So the sequence becomes:
+
+# init container starts ----→ polls mysql:3306 every 2s ----→ MySQL becomes ready → 
+# init container exits 0 ----→ catalog container starts ----→ MySQL already ready → 
+# no crash → 0 restarts
