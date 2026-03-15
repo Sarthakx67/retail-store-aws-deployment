@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: retail-store
+  namespace: argocd
+  # Finalizer ensures ArgoCD deletes all managed resources if this app is deleted
+  # Without this, deleting the ArgoCD app leaves orphaned pods/services running
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Sarthakx67/retail-store-aws-deployment.git
+    targetRevision: main
+    path: retail-store-helm-chart   # <-- points to umbrella chart root
+
+    helm:
+      # ArgoCD will run: helm upgrade --install with these value files, in order
+      # Later files override earlier files — same as how you run it manually
+      valueFiles:
+        - values.yaml
+        - values/prod/values-prod.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: retail-store-prod
+
+  syncPolicy:
+    automated:
+      prune: true      # delete resources removed from Git
+      selfHeal: true   # revert manual kubectl edits — Git is the source of truth
+    syncOptions:
+      - CreateNamespace=true   # equivalent to --create-namespace in your helm install command
