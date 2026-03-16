@@ -4,7 +4,7 @@ metadata:
   name: checkout
   labels:
     app: checkout          
-    environment: {{ .Values.environment }}
+    environment: {{ .Values.global.environment }}
 spec:            
   # replicas: {{ .Values.replicaCount }}
   selector:

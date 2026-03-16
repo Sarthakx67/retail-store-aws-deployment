@@ -1,5 +1,6 @@
-environment: dev
-
+Global:
+  environment: dev
+  
 enabled: false
 
 replicaCount: 1

@@ -24,6 +24,13 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: retail-store-prod
+  
+  # it is to prevent argocd to change HPA owned Configuration as it will break in load
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /spec/replicas    # HPA owns this, not Git
 
   syncPolicy:
     automated:

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: postgresql
     tier: db
-    environment: {{ .Values.environment }}
+    environment: {{ .Values.global.environment }}
 spec:
   serviceName: postgresql
   replicas: {{ .Values.replicaCount }}

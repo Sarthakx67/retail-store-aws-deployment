@@ -5,7 +5,7 @@ metadata:
   labels:
     app: mysql
     tier: db
-    environment: {{ .Values.environment }}
+    environment: {{ .Values.global.environment }}
 spec:
   serviceName: mysql
   replicas: {{ .Values.replicaCount }}

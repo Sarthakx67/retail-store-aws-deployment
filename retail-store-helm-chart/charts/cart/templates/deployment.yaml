@@ -4,7 +4,7 @@ metadata:
   name: cart-deployment    
   labels:
     app: cart              
-    environment: {{ .Values.environment }}
+    environment: {{ .Values.global.environment }}
 spec: 
   selector:
     matchLabels:

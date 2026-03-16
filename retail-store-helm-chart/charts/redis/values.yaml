@@ -1,3 +1,4 @@
-environment: dev
-
+Global:
+  environment: dev
+  
 replicaCount: 1

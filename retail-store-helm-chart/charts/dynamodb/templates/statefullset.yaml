@@ -5,7 +5,7 @@ metadata:
   name: dynamodb
   labels:
     tier: db
-    environment: {{ .Values.environment }}
+    environment: {{ .Values.global.environment }}
 spec:
   serviceName: dynamodb
   replicas: {{ .Values.replicaCount }}

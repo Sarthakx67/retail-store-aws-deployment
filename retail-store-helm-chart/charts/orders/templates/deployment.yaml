@@ -4,7 +4,7 @@ metadata:
   name: orders  
   labels:
     app: orders              
-    environment: {{ .Values.environment }}
+    environment: {{ .Values.global.environment }}
 spec:           
   # replicas: {{ .Values.replicaCount }} 
   selector:

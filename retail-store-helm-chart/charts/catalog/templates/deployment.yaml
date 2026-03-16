@@ -4,7 +4,7 @@ metadata:
   name: catalog  
   labels:
     app: catalog
-    environment: {{ .Values.environment }}
+    environment: {{ .Values.global.environment }}
 spec:      
   # replicas: {{ .Values.replicaCount }}
   selector:

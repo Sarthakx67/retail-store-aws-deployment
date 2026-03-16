@@ -4,7 +4,7 @@ metadata:
   name: rabbitmq
   labels:
     tier: db
-    environment: {{ .Values.environment }}
+    environment: {{ .Values.global.environment }}
 spec:
   selector:
     matchLabels:

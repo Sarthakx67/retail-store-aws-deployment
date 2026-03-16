@@ -4,7 +4,7 @@ metadata:
   name: ui   
   labels:
     app: ui              
-    environment: {{ .Values.environment }}
+    environment: {{ .Values.global.environment }}
 spec:        
   selector:
     matchLabels:
