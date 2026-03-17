@@ -2,517 +2,324 @@
 
 ![Header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=Production%20Kubernetes%20on%20AWS&fontSize=50&fontColor=fff&animation=twinkling&fontAlignY=35)
 
-### 🚀 Enterprise Microservices Platform | DevOps Portfolio Project
+### Cloud-Native Microservices Platform | DevOps Portfolio Project
 
 <p align="center">
   <img src="https://img.shields.io/badge/AWS-EKS-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white" />
   <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" />
   <img src="https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white" />
-  <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white" />
+  <img src="https://img.shields.io/badge/ArgoCD-EF7B4D?style=for-the-badge&logo=argo&logoColor=white" />
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
   <img src="https://img.shields.io/badge/Helm-0F1689?style=for-the-badge&logo=helm&logoColor=white" />
+  <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white" />
   <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white" />
   <img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white" />
 </p>
 
 <p align="center">
-  <a href="#-production-highlights">Highlights</a> •
-  <a href="#-my-devops-skills">Skills</a> •
-  <a href="#-tech-stack">Stack</a> •
-  <a href="#-architecture">Architecture</a> 
+  <a href="#what-i-built">What I Built</a> •
+  <a href="#architecture">Architecture</a> •
+  <a href="#gitops-pipeline">GitOps</a> •
+  <a href="#tech-stack">Stack</a> •
+  <a href="#key-learnings">Key Learnings</a> •
+  <a href="SETUP.md"><strong>📖 Full Setup Guide →</strong></a>
 </p>
 
 </div>
 
 ---
 
-## 💡 Production Highlights
+## What I Built
+
+A 10-service retail store platform deployed on AWS EKS — built to production standards, not just as a tutorial project. Every design decision has a reason behind it.
+
+**10 services across 2 layers:**
+- 5 application microservices: UI, Cart (Java), Catalog (Go), Checkout (Node.js), Orders (Java)  
+- 5 data services: MySQL, PostgreSQL, Redis, RabbitMQ, DynamoDB (local for dev / AWS for prod)
+
+---
+
+## Highlights
 
 <table>
 <tr>
 <td width="50%" valign="top">
 
-### ⚡️ What I Built
+### What's Implemented
 
-✅ **Full AWS Infrastructure** - VPC, EKS, IAM from scratch  
-✅ **Zero Secrets** - IRSA for secure AWS access  
-✅ **Complete CI/CD** - Jenkins pipeline automation  
-✅ **Production Monitoring** - Prometheus + Grafana  
-✅ **Auto-Scaling** - HPA with custom metrics  
-✅ **Multi-Environment** - Dev/Prod separation  
+✅ **Full AWS Infrastructure** — VPC, EKS, IAM from scratch via Terraform  
+✅ **GitOps Deployment** — ArgoCD auto-syncs every Git push to cluster  
+✅ **IRSA Authentication** — Cart accesses DynamoDB without static credentials  
+✅ **Umbrella Helm Chart** — 10 subcharts, layered dev/prod values  
+✅ **Auto-Scaling** — HPA on all 5 application services  
+✅ **Health Probes** — Startup + liveness + readiness; reduced deployment time from 12 min → 1.5 min  
+✅ **Observability** — Prometheus + Grafana with custom ServiceMonitors  
+✅ **Init Containers** — Catalog waits for MySQL before starting  
+✅ **Persistent Storage** — EBS-backed StatefulSets for all databases  
+✅ **Jenkins Shared Library** — Single 8-line Jenkinsfile per service  
 
 </td>
 <td width="50%" valign="top">
 
-### 🎯 DevOps Skills Proven
+### In Progress
 
-🔹 Infrastructure as Code (Terraform)  
-🔹 Container Orchestration (K8s + Helm)  
-🔹 CI/CD Pipeline Design (Jenkins)  
-🔹 Cloud Security (IRSA, Private Subnets)  
-🔹 Observability (Metrics, Dashboards)  
-🔹 GitOps Practices  
+🔧 **Secrets Management** — Migrating to External Secrets Operator + AWS SSM  
+&nbsp;&nbsp;&nbsp;&nbsp;Current: placeholder values in Helm charts  
+&nbsp;&nbsp;&nbsp;&nbsp;Target: zero secrets in Git, runtime injection via ESO + IRSA  
 
-</td>
-</tr>
-</table>
+🔧 **GitOps CI Separation** — Jenkins currently deploys via `helm upgrade`  
+&nbsp;&nbsp;&nbsp;&nbsp;Target: Jenkins updates Git, ArgoCD owns all deployments  
 
----
+🔧 **PodDisruptionBudgets** — Guaranteeing zero-downtime during node drains  
 
-## 🛠 My DevOps Skills
-
-<div align="center">
-
-### Core Competencies
-
-</div>
-
-<table>
-<tr>
-<td width="33%" align="center" valign="top">
-
-### ☁️ Cloud & Infrastructure
-
-<img src="https://skillicons.dev/icons?i=aws,terraform,kubernetes,docker" />
-
-<br>
-
-**AWS Services**
-- EKS (Elastic Kubernetes Service)
-- VPC Design (Multi-AZ)
-- IAM Roles & Policies
-- DynamoDB, ALB, ECR
-
-**Infrastructure as Code**
-- Terraform modules
-- State management
-- SSM Parameter Store
-
-</td>
-<td width="33%" align="center" valign="top">
-
-### 🔄 CI/CD & Automation
-
-<img src="https://skillicons.dev/icons?i=jenkins,bash,git,github" />
-
-<br>
-
-**Pipeline Engineering**
-- Jenkins shared libraries
-- Multi-language builds
-- Docker image automation
-- Helm deployments
-
-**Version Control**
-- Git workflows
-- GitOps practices
-- Environment management
-
-</td>
-<td width="33%" align="center" valign="top">
-
-### 📊 Monitoring & Security
-
-<img src="https://skillicons.dev/icons?i=prometheus,grafana,linux" />
-
-<br>
-
-**Observability**
-- Prometheus metrics
-- Grafana dashboards
-- Service monitors
-- Log aggregation
-
-**Security**
-- IRSA (no hardcoded creds)
-- Network isolation
-- Secret management
-- Security groups
+🔧 **AlertManager Rules** — Prometheus installed but alerting not yet configured  
 
 </td>
 </tr>
 </table>
 
-<div align="center">
-
-### Programming & Tools
-
-<img src="https://skillicons.dev/icons?i=java,go,nodejs,spring,mysql,postgres,redis,nginx" />
-
-</div>
-
 ---
 
-## 🏗 Architecture
+## Architecture
 
-<div align="center">
-
-![RoboShop Architecture Diagram](./assets/architecture.png)
-
-<div align="center">
-
-**5 Microservices** | **4 Databases** | **3 Availability Zones** | **Zero Hardcoded Secrets**
-
-</div>
-
----
-
-## 🎨 Tech Stack
-
-<div align="center">
-
-<table>
-<tr>
-<td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="60" height="60" />
-<br><strong>AWS</strong>
-<br><sub>EKS, VPC, IAM</sub>
-</td>
-<td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" width="60" height="60" />
-<br><strong>Kubernetes</strong>
-<br><sub>v1.28+</sub>
-</td>
-<td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" width="60" height="60" />
-<br><strong>Terraform</strong>
-<br><sub>IaC</sub>
-</td>
-<td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" width="60" height="60" />
-<br><strong>Jenkins</strong>
-<br><sub>CI/CD</sub>
-</td>
-<td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="60" height="60" />
-<br><strong>Docker</strong>
-<br><sub>Containers</sub>
-</td>
-</tr>
-<tr>
-<td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" width="60" height="60" />
-<br><strong>Prometheus</strong>
-<br><sub>Metrics</sub>
-</td>
-<td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" width="60" height="60" />
-<br><strong>Grafana</strong>
-<br><sub>Dashboards</sub>
-</td>
-<td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="60" height="60" />
-<br><strong>Java</strong>
-<br><sub>Spring Boot</sub>
-</td>
-<td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" width="60" height="60" />
-<br><strong>Go</strong>
-<br><sub>Backend</sub>
-</td>
-<td align="center" width="20%">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="60" height="60" />
-<br><strong>Node.js</strong>
-<br><sub>Microservice</sub>
-</td>
-</tr>
-</table>
-
-</div>
-
----
-
-## 📊 Monitoring Dashboard
-
-<div align="center">
-
-### What I Monitor in Production
-
-</div>
-
-<table>
-<tr>
-<td width="25%" align="center" valign="top">
-
-📈 **Request Rate**
-
-<br>
-HTTP requests/sec  
-per service
-
-</td>
-<td width="25%" align="center" valign="top">
-
-🔴 **Error Rate**
-
-<br>
-
-5xx errors and  
-failures
-
-</td>
-<td width="25%" align="center" valign="top">
-
-⏱️ **Latency**
-
-<br>
-
-P95/P99  
-response times
-
-</td>
-<td width="25%" align="center" valign="top">
-
-💻 **Resources**
-
-<br>
-
-CPU, Memory,  
-Throttling
-
-</td>
-</tr>
-</table>
-
-<div align="center">
-
-**Grafana Dashboards:** Custom per-service metrics  
-**Alerts:** Prometheus AlertManager  
-**Log Aggregation:** kubectl logs + potential ELK integration
-
-</div>
-
----
-
-## 🔄 CI/CD Pipeline
-
-<div align="center">
-
-### Automated Build → Test → Deploy
-
-</div>
-
-```mermaid
-graph LR
-    A[Git Push] --> B[Jenkins Webhook]
-    B --> C{Detect Version}
-    C -->|Maven| D[Build Java]
-    C -->|Go| E[Build Go]
-    C -->|Node| F[Build Node]
-    D --> G[Docker Build]
-    E --> G
-    F --> G
-    G --> H[Push to Registry]
-    H --> I[Helm Deploy]
-    I --> J[Health Check]
-    J --> K[✅ Production]
-    
-    style A fill:#4CAF50
-    style K fill:#2196F3
-    style J fill:#FF9800
+```
+Internet
+    ↓
+Route53 (stallions.space)
+    ↓
+Application Load Balancer
+    ↓
+EKS Cluster (retail-store-prod namespace)
+    ├── UI Service (Java/Spring Boot)
+    │   ├── → Catalog (Go)  → MySQL (StatefulSet + EBS)
+    │   ├── → Cart (Java)   → DynamoDB (via IRSA)
+    │   ├── → Orders (Java) → PostgreSQL (StatefulSet + EBS)
+    │   │                   → RabbitMQ (StatefulSet)
+    │   └── → Checkout (Node.js) → Redis (StatefulSet)
+    │
+    └── Monitoring Namespace
+        ├── Prometheus (scrapes all services via ServiceMonitors)
+        └── Grafana (custom retail store dashboard)
 ```
 
-<div align="center">
+**Key design decisions:**
 
-**Jenkins Shared Library Features:**  
-Auto version detection • Multi-language builds • Environment-specific deployments • Automated rollback
-
-</div>
+| Decision | Why |
+|----------|-----|
+| Headless service for MySQL and PostgreSQL | StatefulSet pods need stable DNS identity for replication-ready setup |
+| `tcpSocket` readiness for Catalog | Go service has no Spring Actuator — port binding is sufficient signal after init container guarantees MySQL readiness |
+| `httpGet /actuator/health/readiness` for Java services | Spring Actuator checks all dependencies (DB, messaging) before returning 200 — prevents traffic routing to pods that are up but not connected |
+| Init container for Catalog | `nc -z` confirms MySQL TCP socket, preventing CrashLoopBackOff during cluster cold start |
+| `ignoreDifferences` on `/spec/replicas` | Prevents ArgoCD from fighting HPA over replica count during load |
+| IRSA for Cart | Eliminates static AWS credentials entirely — IAM role bound to Kubernetes ServiceAccount via OIDC |
 
 ---
 
-## 💼 What This Project Demonstrates
+## GitOps Pipeline
+
+```
+Git Push
+    ↓
+Jenkins (CI only)
+  - Detect version from Maven/Go/Node.js
+  - Build Docker image
+  - Push to DockerHub
+    ↓
+ArgoCD (CD — watches Git every 3 minutes)
+  - Detects commit
+  - Renders umbrella Helm chart
+  - Applies diff to cluster
+  - prune: true → removes deleted resources
+  - selfHeal: true → reverts manual kubectl changes
+```
+
+**ArgoCD Application config:**
+```yaml
+ignoreDifferences:
+- group: apps
+  kind: Deployment
+  jsonPointers:
+  - /spec/replicas    # HPA owns this field, not Git
+```
+
+---
+
+## Health Probe Design
+
+Probes reduced deployment time from 12 minutes to 1.5 minutes by eliminating manual intervention after dependency failures.
+
+| Service | Startup | Liveness | Readiness | Why |
+|---------|---------|----------|-----------|-----|
+| Cart, Orders, UI (Java) | `httpGet /actuator/health/liveness` | Same | `httpGet /actuator/health/readiness` | Spring checks all deps before returning 200 |
+| Catalog (Go) | `httpGet /health` | Same | `tcpSocket :8080` | No Spring Actuator; init container handles MySQL wait |
+| Checkout (Node.js) | `httpGet /health` | Same | `tcpSocket :8080` | Lightweight — port binding is sufficient |
+
+---
+
+## IRSA — Secretless AWS Access
+
+Cart service accesses DynamoDB without any AWS credentials stored anywhere.
+
+```
+Cart pod starts
+    ↓
+EKS injects AWS_ROLE_ARN + AWS_WEB_IDENTITY_TOKEN_FILE (JWT)
+    ↓
+AWS SDK calls sts:AssumeRoleWithWebIdentity
+    ↓
+EKS OIDC provider validates the JWT
+    ↓
+STS returns temporary credentials (auto-rotating, 1-hour TTL)
+    ↓
+DynamoDB access granted — zero static credentials
+```
+
+IAM trust policy binds the role to exactly one ServiceAccount in one namespace — blast radius is minimal.
+
+---
+
+## Tech Stack
 
 <div align="center">
 
 <table>
 <tr>
-<td width="50%" valign="top">
-
-### 🎯 Technical Skills
-
-✅ AWS cloud architecture  
-✅ Kubernetes orchestration  
-✅ Infrastructure as Code  
-✅ CI/CD pipeline design  
-✅ Container optimization  
-✅ Monitoring & observability  
-✅ Security best practices  
-✅ Multi-language builds  
-
+<td align="center" width="16%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="55" height="55" />
+<br><strong>AWS</strong>
+<br><sub>EKS, VPC, IAM, DynamoDB, EBS, Route53, SSM</sub>
 </td>
-<td width="50%" valign="top">
-
-### 🧠 DevOps Mindset
-
-✅ Production-ready thinking  
-✅ GitOps workflows  
-✅ Zero-trust security  
-✅ Automation-first approach  
-✅ Scalability planning  
-✅ Cost optimization  
-✅ Disaster recovery  
-✅ Documentation culture  
-
+<td align="center" width="16%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" width="55" height="55" />
+<br><strong>Kubernetes</strong>
+<br><sub>v1.28+ — EKS managed</sub>
 </td>
-</tr>
-</table>
-
-</div>
-
----
-
-## 🎓 Key Learnings
-
-<div align="center">
-
-| Concept | Implementation |
-|---------|----------------|
-| **Security** | IRSA instead of access keys, private subnets, least-privilege IAM |
-| **Scalability** | HPA, StatefulSets with PVCs, multi-AZ deployment |
-| **Automation** | Terraform + Jenkins + Helm = zero manual deployment |
-| **Observability** | Prometheus metrics, Grafana dashboards, health probes |
-| **GitOps** | Environment-specific values, declarative configs |
-
-</div>
-
----
-
-## 📸 Project Screenshots & Infrastructure
-
-<div align="center">
-
-### Application UI & User Flow
-
-</div>
-
-<table>
-<tr>
-<td width="50%" align="center">
-
-**Home Page**
-
-![Home UI](./assets/01-ui.png)
-
+<td align="center" width="16%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" width="55" height="55" />
+<br><strong>Terraform</strong>
+<br><sub>VPC, EKS, IAM, SSM modules</sub>
 </td>
-<td width="50%" align="center">
-
-**Product Catalog**
-
-![Catalog](./assets/02-catalog.png)
-
+<td align="center" width="16%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="55" height="55" />
+<br><strong>Docker</strong>
+<br><sub>Multi-stage builds</sub>
 </td>
-</tr>
-<tr>
-<td width="50%" align="center">
-
-**Shopping Cart**
-
-![Cart](./assets/03-cart.png)
-
+<td align="center" width="16%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" width="55" height="55" />
+<br><strong>Jenkins</strong>
+<br><sub>Shared library CI</sub>
 </td>
-<td width="50%" align="center">
-
-**Checkout - Step 1**
-
-![Checkout 1](./assets/04-checkout-1.png)
-
-</td>
-</tr>
-<tr>
-<td width="50%" align="center">
-
-**Checkout - Step 2**
-
-![Checkout 2](./assets/05-checkout-2.png)
-
-</td>
-<td width="50%" align="center">
-
-**Checkout - Step 3**
-
-![Checkout 3](./assets/06-checkout-3.png)
-
-</td>
-</tr>
-<tr>
-<td colspan="2" align="center">
-
-**Order History**
-
-![Orders](./assets/07-orders.png)
-
+<td align="center" width="16%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" width="55" height="55" />
+<br><strong>Prometheus</strong>
+<br><sub>+ Grafana dashboards</sub>
 </td>
 </tr>
 </table>
-
----
-
-<div align="center">
-
-### Kubernetes Infrastructure & Services
-
-</div>
-
-<table>
-<tr>
-<td width="50%" align="center">
-
-**Application Services Overview**
-
-![Application Service Detail](./assets/application-services.png)
-
-</td>
-<td width="50%" align="center">
-
-**Service Details**
-
-![Application Services](./assets/application-service-1.png)
-
-</td>
-</tr>
-<tr>
-<td width="50%" align="center">
-
-**EKS Nodes & Workstation**
-
-![EKS Nodes](./assets/eks-nodes-workstation.png)
-
-</td>
-<td width="50%" align="center">
-
-**Pods, Services, PV & PVC Status**
-
-![Status](./assets/status-pod-svc-pv-pvc.png)
-
-</td>
-</tr>
-<tr>
-<td width="50%" align="center">
-
-**Persistent Volumes**
-
-![Volumes](./assets/volumes.png)
-
-</td>
-<td width="50%" align="center">
-
-**PostgreSQL Orders Database**
-
-![PostgreSQL](./assets/postgresql-orders.png)
-
-</td>
-</tr>
-</table>
-
----
-
-<div align="center">
 
 <br>
+
+**Application services:** Java (Spring Boot) · Go · Node.js  
+**Databases:** MySQL · PostgreSQL · Redis · RabbitMQ · DynamoDB  
+**GitOps:** ArgoCD · Helm umbrella chart · layered values files  
+
+</div>
+
+---
+
+## Monitoring Dashboard
+
+**Four panels tracking production health:**
+
+| Panel | Query | What It Catches |
+|-------|-------|-----------------|
+| 5xx Error Rate | `rate(http_server_requests_seconds_count{status=~"5.."}[1m])` | Application crashes, DynamoDB failures |
+| CPU Usage | `process_cpu_usage` | Runaway processes, traffic spikes |
+| JVM Heap Memory | `jvm_memory_used_bytes` | Memory leaks (sawtooth pattern = leak) |
+| Requests Per Second | `rate(http_server_requests_seconds_count[1m])` | Traffic baseline, anomaly detection |
+
+ServiceMonitors scrape all 5 application services on 15-second intervals.
+
+---
+
+## Key Learnings
+
+Real problems hit and fixed — not hypothetical:
+
+| Problem | Root Cause | Fix |
+|---------|-----------|-----|
+| ArgoCD blocking full sync | ServiceMonitor CRD missing — one invalid resource aborts everything | Install `kube-prometheus-stack` before syncing dependent apps |
+| ArgoCD vs HPA infinite fight | ArgoCD reverted HPA scaling decisions within 3 minutes | `ignoreDifferences` on `/spec/replicas` — formally hands ownership to HPA |
+| Helm targeting ArgoCD port-forward | `KUBECONFIG` set in `.bashrc` for ec2-user but bootstrap script ran as root | `export KUBECONFIG` in the script itself, not just `.bashrc` |
+| Catalog CrashLoopBackOff on cold start | MySQL port 3306 open before initialization complete — `nc -z` returns success too early | `mysqladmin ping` in init container verifies actual readiness, not just TCP socket |
+| Second cart pod not scheduling | CPU requests set to 200m but actual usage was 3m — scheduler saw node as full | Set requests from observed usage × 1.5, not from template defaults |
+
+---
+
+## Project Structure
+
+```
+.
+├── retail-store-helm-chart/        # Umbrella Helm chart
+│   ├── Chart.yaml                  # 10 subchart dependencies
+│   ├── values.yaml                 # Base defaults
+│   ├── charts/                     # 10 subcharts (cart, catalog, checkout...)
+│   └── values/
+│       ├── dev/values-dev.yaml     # Dev overrides (local DynamoDB, NodePort)
+│       └── prod/values-prod.yaml   # Prod overrides (IRSA, LoadBalancer, EBS)
+│
+├── argocd-deployment/              # ArgoCD Application manifests
+│   ├── retail-store-app-dev.yaml
+│   └── retail-store-app-prod.yaml
+│
+├── retail-store-Jenkins-shared-library/  # Groovy shared library
+│   ├── detectVersion.groovy        # Maven / Go / Node.js version detection
+│   ├── dockerBuildPush.groovy      # Build + push to DockerHub
+│   ├── deployK8s.groovy            # Helm deploy (migrating to Git update)
+│   └── microservicePipeline.groovy # Single-call pipeline definition
+│
+├── src/                            # Dockerfiles for all 5 services
+├── aws-ec2-manual-terraform-deployment/  # Earlier EC2-based iteration (learning reference)
+└── SETUP.md                        # Complete deployment guide with ordered steps
+```
+
+---
+
+## Deployment
+
+Full deployment guide is in **[SETUP.md](SETUP.md)**.
+
+It covers the complete ordered dependency chain — EKS cluster, EBS CSI driver, IRSA setup, monitoring namespace, Helm deploy — with troubleshooting for every common failure mode. Run steps out of order and things break in non-obvious ways. The ordering matters.
+
+> **Why a separate setup file?** The deployment sequence has real dependencies between steps. Collapsing it into a quick-start snippet creates the illusion it's simpler than it is.
+
+---
+
+## Honest Status
+
+This project is in active development. Here's what works end-to-end and what doesn't yet:
+
+**Works completely:**
+- Full EKS cluster provisioning via Terraform
+- Helm umbrella chart with 10 services deploying cleanly
+- ArgoCD GitOps syncing from GitHub
+- IRSA for DynamoDB access without static credentials
+- HPA auto-scaling on all application services
+- Prometheus scraping + Grafana dashboards
+- Health probes with init container dependency management
+
+**Known gaps being actively worked on:**
+- Secrets still use placeholder values — External Secrets Operator implementation in progress
+- Jenkins deploys directly to cluster — should update Git instead (ArgoCD conflict)
+- No AlertManager rules configured yet
+- PodDisruptionBudgets not implemented — node drains could cause downtime
+
+---
+
+<div align="center">
 
 <p align="center">
   <a href="https://www.linkedin.com/in/sarthak-singh-a0aa62322">
@@ -522,12 +329,6 @@ Auto version detection • Multi-language builds • Environment-specific deploy
     <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />
   </a>
 </p>
-
----
-
-### 🌟 If this project helped you, please star the repository!
-
-<br>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer" width="100%">
 
