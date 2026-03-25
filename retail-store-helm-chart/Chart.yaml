@@ -48,3 +48,14 @@ dependencies:
     #NOTE:
       # name: retail-store-cart: This must match the name field inside charts/cart/Chart.yaml
       # and the keys in your values-prod.yaml.
+
+
+# "helm dependency update" actually does:
+# It reads your umbrella Chart.yaml, finds all the dependencies, packages each subchart into a .tgz file, and drops them into charts/ at the umbrella root.
+
+# Two things get created:
+# 1. .tgz files inside charts/
+# Each subchart gets packaged into a tarball. When helm install runs, it reads these tarballs — not your source charts/cart/ folder directly. The .tgz is what actually gets deployed.
+# 2. Chart.lock
+# Records the exact version of every dependency that was resolved, like a package-lock.json. Guarantees reproducible installs — if someone else runs helm dependency build later, they get identical tarballs.
+# automatically done by argocd

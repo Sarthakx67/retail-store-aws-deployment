@@ -60,7 +60,25 @@ spec:
         requests:
           storage: {{ .Values.persistence.size }}
 
-# Yes, volumeClaimTemplates use dynamic EBS provisioning.
+# volumeClaimTemplates use dynamic EBS provisioning.
 # Each StatefulSet pod gets its own EBS volume.
 # Data is NOT shared automatically.
 # Consistency is handled by the database using replication or clustering mechanisms, not by Kubernetes.
+
+
+
+# IMPORTANT
+
+# When Helm renders a template and encounters an empty string value like storageClass: "", it has a known bug where it silently 
+# drops the value entirely, rendering storageClassName: with nothing after it — which Kubernetes interprets as null, not an empty 
+# string. In Kubernetes, null storageClassName means "use the cluster's default StorageClass" which in EKS is gp2, triggering 
+# automatic EBS volume provisioning you never asked for and will be billed for. An explicit empty string storageClassName: "" 
+# however means something completely different — "disable dynamic provisioning entirely, I will handle volumes manually.
+# " These two behaviors look almost identical in a values file but produce completely opposite outcomes in the cluster. 
+# The | quote pipe in Helm forces the rendered output to wrap the value in double quotes, so an empty string stays an empty string
+# and survives into the final manifest instead of disappearing. Without | quote in dev where storageClass: "", Helm drops it
+# silently, Kubernetes sees null, defaults to gp2, and your dev environment starts spinning up EBS volumes you didn't want.
+# With | quote, the empty string is preserved, Kubernetes disables dynamic provisioning as intended, and prod still works correctly
+# because storageClass: ebs-sc is a non-empty value that survives rendering with or without the pipe. The rule to remember is: in
+# Helm, always | quote any value that could legitimately be an empty string, because Helm and Kubernetes treat null and empty
+# string as completely different instructions.

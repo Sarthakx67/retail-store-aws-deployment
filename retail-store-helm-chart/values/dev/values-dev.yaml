@@ -76,7 +76,7 @@ retail-store-ui:
     requests:
       cpu: 200m 
       memory: 512Mi
-  Service:
+  service:
     type: NodePort
     nodePort: 30080
 

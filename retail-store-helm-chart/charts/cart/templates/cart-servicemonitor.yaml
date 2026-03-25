@@ -1,3 +1,4 @@
+# ServiceMonitor = a Prometheus Operator resource that tells Prometheus which services to scrape and how.
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -17,3 +18,4 @@ spec:
   - port: cart
     path: /actuator/prometheus
     interval: 15s
+

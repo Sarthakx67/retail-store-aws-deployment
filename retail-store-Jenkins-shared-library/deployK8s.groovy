@@ -3,16 +3,25 @@ def call(Map config) {
     sh """
     echo "🚀 Deploying ${config.service} version ${config.version}"
 
-    cd helm-repo/retail-store-helm-chart
+    git clone https://github.com/Sarthakx67/retail-store-aws-deployment.git
+    cd retail-store-aws-deployment
 
-    helm upgrade --install retail-store . \
-        -n retail-store-${config.namespace} \
-        --set ${config.service}.image.tag=${config.version} \
-        -f values.yaml \
-        -f values/${config.env}/values-${config.namespace}-${config.env}.yaml \
-        --create-namespace \
-        --timeout 10m
+    sed -i "s/tag: v1/tag: ${config.version}/" \
+    retail-store-helm-chart/values/${config.env}/values-${config.env}.yaml
 
-    kubectl rollout status deployment/${config.service} -n retail-store-${config.namespace}
+    git config user.email "jenkins@ci.com"
+    git config user.name "Jenkins"
+    git add .
+    git commit -m "ci: update ${config.service} to ${config.version}"
+    git push
+    
     """
 }
+    // update the exact key in the exact file
+    // ```
+    // ArgoCD detects the Git change within 3 minutes, syncs automatically, deploys v2. No drift, no fighting.
+    // ---
+    // **The pattern has a name — Image Updater or GitOps Push:**
+    // ```
+    // Jenkins:  build image → push DockerHub → update Git → push
+    // ArgoCD:   detects Git change → syncs cluster

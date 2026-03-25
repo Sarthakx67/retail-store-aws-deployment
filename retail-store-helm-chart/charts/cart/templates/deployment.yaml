@@ -17,7 +17,9 @@ spec:
         component: backend
     spec:
       {{- if eq .Values.aws.authMethod "irsa" }}
-      serviceAccountName: {{ .Values.serviceAccount.name }}
+      serviceAccountName: {{ .Values.serviceAccount.name }} 
+      # serviceAccountName tells Kubernetes which ServiceAccount the Pod should use.
+      # Pod will run with permissions of cart-sa ServiceAccount. It binds the pod to a specific identity and permission set.
       {{- end }}
       containers:
       - name: cart
