@@ -137,18 +137,6 @@ parameters:
   type: gp3
   fsType: ext4
 ---
-# Source: retail-store/charts/retail-store-postgresql/templates/ebs-sc.yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: ebs-sc
-provisioner: ebs.csi.aws.com
-volumeBindingMode: WaitForFirstConsumer
-allowVolumeExpansion: true
-parameters:
-  type: gp3
-  fsType: ext4
----
 # Source: retail-store/charts/retail-store-cart/templates/service.yaml
 apiVersion: v1
 kind: Service
