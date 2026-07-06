@@ -44,14 +44,14 @@ spec:
 # In Kubernetes, StatefulSets must use volumeClaimTemplates so that each replica gets its own persistent volume. 
 # Manually attaching a single PVC breaks scalability and reliability.
       
-      volumeClaimTemplates:
-      - metadata:
-          name: postgresql-data
-        spec:
-          accessModes:
-            - ReadWriteOnce
-          storageClassName: {{ .Values.persistence.storageClass | quote }} # storageClassName must be quoted (Helm bug)
-          resources:
-            requests:
-              storage: {{ .Values.persistence.size }}
+  volumeClaimTemplates:
+  - metadata:
+      name: postgresql-data
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: {{ .Values.persistence.storageClass | quote }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.size }}
 
