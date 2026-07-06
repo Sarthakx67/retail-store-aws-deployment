@@ -1,0 +1,262 @@
+[33mf714979[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m updated argocd prod yaml
+[33m0f2ca5e[m update
+[33mbac4907[m adding retail-store-prod-full-manifest.yaml
+[33m92176a8[m adding retail-store-prod-full-manifest.yaml
+[33md1f3877[m update
+[33m55cff6b[m fixed resource resource naming issues between argocd dev/prod deployment files
+[33m94a0104[m fixed minor issues
+[33m3638aa5[m update
+[33md7cd4ac[m updated environment selction
+[33me5fedc8[m updated environment sselction
+[33m1effb48[m update
+[33mcd5c01d[m update
+[33m8c9e344[m update
+[33m7d6fc10[m update
+[33m44a4f14[m update
+[33mb07f9ce[m update
+[33m1f19f43[m update
+[33m338e7af[m update
+[33m46cd901[m Added Setup.md
+[33m2fbd51b[m Added Setup.md
+[33mce14dc3[m Added Setup.md
+[33mf0e6d4d[m Added Setup.md
+[33m8dab6cc[m update
+[33m5fcf553[m update
+[33mf3199d9[m update
+[33mac324dd[m update
+[33m56c6161[m update
+[33m60afff3[m update
+[33m89e906a[m update
+[33m208ecf2[m update
+[33m4462cb6[m update
+[33m0c5e51e[m update
+[33m12594ff[m update
+[33m769e899[m update
+[33m7dd8032[m update
+[33mf86fbd3[m update
+[33m3539f43[m update
+[33m9392aa3[m update
+[33md429da0[m update
+[33m8e1823d[m update
+[33mc2807eb[m update
+[33mb33e58d[m update
+[33m2d60f94[m update
+[33m6274db6[m update
+[33m1a60c95[m update
+[33mf8e736d[m update
+[33md11a612[m update
+[33mcf874e7[m update
+[33m0e10011[m update
+[33md9656cb[m update
+[33m6f4bd04[m update
+[33m0703a6c[m successfully implemented CI/CD pipeline for retail store
+[33m9a71076[m successfully implemented CI/CD pipeline for retail store
+[33mef1d717[m update
+[33m6788155[m update
+[33mb218cca[m update
+[33mbca8914[m update
+[33ma3d6c1c[m update
+[33m2d1af9d[m update
+[33m6608e7e[m update
+[33m684f700[m update
+[33m0042286[m update
+[33meb0c2e5[m update
+[33m8550b6d[m update
+[33md32d006[m update
+[33m40f16cf[m update
+[33mc06857b[m update
+[33m463da2c[m update
+[33m38270e4[m update
+[33mf30ef94[m update
+[33m4ff4ab9[m update
+[33m637f0de[m update
+[33mb04ce1f[m update
+[33mc45205c[m update
+[33m4bdb56b[m update
+[33m865ee18[m update
+[33ma51a1ab[m update
+[33mffe22c1[m update
+[33mefb7de7[m update
+[33m6efb52b[m update
+[33mfe4a469[m update
+[33m949daa5[m update
+[33m4cd845f[m update
+[33m83487ab[m update
+[33m03909d0[m update
+[33ma01079b[m update
+[33m5062def[m update
+[33m5a332a1[m update
+[33mcfcca6c[m update
+[33mc07e2dc[m update
+[33mee2d610[m update
+[33m41e7ab6[m update
+[33mc61533a[m update
+[33m5b2f678[m update
+[33m1846640[m update
+[33mde2d704[m update
+[33m23691e5[m update
+[33mf4a1afa[m update
+[33m88a9318[m update
+[33m9a7bd21[m update
+[33m41ddf5e[m update
+[33mdf6a0e5[m update
+[33m889ecda[m update
+[33mf059662[m update
+[33m4f2cfb6[m update
+[33m3ab1989[m update
+[33mb138684[m update
+[33mbef2438[m update
+[33m578c1a7[m update
+[33m444109c[m update
+[33m2c9695f[m update
+[33mc4f43c5[m update
+[33maebc2ea[m update
+[33me8da7aa[m update
+[33m0fdfe9c[m update
+[33m28744e7[m update
+[33mf4149c3[m update
+[33m64c89ee[m update
+[33m2393de8[m update
+[33mdf3cf97[m added probes to services
+[33me32b804[m update
+[33mab4c273[m update
+[33m70df79d[m update
+[33m25ef5f9[m update
+[33mbb85d1b[m update
+[33meb5d828[m update
+[33m3b8d069[m update
+[33m99f8c4a[m update
+[33md213059[m update
+[33mf9c71e9[m update
+[33mf27e434[m update
+[33m7b3ed82[m update
+[33ma9e0ec4[m update
+[33ma27a6ad[m update
+[33m968a08b[m update
+[33m44a4042[m update
+[33m3e6d035[m update
+[33me0ec3c2[m update
+[33mfaa3029[m update
+[33m60f6113[m update
+[33md2416fb[m update
+[33m72367e3[m update
+[33m3a7d8ab[m update
+[33m473bb47[m update
+[33m1d234a8[m update
+[33mb636d02[m update
+[33m036924e[m update
+[33mc91ee7d[m update
+[33m71c6e22[m update
+[33m2f10d7c[m update
+[33ma20db0f[m update
+[33mf7b8242[m update
+[33mb5cbb8b[m update
+[33m37eaea6[m update
+[33m0dad78d[m update
+[33mf05efa3[m update
+[33m87db357[m update
+[33m7134ff3[m update
+[33mf2ca095[m update
+[33m0d1e74b[m update
+[33m1dd94d6[m update
+[33mfa84b16[m update
+[33mdfd858e[m update
+[33m1908cc2[m update
+[33m8e5e495[m update
+[33mfaf4800[m update
+[33m3a6f682[m update
+[33me92cd54[m update
+[33m3cd0453[m update
+[33m9b82240[m update
+[33m2edb74e[m update
+[33m0da0c0f[m update
+[33md4bf2c4[m update
+[33m1512cb9[m update
+[33m5318906[m update
+[33mc80be92[m update
+[33m9b3f903[m update
+[33mcc9d930[m update
+[33me077c9c[m update
+[33m3f88517[m updates
+[33mffab74e[m updates
+[33mbe4824a[m updates
+[33m53223ab[m updates
+[33m020ddd8[m updates
+[33m6bfce11[m updates
+[33mc68a2be[m updates
+[33m1aab544[m updates
+[33mf289ed6[m updates
+[33m2f3ff9c[m updates
+[33m7988383[m updates
+[33m15ea101[m updates
+[33m3a1b2fa[m updates
+[33m7c970b5[m updates
+[33m370dfff[m updates
+[33m72f81be[m updates
+[33m7c441ec[m updates
+[33m0a2ed6a[m updates
+[33m6b2087e[m updates
+[33ma2aeba5[m updates
+[33m8bc5bb0[m updates
+[33me3d5c12[m updates
+[33m612bf11[m updates
+[33m8d29d17[m updates
+[33me31d85c[m updates
+[33m23b2c7e[m updates
+[33m4369d83[m updates
+[33mb007a71[m updates
+[33m56bf743[m updates
+[33m09dab21[m updates
+[33m6ce7632[m updates
+[33mf968a9c[m updates
+[33m5c2db33[m updates
+[33m6c9f09e[m updates
+[33me9d378c[m updates
+[33m64bf5c1[m updates
+[33m355261b[m updates
+[33m131da4f[m updates
+[33m56f95ec[m updates
+[33m94821ab[m updates
+[33m06377f4[m updates
+[33m4b4782b[m updates
+[33mf3b5478[m updates
+[33md4423ea[m updates
+[33m4a81ff5[m updates
+[33me194ed8[m updates
+[33md5fae5c[m updates
+[33m3bcfa4a[m updates
+[33mb0188a8[m updates
+[33m4d99f47[m updates
+[33md2d55cf[m updates
+[33mfbb65b3[m updates
+[33mbb3bb0b[m updates
+[33mccca32a[m updates
+[33m7b455dd[m updates
+[33m6616909[m updates
+[33m7e10788[m updates
+[33ma99b330[m updates
+[33m9d61d95[m updates
+[33m12e898b[m updates
+[33mda62e14[m updates
+[33m9ea7cf8[m updates
+[33mbaef2ad[m updates
+[33mc7d8ac5[m added ui dockerfile
+[33me547450[m added ui dockerfile
+[33m09e2591[m added ui dockerfile
+[33m1a512ec[m added ui dockerfile
+[33md45da5b[m added ui dockerfile
+[33m1b5ac8c[m added ui dockerfile
+[33md47b370[m added ui dockerfile
+[33m383b817[m added ui dockerfile
+[33m01a2ddd[m added ui dockerfile
+[33m7d33814[m added ui dockerfile
+[33m21998c6[m added ui dockerfile
+[33m5c4724c[m added ui dockerfile
+[33me40d544[m added ui dockerfile
+[33mbdae51c[m added ui dockerfile
+[33me2d8fb5[m added ui dockerfile
+[33m063ec2f[m added ui dockerfile
+[33mcc5262b[m added terraform with shell script service deployment files
+[33m396203e[m update
+[33m9f22e18[m update
+[33m0ede04e[m added shell script for consistent deployment of services
