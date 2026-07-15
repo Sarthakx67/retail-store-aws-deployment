@@ -10,7 +10,6 @@
   <img src="https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white" />
   <img src="https://img.shields.io/badge/ArgoCD-EF7B4D?style=for-the-badge&logo=argo&logoColor=white" />
 </p>
-
 <p align="center">
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
   <img src="https://img.shields.io/badge/Helm-0F1689?style=for-the-badge&logo=helm&logoColor=white" />
@@ -22,9 +21,10 @@
 <p align="center">
   <a href="#what-i-built">What I Built</a> •
   <a href="#architecture">Architecture</a> •
+  <a href="#application-walkthrough">Live App</a> •
   <a href="#gitops-pipeline">GitOps</a> •
-  <a href="#tech-stack">Stack</a> •
-  <a href="#key-learnings">Key Learnings</a> •
+  <a href="#security--secrets">Security</a> •
+  <a href="#roadmap">Roadmap</a> •
   <a href="SETUP.md"><strong>📖 Full Setup Guide →</strong></a>
 </p>
 
@@ -34,11 +34,17 @@
 
 ## What I Built
 
-A 10-service retail store platform deployed on AWS EKS — built to production standards, not just as a tutorial project. Every design decision has a reason behind it.
+A production-grade deployment of a 10-service retail store platform on AWS EKS. It goes beyond a working demo — every architectural choice below is documented and justified, showing not just *what* was built, but *why*.
 
 **10 services across 2 layers:**
-- 5 application microservices: UI, Cart (Java), Catalog (Go), Checkout (Node.js), Orders (Java)  
-- 5 data services: MySQL, PostgreSQL, Redis, RabbitMQ, DynamoDB (local for dev / AWS for prod)
+- **5 application microservices** — UI, Cart (Java), Catalog (Go), Checkout (Node.js), Orders (Java)
+- **5 data services** — MySQL, PostgreSQL, Redis, RabbitMQ, DynamoDB (local for dev / AWS for prod)
+
+<br>
+
+<div align="center">
+<img src="assets/architecture.png" width="85%" alt="Architecture Diagram" />
+</div>
 
 ---
 
@@ -48,38 +54,73 @@ A 10-service retail store platform deployed on AWS EKS — built to production s
 <tr>
 <td width="50%" valign="top">
 
-### What's Implemented
+### ✅ Implemented
 
-✅ **Full AWS Infrastructure** — VPC, EKS, IAM from scratch via Terraform  
-✅ **GitOps Deployment** — ArgoCD auto-syncs every Git push to cluster  
-✅ **IRSA Authentication** — Cart accesses DynamoDB without static credentials  
-✅ **Umbrella Helm Chart** — 10 subcharts, layered dev/prod values  
-✅ **Auto-Scaling** — HPA on all 5 application services  
-✅ **Health Probes** — Startup + liveness + readiness; reduced deployment time from 12 min → 1.5 min  
-✅ **Observability** — Prometheus + Grafana with custom ServiceMonitors  
-✅ **Init Containers** — Catalog waits for MySQL before starting  
-✅ **Persistent Storage** — EBS-backed StatefulSets for all databases  
-✅ **Jenkins Shared Library** — Single 8-line Jenkinsfile per service  
+- **Full AWS infrastructure** — VPC, EKS, IAM provisioned from scratch via Terraform
+- **GitOps deployment** — ArgoCD auto-syncs every Git push to the cluster
+- **IRSA authentication** — Cart accesses DynamoDB with zero static credentials
+- **Umbrella Helm chart** — 10 subcharts, layered dev/prod values
+- **Auto-scaling** — HPA on all 5 application services
+- **Health probes** — Startup + liveness + readiness cut deployment time from 12 min → 1.5 min
+- **Observability** — Prometheus + Grafana with custom ServiceMonitors
+- **Init containers** — Catalog waits on real MySQL readiness, not just port binding
+- **Persistent storage** — EBS-backed StatefulSets for all databases
+- **Jenkins shared library** — One 8-line Jenkinsfile per service
 
 </td>
-<td width="50%" valign="top">
 
-### In Progress
 
-🔧 **Secrets Management** — Migrating to External Secrets Operator + AWS SSM  
-&nbsp;&nbsp;&nbsp;&nbsp;Current: placeholder values in Helm charts  
-&nbsp;&nbsp;&nbsp;&nbsp;Target: zero secrets in Git, runtime injection via ESO + IRSA  
-
-🔧 **GitOps CI Separation** — Jenkins currently deploys via `helm upgrade`  
-&nbsp;&nbsp;&nbsp;&nbsp;Target: Jenkins updates Git, ArgoCD owns all deployments  
-
-🔧 **PodDisruptionBudgets** — Guaranteeing zero-downtime during node drains  
-
-🔧 **AlertManager Rules** — Prometheus installed but alerting not yet configured  
 
 </td>
 </tr>
 </table>
+
+---
+
+## Application Walkthrough
+
+<div align="center">
+
+<table>
+<tr>
+<td width="50%">
+<img src="assets/01-ui.png" width="100%" alt="Home Page" /><br>
+<sub><strong>1. Home Page</strong><br>Product listing served by the UI service</sub>
+</td>
+<td width="50%">
+<img src="assets/02-catalog.png" width="100%" alt="Product Catalog" /><br>
+<sub><strong>2. Product Catalog</strong><br>Go service reading product data from MySQL</sub>
+</td>
+</tr>
+<tr>
+<td width="50%">
+<img src="assets/03-cart.png" width="100%" alt="Shopping Cart" /><br>
+<sub><strong>3. Shopping Cart</strong><br>Java service writing cart items to DynamoDB via IRSA</sub>
+</td>
+<td width="50%">
+<img src="assets/04-checkout-1.png" width="100%" alt="Checkout - Shipping" /><br>
+<sub><strong>4. Checkout — Shipping</strong><br>Node.js service, step 1 of the checkout flow</sub>
+</td>
+</tr>
+<tr>
+<td width="50%">
+<img src="assets/05-checkout-2.png" width="100%" alt="Checkout - Payment" /><br>
+<sub><strong>5. Checkout — Payment</strong><br>Step 2, payment details captured</sub>
+</td>
+<td width="50%">
+<img src="assets/06-checkout-3.png" width="100%" alt="Checkout - Confirmation" /><br>
+<sub><strong>6. Checkout — Confirmation</strong><br>Step 3, order placed successfully</sub>
+</td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+<img src="assets/07-orders.png" width="70%" alt="Order History" /><br>
+<sub><strong>7. Order History</strong><br>Java service persisting orders to PostgreSQL and publishing an event to RabbitMQ</sub>
+</td>
+</tr>
+</table>
+
+</div>
 
 ---
 
@@ -105,16 +146,16 @@ EKS Cluster (retail-store-prod namespace)
         └── Grafana (custom retail store dashboard)
 ```
 
-**Key design decisions:**
+### Key Design Decisions
 
 | Decision | Why |
-|----------|-----|
-| Headless service for MySQL and PostgreSQL | StatefulSet pods need stable DNS identity for replication-ready setup |
-| `tcpSocket` readiness for Catalog | Go service has no Spring Actuator — port binding is sufficient signal after init container guarantees MySQL readiness |
+|---|---|
+| Headless service for MySQL and PostgreSQL | StatefulSet pods need stable DNS identity for a replication-ready setup |
+| `tcpSocket` readiness for Catalog | Go service has no Spring Actuator — port binding is a sufficient signal once the init container guarantees MySQL is actually ready |
 | `httpGet /actuator/health/readiness` for Java services | Spring Actuator checks all dependencies (DB, messaging) before returning 200 — prevents traffic routing to pods that are up but not connected |
-| Init container for Catalog | `nc -z` confirms MySQL TCP socket, preventing CrashLoopBackOff during cluster cold start |
-| `ignoreDifferences` on `/spec/replicas` | Prevents ArgoCD from fighting HPA over replica count during load |
-| IRSA for Cart | Eliminates static AWS credentials entirely — IAM role bound to Kubernetes ServiceAccount via OIDC |
+| Init container for Catalog | `mysqladmin ping` confirms real MySQL readiness, not just an open TCP socket |
+| `ignoreDifferences` on `/spec/replicas` in ArgoCD | Prevents ArgoCD from fighting the HPA over replica count under load |
+| IRSA for Cart | Eliminates static AWS credentials entirely — IAM role bound to a Kubernetes ServiceAccount via OIDC |
 
 ---
 
@@ -124,7 +165,7 @@ EKS Cluster (retail-store-prod namespace)
 Git Push
     ↓
 Jenkins (CI only)
-  - Detect version from Maven/Go/Node.js
+  - Detect version from Maven / Go / Node.js
   - Build Docker image
   - Push to DockerHub
     ↓
@@ -132,12 +173,12 @@ ArgoCD (CD — watches Git every 3 minutes)
   - Detects commit
   - Renders umbrella Helm chart
   - Applies diff to cluster
-  - prune: true → removes deleted resources
-  - selfHeal: true → reverts manual kubectl changes
+  - prune: true      → removes deleted resources
+  - selfHeal: true   → reverts manual kubectl changes
 ```
 
-**ArgoCD Application config:**
 ```yaml
+# ArgoCD Application config
 ignoreDifferences:
 - group: apps
   kind: Deployment
@@ -147,21 +188,64 @@ ignoreDifferences:
 
 ---
 
+## Infrastructure
+
+<div align="center">
+<table>
+<tr>
+<td width="50%">
+<img src="assets/eks-nodes-workstation.png" width="100%" alt="EKS Nodes" /><br>
+<sub align="center">EKS worker nodes provisioned via Terraform</sub>
+</td>
+<td width="50%">
+<img src="assets/volumes.png" width="100%" alt="Volumes" /><br>
+<sub>EBS-backed persistent volumes per StatefulSet</sub>
+</td>
+</tr>
+</table>
+</div>
+
+### Kubernetes Resources — Live Cluster State
+
+<div align="center">
+<img src="assets/status-pod-svc-pv-pvc.png" width="85%" alt="kubectl get pods, svc, pv, pvc" />
+<br><sub>Pods, Services, PersistentVolumes, and PersistentVolumeClaims across the namespace</sub>
+</div>
+
+<br>
+
+<div align="center">
+<table>
+<tr>
+<td width="50%">
+<img src="assets/application-services.png" width="100%" alt="Application Services" /><br>
+<sub align="center">All application Services exposed</sub>
+</td>
+<td width="50%">
+<img src="assets/application-service-1.png" width="100%" alt="Service Detail" /><br>
+<sub>Service detail — endpoints and selectors</sub>
+</td>
+</tr>
+</table>
+</div>
+
+---
+
 ## Health Probe Design
 
-Probes reduced deployment time from 12 minutes to 1.5 minutes by eliminating manual intervention after dependency failures.
+Probes cut deployment time from 12 minutes to 1.5 minutes by eliminating manual intervention after dependency failures.
 
 | Service | Startup | Liveness | Readiness | Why |
-|---------|---------|----------|-----------|-----|
-| Cart, Orders, UI (Java) | `httpGet /actuator/health/liveness` | Same | `httpGet /actuator/health/readiness` | Spring checks all deps before returning 200 |
-| Catalog (Go) | `httpGet /health` | Same | `tcpSocket :8080` | No Spring Actuator; init container handles MySQL wait |
-| Checkout (Node.js) | `httpGet /health` | Same | `tcpSocket :8080` | Lightweight — port binding is sufficient |
+|---|---|---|---|---|
+| Cart, Orders, UI (Java) | `httpGet /actuator/health/liveness` | Same | `httpGet /actuator/health/readiness` | Spring checks all dependencies before returning 200 |
+| Catalog (Go) | `httpGet /health` | Same | `tcpSocket :8080` | No Spring Actuator; init container already handles the MySQL wait |
+| Checkout (Node.js) | `httpGet /health` | Same | `tcpSocket :8080` | Lightweight — port binding is a sufficient signal |
 
 ---
 
 ## IRSA — Secretless AWS Access
 
-Cart service accesses DynamoDB without any AWS credentials stored anywhere.
+The Cart service accesses DynamoDB without any AWS credentials stored anywhere in the cluster.
 
 ```
 Cart pod starts
@@ -177,14 +261,72 @@ STS returns temporary credentials (auto-rotating, 1-hour TTL)
 DynamoDB access granted — zero static credentials
 ```
 
-IAM trust policy binds the role to exactly one ServiceAccount in one namespace — blast radius is minimal.
+The IAM trust policy binds the role to exactly one ServiceAccount in one namespace, keeping the blast radius minimal.
+
+---
+
+## Monitoring
+
+**Four panels tracking production health:**
+
+| Panel | Query | What It Catches |
+|---|---|---|
+| 5xx error rate | `rate(http_server_requests_seconds_count{status=~"5.."}[1m])` | Application crashes, DynamoDB failures |
+| CPU usage | `process_cpu_usage` | Runaway processes, traffic spikes |
+| JVM heap memory | `jvm_memory_used_bytes` | Memory leaks (sawtooth pattern = leak) |
+| Requests per second | `rate(http_server_requests_seconds_count[1m])` | Traffic baseline, anomaly detection |
+
+ServiceMonitors scrape all 5 application services on 15-second intervals.
+
+---
+
+## Security & Secrets
+
+> Presented as-is — this is the area with the most active work, and it's worth being direct about it rather than glossing over it.
+
+| Area | Current State | Target |
+|---|---|---|
+| Application secrets | Stored in Helm values files (not encrypted at rest in Git) | External Secrets Operator pulling from AWS SSM Parameter Store, injected at runtime |
+| AWS credentials (Cart → DynamoDB) | ✅ Already secretless via IRSA | — |
+| Network segmentation | NetworkPolicies not yet applied between namespaces/services | Default-deny baseline + explicit allow rules per service |
+| CI/CD credentials | Managed in Jenkins credential store | No change planned — out of cluster scope |
+
+IRSA proves the pattern works end-to-end for one service. The next step is extending the same "no static secrets" principle to the rest of the application config.
+
+---
+
+## Key Learnings
+
+Real problems hit and fixed — not hypothetical:
+
+| Problem | Root Cause | Fix |
+|---|---|---|
+| ArgoCD blocking full sync | ServiceMonitor CRD missing — one invalid resource aborted the entire sync | Install `kube-prometheus-stack` before syncing dependent apps |
+| ArgoCD vs HPA infinite fight | ArgoCD reverted HPA scaling decisions within 3 minutes of every scale event | `ignoreDifferences` on `/spec/replicas` — formally hands ownership to the HPA |
+| Helm targeting the wrong cluster context | `KUBECONFIG` was set in `.bashrc` for `ec2-user`, but the bootstrap script ran as root | `export KUBECONFIG` inside the script itself, not just the shell profile |
+| Catalog CrashLoopBackOff on cold start | MySQL's port 3306 opens before initialization completes — `nc -z` returns success too early | Switched init container check to `mysqladmin ping`, which confirms real readiness |
+| Second Cart pod not scheduling | CPU requests set to 200m but observed usage was ~3m — scheduler saw the node as full | Set requests from observed usage × 1.5 instead of template defaults |
+
+---
+
+## Roadmap
+
+**Near-term:**
+- External Secrets Operator + AWS SSM for all application secrets
+- Default-deny NetworkPolicies with explicit per-service allow rules
+- Jenkins updates Git only; ArgoCD becomes the sole deployment path
+- PodDisruptionBudgets on all StatefulSets and Deployments
+
+**Later:**
+- AlertManager rules wired to the existing Prometheus metrics
+- Chaos testing on node drains and pod evictions
+- Multi-environment promotion (dev → staging → prod) via ArgoCD ApplicationSets
 
 ---
 
 ## Tech Stack
 
 <div align="center">
-
 <table>
 <tr>
 <td align="center" width="16%">
@@ -222,100 +364,55 @@ IAM trust policy binds the role to exactly one ServiceAccount in one namespace �
 
 <br>
 
-**Application services:** Java (Spring Boot) · Go · Node.js  
-**Databases:** MySQL · PostgreSQL · Redis · RabbitMQ · DynamoDB  
-**GitOps:** ArgoCD · Helm umbrella chart · layered values files  
+**Application services:** Java (Spring Boot) · Go · Node.js
+**Databases:** MySQL · PostgreSQL · Redis · RabbitMQ · DynamoDB
+**GitOps:** ArgoCD · Helm umbrella chart · layered values files
 
 </div>
 
 ---
 
-## Monitoring Dashboard
-
-**Four panels tracking production health:**
-
-| Panel | Query | What It Catches |
-|-------|-------|-----------------|
-| 5xx Error Rate | `rate(http_server_requests_seconds_count{status=~"5.."}[1m])` | Application crashes, DynamoDB failures |
-| CPU Usage | `process_cpu_usage` | Runaway processes, traffic spikes |
-| JVM Heap Memory | `jvm_memory_used_bytes` | Memory leaks (sawtooth pattern = leak) |
-| Requests Per Second | `rate(http_server_requests_seconds_count[1m])` | Traffic baseline, anomaly detection |
-
-ServiceMonitors scrape all 5 application services on 15-second intervals.
-
----
-
-## Key Learnings
-
-Real problems hit and fixed — not hypothetical:
-
-| Problem | Root Cause | Fix |
-|---------|-----------|-----|
-| ArgoCD blocking full sync | ServiceMonitor CRD missing — one invalid resource aborts everything | Install `kube-prometheus-stack` before syncing dependent apps |
-| ArgoCD vs HPA infinite fight | ArgoCD reverted HPA scaling decisions within 3 minutes | `ignoreDifferences` on `/spec/replicas` — formally hands ownership to HPA |
-| Helm targeting ArgoCD port-forward | `KUBECONFIG` set in `.bashrc` for ec2-user but bootstrap script ran as root | `export KUBECONFIG` in the script itself, not just `.bashrc` |
-| Catalog CrashLoopBackOff on cold start | MySQL port 3306 open before initialization complete — `nc -z` returns success too early | `mysqladmin ping` in init container verifies actual readiness, not just TCP socket |
-| Second cart pod not scheduling | CPU requests set to 200m but actual usage was 3m — scheduler saw node as full | Set requests from observed usage × 1.5, not from template defaults |
-
----
-
 ## Project Structure
+
+<details>
+<summary><strong>Click to expand full directory tree</strong></summary>
 
 ```
 .
-├── retail-store-helm-chart/        # Umbrella Helm chart
-│   ├── Chart.yaml                  # 10 subchart dependencies
-│   ├── values.yaml                 # Base defaults
-│   ├── charts/                     # 10 subcharts (cart, catalog, checkout...)
+├── retail-store-helm-chart/              # Umbrella Helm chart
+│   ├── Chart.yaml                        # 10 subchart dependencies
+│   ├── values.yaml                       # Base defaults
+│   ├── charts/                           # 10 subcharts (cart, catalog, checkout...)
 │   └── values/
-│       ├── dev/values-dev.yaml     # Dev overrides (local DynamoDB, NodePort)
-│       └── prod/values-prod.yaml   # Prod overrides (IRSA, LoadBalancer, EBS)
+│       ├── dev/values-dev.yaml           # Dev overrides (local DynamoDB, NodePort)
+│       └── prod/values-prod.yaml         # Prod overrides (IRSA, LoadBalancer, EBS)
 │
-├── argocd-deployment/              # ArgoCD Application manifests
+├── argocd-deployment/                    # ArgoCD Application manifests
 │   ├── retail-store-app-dev.yaml
 │   └── retail-store-app-prod.yaml
 │
 ├── retail-store-Jenkins-shared-library/  # Groovy shared library
-│   ├── detectVersion.groovy        # Maven / Go / Node.js version detection
-│   ├── dockerBuildPush.groovy      # Build + push to DockerHub
-│   ├── deployK8s.groovy            # Helm deploy (migrating to Git update)
-│   └── microservicePipeline.groovy # Single-call pipeline definition
+│   ├── detectVersion.groovy              # Maven / Go / Node.js version detection
+│   ├── dockerBuildPush.groovy            # Build + push to DockerHub
+│   ├── deployK8s.groovy                  # Helm deploy (migrating to Git-update model)
+│   └── microservicePipeline.groovy       # Single-call pipeline definition
 │
-├── src/                            # Dockerfiles for all 5 services
+├── src/                                  # Dockerfiles for all 5 services
 ├── aws-ec2-manual-terraform-deployment/  # Earlier EC2-based iteration (learning reference)
-└── SETUP.md                        # Complete deployment guide with ordered steps
+└── SETUP.md                              # Complete deployment guide, ordered steps
 ```
+
+</details>
 
 ---
 
 ## Deployment
 
-Full deployment guide is in **[SETUP.md](SETUP.md)**.
+Full deployment guide: **[SETUP.md](SETUP.md)**
 
-It covers the complete ordered dependency chain — EKS cluster, EBS CSI driver, IRSA setup, monitoring namespace, Helm deploy — with troubleshooting for every common failure mode. Run steps out of order and things break in non-obvious ways. The ordering matters.
+It covers the complete ordered dependency chain — EKS cluster, EBS CSI driver, IRSA setup, monitoring namespace, Helm deploy — with troubleshooting for common failure modes.
 
-> **Why a separate setup file?** The deployment sequence has real dependencies between steps. Collapsing it into a quick-start snippet creates the illusion it's simpler than it is.
-
----
-
-## Honest Status
-
-This project is in active development. Here's what works end-to-end and what doesn't yet:
-
-**Works completely:**
-- Full EKS cluster provisioning via Terraform
-- Helm umbrella chart with 10 services deploying cleanly
-- ArgoCD GitOps syncing from GitHub
-- IRSA for DynamoDB access without static credentials
-- HPA auto-scaling on all application services
-- Prometheus scraping + Grafana dashboards
-- Health probes with init container dependency management
-
-**Known gaps being actively worked on:**
-- Secrets still use placeholder values — External Secrets Operator implementation in progress
-- Jenkins deploys directly to cluster — should update Git instead (ArgoCD conflict)
-- No AlertManager rules configured yet
-- PodDisruptionBudgets not implemented — node drains could cause downtime
+> **Why a separate setup file?** The deployment sequence has real dependencies between steps. Collapsing it into a quick-start snippet would create the illusion it's simpler than it actually is.
 
 ---
 
