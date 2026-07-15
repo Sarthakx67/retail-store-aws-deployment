@@ -4,9 +4,11 @@
 
 ### Cloud-Native Microservices Platform | DevOps Portfolio Project
 
-<sub>
-🏅 Built by a <strong>Linux Foundation Certified Kubernetes Administrator (CKA)</strong>
-</sub>
+<p align="center">
+
+> 🏅 **Built by a Linux Foundation Certified Kubernetes Administrator (CKA)**
+
+</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Linux_Foundation-CKA_Certified-003778?style=for-the-badge&logo=linuxfoundation&logoColor=white" />
