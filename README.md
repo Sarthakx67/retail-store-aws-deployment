@@ -63,6 +63,41 @@ A production-grade deployment of a 10-service retail store platform on AWS EKS. 
 
 ---
 
+## Architecture
+
+```
+Internet
+    ↓
+Route53 (stallions.space)
+    ↓
+Application Load Balancer
+    ↓
+EKS Cluster (retail-store-prod namespace)
+    ├── UI Service (Java/Spring Boot)
+    │   ├── → Catalog (Go)  → MySQL (StatefulSet + EBS)
+    │   ├── → Cart (Java)   → DynamoDB (via IRSA)
+    │   ├── → Orders (Java) → PostgreSQL (StatefulSet + EBS)
+    │   │                   → RabbitMQ (StatefulSet)
+    │   └── → Checkout (Node.js) → Redis (StatefulSet)
+    │
+    └── Monitoring Namespace
+        ├── Prometheus (scrapes all services via ServiceMonitors)
+        └── Grafana (custom retail store dashboard)
+```
+
+### Key Design Decisions
+
+| Decision | Why |
+|---|---|
+| Headless service for MySQL and PostgreSQL | StatefulSet pods need stable DNS identity for a replication-ready setup |
+| `tcpSocket` readiness for Catalog | Go service has no Spring Actuator — port binding is a sufficient signal once the init container guarantees MySQL is actually ready |
+| `httpGet /actuator/health/readiness` for Java services | Spring Actuator checks all dependencies (DB, messaging) before returning 200 — prevents traffic routing to pods that are up but not connected |
+| Init container for Catalog | `mysqladmin ping` confirms real MySQL readiness, not just an open TCP socket |
+| `ignoreDifferences` on `/spec/replicas` in ArgoCD | Prevents ArgoCD from fighting the HPA over replica count under load |
+| IRSA for Cart | Eliminates static AWS credentials entirely — IAM role bound to a Kubernetes ServiceAccount via OIDC |
+
+---
+
 ## Application Walkthrough
 
 <div align="center">
@@ -107,41 +142,6 @@ A production-grade deployment of a 10-service retail store platform on AWS EKS. 
 </table>
 
 </div>
-
----
-
-## Architecture
-
-```
-Internet
-    ↓
-Route53 (stallions.space)
-    ↓
-Application Load Balancer
-    ↓
-EKS Cluster (retail-store-prod namespace)
-    ├── UI Service (Java/Spring Boot)
-    │   ├── → Catalog (Go)  → MySQL (StatefulSet + EBS)
-    │   ├── → Cart (Java)   → DynamoDB (via IRSA)
-    │   ├── → Orders (Java) → PostgreSQL (StatefulSet + EBS)
-    │   │                   → RabbitMQ (StatefulSet)
-    │   └── → Checkout (Node.js) → Redis (StatefulSet)
-    │
-    └── Monitoring Namespace
-        ├── Prometheus (scrapes all services via ServiceMonitors)
-        └── Grafana (custom retail store dashboard)
-```
-
-### Key Design Decisions
-
-| Decision | Why |
-|---|---|
-| Headless service for MySQL and PostgreSQL | StatefulSet pods need stable DNS identity for a replication-ready setup |
-| `tcpSocket` readiness for Catalog | Go service has no Spring Actuator — port binding is a sufficient signal once the init container guarantees MySQL is actually ready |
-| `httpGet /actuator/health/readiness` for Java services | Spring Actuator checks all dependencies (DB, messaging) before returning 200 — prevents traffic routing to pods that are up but not connected |
-| Init container for Catalog | `mysqladmin ping` confirms real MySQL readiness, not just an open TCP socket |
-| `ignoreDifferences` on `/spec/replicas` in ArgoCD | Prevents ArgoCD from fighting the HPA over replica count under load |
-| IRSA for Cart | Eliminates static AWS credentials entirely — IAM role bound to a Kubernetes ServiceAccount via OIDC |
 
 ---
 
@@ -268,8 +268,6 @@ ServiceMonitors scrape all 5 application services on 15-second intervals.
 
 ## Security & Secrets
 
-> Presented as-is — this is the area with the most active work, and it's worth being direct about it rather than glossing over it.
-
 | Area | Current State | Target |
 |---|---|---|
 | Application secrets | Stored in Helm values files (not encrypted at rest in Git) | External Secrets Operator pulling from AWS SSM Parameter Store, injected at runtime |
@@ -384,7 +382,6 @@ Real problems hit and fixed — not hypothetical:
 │   └── microservicePipeline.groovy       # Single-call pipeline definition
 │
 ├── src/                                  # Dockerfiles for all 5 services
-├── aws-ec2-manual-terraform-deployment/  # Earlier EC2-based iteration (learning reference)
 └── SETUP.md                              # Complete deployment guide, ordered steps
 ```
 
