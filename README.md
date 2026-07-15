@@ -43,37 +43,23 @@ A production-grade deployment of a 10-service retail store platform on AWS EKS. 
 <br>
 
 <div align="center">
-<img src="assets/architecture.png" width="85%" alt="Architecture Diagram" />
+  <img src="assets/architecture.png" width="70%" alt="Architecture Diagram" />
 </div>
 
 ---
 
 ## Highlights
 
-<table>
-<tr>
-<td width="50%" valign="top">
-
-### ✅ Implemented
-
-- **Full AWS infrastructure** — VPC, EKS, IAM provisioned from scratch via Terraform
-- **GitOps deployment** — ArgoCD auto-syncs every Git push to the cluster
-- **IRSA authentication** — Cart accesses DynamoDB with zero static credentials
-- **Umbrella Helm chart** — 10 subcharts, layered dev/prod values
-- **Auto-scaling** — HPA on all 5 application services
-- **Health probes** — Startup + liveness + readiness cut deployment time from 12 min → 1.5 min
-- **Observability** — Prometheus + Grafana with custom ServiceMonitors
-- **Init containers** — Catalog waits on real MySQL readiness, not just port binding
-- **Persistent storage** — EBS-backed StatefulSets for all databases
-- **Jenkins shared library** — One 8-line Jenkinsfile per service
-
-</td>
-
-
-
-</td>
-</tr>
-</table>
+- 🚀 **Full AWS infrastructure** — VPC, EKS, IAM provisioned from scratch via Terraform
+- 🔄 **GitOps deployment** — ArgoCD auto-syncs every Git push to the cluster
+- 🔐 **IRSA authentication** — Cart accesses DynamoDB with zero static AWS credentials
+- 📦 **Umbrella Helm chart** — 10 subcharts with layered dev/prod values
+- 📈 **Horizontal Pod Autoscaling** — HPA configured for all 5 application services
+- ❤️ **Health probes** — Startup, liveness, and readiness probes reduced deployment recovery from **12 min → 1.5 min**
+- 📊 **Observability** — Prometheus + Grafana with custom ServiceMonitors
+- ⏳ **Init containers** — Catalog waits for real MySQL readiness before startup
+- 💾 **Persistent storage** — EBS-backed StatefulSets for all databases
+- ⚙️ **Reusable CI** — Jenkins Shared Library with one 8-line Jenkinsfile per service
 
 ---
 
