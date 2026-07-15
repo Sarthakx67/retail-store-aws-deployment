@@ -5,11 +5,20 @@
 ### Cloud-Native Microservices Platform | DevOps Portfolio Project
 
 <p align="center">
+  <strong>Built by a Linux Foundation Certified Kubernetes Administrator (CKA)</strong>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Linux_Foundation-CKA-003778?style=for-the-badge&logo=linuxfoundation&logoColor=white" />
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/AWS-EKS-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white" />
   <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" />
   <img src="https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white" />
   <img src="https://img.shields.io/badge/ArgoCD-EF7B4D?style=for-the-badge&logo=argo&logoColor=white" />
 </p>
+
 <p align="center">
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
   <img src="https://img.shields.io/badge/Helm-0F1689?style=for-the-badge&logo=helm&logoColor=white" />
